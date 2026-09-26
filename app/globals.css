@@ -597,7 +597,7 @@ img {
   }
 
   .hero h1 {
-    font-size: clamp(3.15rem, 14vw, 5.25rem);
+    font-size: clamp(2.8rem, 12.2vw, 4.75rem);
     line-height: 0.9;
   }
 
@@ -624,7 +624,7 @@ img {
   }
 
   .section-heading-row h2 {
-    font-size: clamp(3rem, 16vw, 5.2rem);
+    font-size: clamp(2.7rem, 14.5vw, 4.8rem);
   }
 
   .project-grid {
@@ -666,7 +666,7 @@ img {
   }
 
   .inquiry-cta h2 {
-    font-size: clamp(3rem, 14vw, 5rem);
+    font-size: clamp(2.45rem, 10.5vw, 4.3rem);
   }
 
   .site-footer {
@@ -811,6 +811,7 @@ img {
 
 .contact-form {
   align-self: center;
+  min-width: 0;
   padding-top: 5rem;
 }
 
@@ -822,6 +823,7 @@ img {
 
 .form-field {
   position: relative;
+  min-width: 0;
   margin-bottom: 2.2rem;
 }
 
@@ -939,6 +941,15 @@ img {
 
   .contact-page {
     min-height: auto;
+    min-width: 0;
+  }
+
+  .contact-intro,
+  .contact-form,
+  .field-row,
+  .form-field {
+    width: 100%;
+    max-width: 100%;
   }
 }
 
@@ -1175,7 +1186,7 @@ img {
 @media (max-width: 680px) {
   .page-intro h1,
   .case-study-header h1 {
-    font-size: clamp(3.2rem, 15vw, 5.5rem);
+    font-size: clamp(2.8rem, 12.5vw, 5rem);
   }
 
   .page-intro > p:last-child,
