@@ -174,7 +174,7 @@ export function ContactForm({ onSend }: { onSend?: (href: string) => void }) {
         {errors.message ? <p id="message-error" role="alert">{errors.message}</p> : null}
       </div>
       <button className="submit-button" type="submit">
-        Send inquiry <span aria-hidden="true">↗</span>
+        Send inquiry <span aria-hidden="true" />
       </button>
     </form>
   );

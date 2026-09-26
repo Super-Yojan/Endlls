@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import HomePage from "@/app/page";
 import { SiteHeader } from "./site-header";
 
 describe("shared site shell", () => {
@@ -50,5 +51,25 @@ describe("shared site shell", () => {
     });
     expect(closeButton).toHaveFocus();
     expect(container.querySelector("#mobile-navigation")).toHaveAttribute("hidden");
+  });
+
+  it("renders_the_tagline_and_featured_projects_in_source_order", () => {
+    render(<HomePage />);
+
+    const heroHeading = screen.getByRole("heading", { name: "Creativity Never Ends" });
+    expect(heroHeading).toBeInTheDocument();
+    const hero = heroHeading.closest("section");
+    expect(hero?.querySelectorAll("img")).toHaveLength(1);
+    expect(within(hero as HTMLElement).getByAltText("Misty mountain panorama at dawn")).toBeInTheDocument();
+    const work = screen.getByLabelText("Selected work");
+    const projectHeadings = within(work).getAllByRole("heading", { level: 3 });
+    expect(projectHeadings.map((heading) => heading.textContent)).toEqual([
+      "Aster House",
+      "Kinfield Editions",
+      "Nocturne Radio",
+    ]);
+    expect(
+      within(work).getByAltText("Warm ivory stationery for the fictional Aster House identity"),
+    ).toBeInTheDocument();
   });
 });
