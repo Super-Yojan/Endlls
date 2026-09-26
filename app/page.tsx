@@ -41,7 +41,7 @@ export default function HomePage() {
             </div>
             <div className="hero-image">
               <Image
-                src="/images/hero/mountain-range.png"
+                src="/images/hero/mountains.png"
                 alt="Misty mountain panorama at dawn"
                 fill
                 sizes="100vw"
