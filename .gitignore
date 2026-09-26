@@ -1,7 +1,29 @@
+# dependencies
 node_modules/
+
+# next
 .next/
 out/
+*.tsbuildinfo
+
+# cloudflare
+.wrangler/
+.dev.vars
+
+# source film and frames. Delivery JPEGs live in public/frames.
+public/video/
+.media-hold/
+
+# env
+.env
+.env*.local
+
+# local tooling
 .sites-runtime/
 .superpowers/
+coverage/
+
+# misc
 .DS_Store
 *.log
+*.pem
