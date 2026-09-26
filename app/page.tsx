@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { InquiryCta } from "@/components/inquiry-cta";
 import { ProjectCard } from "@/components/project-card";
@@ -38,9 +39,14 @@ export default function HomePage() {
                 Start a project <span aria-hidden="true">↗</span>
               </Link>
             </div>
-            <div className="hero-image" aria-hidden="true">
-              <div className="hero-image-slice hero-image-slice-one" />
-              <div className="hero-image-slice hero-image-slice-two" />
+            <div className="hero-image">
+              <Image
+                src="/images/hero/mountain-range.png"
+                alt="Misty mountain panorama at dawn"
+                fill
+                sizes="100vw"
+                priority
+              />
             </div>
           </section>
 

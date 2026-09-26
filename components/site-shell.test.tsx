@@ -56,7 +56,11 @@ describe("shared site shell", () => {
   it("renders_the_tagline_and_featured_projects_in_source_order", () => {
     render(<HomePage />);
 
-    expect(screen.getByRole("heading", { name: "Creativity Never Ends" })).toBeInTheDocument();
+    const heroHeading = screen.getByRole("heading", { name: "Creativity Never Ends" });
+    expect(heroHeading).toBeInTheDocument();
+    const hero = heroHeading.closest("section");
+    expect(hero?.querySelectorAll("img")).toHaveLength(1);
+    expect(within(hero as HTMLElement).getByAltText("Misty mountain panorama at dawn")).toBeInTheDocument();
     const work = screen.getByLabelText("Selected work");
     const projectHeadings = within(work).getAllByRole("heading", { level: 3 });
     expect(projectHeadings.map((heading) => heading.textContent)).toEqual([
