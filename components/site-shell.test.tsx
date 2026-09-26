@@ -23,15 +23,27 @@ describe("shared site shell", () => {
   });
 
   it("opens_and_closes_the_mobile_navigation", () => {
-    render(<SiteHeader />);
+    const { container } = render(<SiteHeader />);
     const button = screen.getByRole("button", { name: "Open menu" });
+    const closedNavigation = container.querySelector("#mobile-navigation");
 
     expect(button).toHaveAttribute("aria-expanded", "false");
+    expect(closedNavigation).toHaveAttribute("hidden");
     fireEvent.click(button);
-    expect(screen.getByRole("button", { name: "Close menu" })).toHaveAttribute(
-      "aria-expanded",
-      "true",
+    const closeButton = screen.getByRole("button", { name: "Close menu" });
+    expect(closeButton).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByRole("navigation", { name: "Mobile navigation" })).not.toHaveAttribute(
+      "hidden",
     );
+    expect(
+      screen.getByRole("navigation", { name: "Mobile navigation" }).getElementsByTagName("a")[0],
+    ).toHaveFocus();
+
+    fireEvent.keyDown(screen.getByRole("navigation", { name: "Mobile navigation" }), {
+      key: "Escape",
+    });
+    expect(closeButton).toHaveFocus();
+    expect(container.querySelector("#mobile-navigation")).toHaveAttribute("hidden");
   });
 
   it("renders_the_tagline_and_featured_projects_in_source_order", () => {

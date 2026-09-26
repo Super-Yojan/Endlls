@@ -14,9 +14,12 @@ function fillRequiredFields() {
 
 describe("contact form", () => {
   it("associates_required_field_errors_with_empty_inputs", () => {
-    render(<ContactForm />);
+    const onSend = vi.fn();
+    render(<ContactForm onSend={onSend} />);
     fireEvent.submit(screen.getByRole("form", { name: "Project inquiry" }));
 
+    expect(onSend).not.toHaveBeenCalled();
+    expect(screen.getByLabelText("Name")).toHaveFocus();
     expect(screen.getByLabelText("Name")).toHaveAccessibleDescription("Please enter your name.");
     expect(screen.getByLabelText("Email")).toHaveAccessibleDescription(
       "Please enter your email address.",

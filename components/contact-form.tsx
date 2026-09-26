@@ -63,7 +63,11 @@ export function ContactForm({ onSend }: { onSend?: (href: string) => void }) {
     event.preventDefault();
     const nextErrors = validate(fields);
     setErrors(nextErrors);
-    if (Object.keys(nextErrors).length > 0) return;
+    const firstInvalid = (Object.keys(nextErrors) as Array<keyof Fields>)[0];
+    if (firstInvalid) {
+      document.getElementById(firstInvalid)?.focus();
+      return;
+    }
 
     const href = buildInquiryLink(fields);
     if (onSend) onSend(href);
@@ -89,9 +93,11 @@ export function ContactForm({ onSend }: { onSend?: (href: string) => void }) {
             onChange={(event) => update("name", event.target.value)}
             aria-invalid={Boolean(errors.name)}
             aria-describedby={errors.name ? "name-error" : undefined}
+            aria-required="true"
+            required
             autoComplete="name"
           />
-          {errors.name ? <p id="name-error">{errors.name}</p> : null}
+          {errors.name ? <p id="name-error" role="alert">{errors.name}</p> : null}
         </div>
         <div className="form-field">
           <label htmlFor="email">Email</label>
@@ -103,9 +109,11 @@ export function ContactForm({ onSend }: { onSend?: (href: string) => void }) {
             onChange={(event) => update("email", event.target.value)}
             aria-invalid={Boolean(errors.email)}
             aria-describedby={errors.email ? "email-error" : undefined}
+            aria-required="true"
+            required
             autoComplete="email"
           />
-          {errors.email ? <p id="email-error">{errors.email}</p> : null}
+          {errors.email ? <p id="email-error" role="alert">{errors.email}</p> : null}
         </div>
       </div>
       <div className="field-row">
@@ -160,8 +168,10 @@ export function ContactForm({ onSend }: { onSend?: (href: string) => void }) {
           onChange={(event) => update("message", event.target.value)}
           aria-invalid={Boolean(errors.message)}
           aria-describedby={errors.message ? "message-error" : undefined}
+          aria-required="true"
+          required
         />
-        {errors.message ? <p id="message-error">{errors.message}</p> : null}
+        {errors.message ? <p id="message-error" role="alert">{errors.message}</p> : null}
       </div>
       <button className="submit-button" type="submit">
         Send inquiry <span aria-hidden="true">↗</span>
