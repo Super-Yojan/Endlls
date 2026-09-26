@@ -75,8 +75,6 @@ export function ScrollFilmHero() {
           start: "top top",
           end: "bottom bottom",
           scrub: 0.15,
-          pin: stage,
-          pinSpacing: false,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             scheduleSeek(self.progress);

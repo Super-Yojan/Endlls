@@ -126,10 +126,11 @@ describe("V2 cinematic homepage", () => {
         start: "top top",
         end: "bottom bottom",
         scrub: 0.15,
-        pinSpacing: false,
         invalidateOnRefresh: true,
       }),
     );
+    expect(animationMocks.create.mock.calls[0][0]).not.toHaveProperty("pin");
+    expect(animationMocks.create.mock.calls[0][0]).not.toHaveProperty("pinSpacing");
   });
 
   it("falls_back_when_video_duration_is_invalid", () => {
