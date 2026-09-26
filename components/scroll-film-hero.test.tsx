@@ -1,4 +1,4 @@
-import { act, render, screen } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import HomePage from "@/app/page";
 
@@ -7,6 +7,7 @@ const animationMocks = vi.hoisted(() => ({
   contextRevert: vi.fn(),
   create: vi.fn(),
   kill: vi.fn(),
+  refresh: vi.fn(),
   registerPlugin: vi.fn(),
   requestAnimationFrame: vi.fn(() => 42),
 }));
@@ -22,79 +23,64 @@ vi.mock("gsap", () => ({
 }));
 
 vi.mock("gsap/ScrollTrigger", () => ({
-  ScrollTrigger: { create: animationMocks.create },
+  ScrollTrigger: {
+    create: animationMocks.create,
+    refresh: animationMocks.refresh,
+  },
 }));
 
-const originalReadyState = Object.getOwnPropertyDescriptor(
-  HTMLMediaElement.prototype,
-  "readyState",
-);
-const originalDuration = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, "duration");
-const originalCurrentTime = Object.getOwnPropertyDescriptor(
-  HTMLMediaElement.prototype,
-  "currentTime",
-);
-
-function setMediaState(readyState: number, duration: number, setCurrentTime = vi.fn()) {
-  Object.defineProperty(HTMLMediaElement.prototype, "readyState", {
-    configurable: true,
-    get: () => readyState,
-  });
-  Object.defineProperty(HTMLMediaElement.prototype, "duration", {
-    configurable: true,
-    get: () => duration,
-  });
-  Object.defineProperty(HTMLMediaElement.prototype, "currentTime", {
-    configurable: true,
-    get: () => 0,
-    set: setCurrentTime,
-  });
-  return setCurrentTime;
+class ImmediateImage {
+  onload: (() => void) | null = null;
+  onerror: (() => void) | null = null;
+  naturalWidth = 1920;
+  naturalHeight = 1082;
+  decoding = "auto";
+  set src(_value: string) {
+    queueMicrotask(() => this.onload?.());
+  }
 }
 
 describe("V2 cinematic homepage", () => {
   beforeEach(() => {
     animationMocks.create.mockReset();
     animationMocks.kill.mockReset();
+    animationMocks.refresh.mockReset();
     animationMocks.contextRevert.mockReset();
     animationMocks.requestAnimationFrame.mockClear();
     animationMocks.cancelAnimationFrame.mockClear();
     animationMocks.create.mockReturnValue({ kill: animationMocks.kill });
     vi.stubGlobal("requestAnimationFrame", animationMocks.requestAnimationFrame);
     vi.stubGlobal("cancelAnimationFrame", animationMocks.cancelAnimationFrame);
+    vi.stubGlobal("Image", ImmediateImage);
     vi.stubGlobal(
       "matchMedia",
       vi.fn(() => ({ matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() })),
     );
-    setMediaState(1, 5.04);
+    vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({
+      drawImage: vi.fn(),
+      imageSmoothingEnabled: true,
+      imageSmoothingQuality: "high",
+    } as unknown as CanvasRenderingContext2D);
   });
 
   afterEach(() => {
     vi.unstubAllGlobals();
-    if (originalReadyState) {
-      Object.defineProperty(HTMLMediaElement.prototype, "readyState", originalReadyState);
-    }
-    if (originalDuration) {
-      Object.defineProperty(HTMLMediaElement.prototype, "duration", originalDuration);
-    }
-    if (originalCurrentTime) {
-      Object.defineProperty(HTMLMediaElement.prototype, "currentTime", originalCurrentTime);
-    }
+    vi.restoreAllMocks();
   });
 
-  it("renders_only_the_scroll_film_and_final_actions", () => {
+  it("renders_the_canvas_sequence_copy_and_final_actions", async () => {
     const { container } = render(<HomePage />);
 
-    const videos = container.querySelectorAll("video");
-    expect(videos).toHaveLength(1);
-    expect(videos[0]).toHaveAttribute("poster", "/video/endlls-scroll-film-poster.jpg");
-    expect(videos[0].muted).toBe(true);
-    expect(videos[0]).toHaveAttribute("playsinline");
-    expect(videos[0].querySelector('source[type="video/mp4"]')).toHaveAttribute(
+    expect(container.querySelector("canvas")).toBeInTheDocument();
+    expect(container.querySelector("video")).not.toBeInTheDocument();
+    expect(container.querySelector(".scroll-film__fallback-image")).toHaveAttribute(
       "src",
-      "/video/endlls-scroll-film.mp4",
+      "/frames/frame_0217.jpg",
     );
-
+    expect(screen.getByRole("heading", { name: "Look closer.", hidden: true })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Brand", hidden: true })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Digital", hidden: true })).toBeInTheDocument();
+    expect(screen.getByRole("status")).toHaveTextContent("0%");
     expect(screen.getByRole("link", { name: "See Work" })).toHaveAttribute("href", "/work");
     expect(screen.getByRole("link", { name: "Start a Project" })).toHaveAttribute(
       "href",
@@ -103,6 +89,9 @@ describe("V2 cinematic homepage", () => {
     expect(screen.queryByRole("banner")).not.toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: "Selected Work" })).not.toBeInTheDocument();
     expect(screen.queryByRole("contentinfo")).not.toBeInTheDocument();
+
+    await waitFor(() => expect(animationMocks.create).toHaveBeenCalledTimes(1));
+    expect(screen.queryByRole("status")).not.toBeInTheDocument();
   });
 
   it("exposes_actions_without_creating_a_trigger_for_reduced_motion", () => {
@@ -114,58 +103,47 @@ describe("V2 cinematic homepage", () => {
     const { container } = render(<HomePage />);
 
     expect(container.querySelector(".scroll-film")).toHaveClass("scroll-film--fallback");
+    expect(screen.queryByRole("status")).not.toBeInTheDocument();
     expect(animationMocks.create).not.toHaveBeenCalled();
   });
 
-  it("initializes_from_already_available_finite_metadata", () => {
+  it("pins_the_stage_for_three_extra_viewports_after_preload", async () => {
     render(<HomePage />);
 
-    expect(animationMocks.create).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(animationMocks.create).toHaveBeenCalledTimes(1));
     expect(animationMocks.create).toHaveBeenCalledWith(
       expect.objectContaining({
         start: "top top",
-        end: "bottom bottom",
+        end: "+=300%",
+        pin: true,
         scrub: 0.15,
+        anticipatePin: 1,
         invalidateOnRefresh: true,
       }),
     );
-    expect(animationMocks.create.mock.calls[0][0]).not.toHaveProperty("pin");
-    expect(animationMocks.create.mock.calls[0][0]).not.toHaveProperty("pinSpacing");
   });
 
-  it("falls_back_when_video_duration_is_invalid", () => {
-    const setCurrentTime = setMediaState(1, Number.NaN);
+  it("falls_back_when_canvas_context_is_unavailable", async () => {
+    vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(null);
 
     const { container } = render(<HomePage />);
 
-    expect(container.querySelector(".scroll-film")).toHaveClass("scroll-film--fallback");
+    await waitFor(() =>
+      expect(container.querySelector(".scroll-film")).toHaveClass("scroll-film--fallback"),
+    );
     expect(animationMocks.create).not.toHaveBeenCalled();
-    expect(setCurrentTime).not.toHaveBeenCalled();
   });
 
-  it("cleans_up_trigger_listeners_and_pending_frame_on_unmount", () => {
-    setMediaState(0, 5.04);
-    const addEventListener = vi.spyOn(HTMLMediaElement.prototype, "addEventListener");
-    const removeEventListener = vi.spyOn(HTMLMediaElement.prototype, "removeEventListener");
-    const { container, unmount } = render(<HomePage />);
-    const video = container.querySelector("video") as HTMLVideoElement;
+  it("cleans_up_trigger_listeners_and_pending_frame_on_unmount", async () => {
+    const { unmount } = render(<HomePage />);
 
-    Object.defineProperty(video, "readyState", { configurable: true, get: () => 1 });
-    act(() => video.dispatchEvent(new Event("loadedmetadata")));
+    await waitFor(() => expect(animationMocks.create).toHaveBeenCalledTimes(1));
     const triggerConfig = animationMocks.create.mock.calls[0][0];
     act(() => triggerConfig.onUpdate({ progress: 0.5 }));
     unmount();
 
     expect(animationMocks.kill).toHaveBeenCalledTimes(1);
     expect(animationMocks.contextRevert).toHaveBeenCalledTimes(1);
-    expect(removeEventListener).toHaveBeenCalledWith("loadedmetadata", expect.any(Function));
-    expect(removeEventListener).toHaveBeenCalledWith("error", expect.any(Function));
     expect(animationMocks.cancelAnimationFrame).toHaveBeenCalledWith(42);
-    expect(addEventListener).toHaveBeenCalledWith("loadedmetadata", expect.any(Function), {
-      once: true,
-    });
-
-    addEventListener.mockRestore();
-    removeEventListener.mockRestore();
   });
 });

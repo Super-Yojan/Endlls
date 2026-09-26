@@ -1,139 +1,338 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { isCtaProgress, progressToTime } from "@/lib/video-progress";
+import {
+  COPY_WINDOWS,
+  FRAME_COUNT,
+  canvasBufferSize,
+  coverRect,
+  frameIndex,
+  frameSrc,
+  preloadFrames,
+  rangeOpacity,
+  revealOpacity,
+} from "@/lib/frame-sequence";
+import { isCtaProgress } from "@/lib/video-progress";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const finalFrame = frameSrc(FRAME_COUNT - 1);
+
+function subscribeReducedMotion(onChange: () => void) {
+  const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+  media.addEventListener("change", onChange);
+  return () => media.removeEventListener("change", onChange);
+}
+
+function reducedMotionSnapshot() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function setLayer(node: HTMLElement | null, opacity: number) {
+  if (!node) return;
+  const visible = opacity > 0.02;
+  node.style.opacity = String(opacity);
+  node.style.visibility = visible ? "visible" : "hidden";
+  node.setAttribute("aria-hidden", visible ? "false" : "true");
+}
+
 export function ScrollFilmHero() {
+  const reducedMotion = useSyncExternalStore(
+    subscribeReducedMotion,
+    reducedMotionSnapshot,
+    () => false,
+  );
   const rootRef = useRef<HTMLElement>(null);
-  const runwayRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const veilRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const scrimRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLElement>(null);
+  const featureOneRef = useRef<HTMLElement>(null);
+  const featureTwoRef = useRef<HTMLElement>(null);
   const actionsRef = useRef<HTMLElement>(null);
-  const [fallback, setFallback] = useState(false);
+  const imagesRef = useRef<HTMLImageElement[]>([]);
+  const [status, setStatus] = useState<"loading" | "ready" | "fallback">("loading");
+  const [loadPercent, setLoadPercent] = useState(0);
+
+  const fallback = reducedMotion || status === "fallback";
+  const ready = status === "ready" && !reducedMotion;
 
   useEffect(() => {
-    const root = rootRef.current;
-    const runway = runwayRef.current;
-    const stage = stageRef.current;
-    const video = videoRef.current;
-    const veil = veilRef.current;
-    const actions = actionsRef.current;
-    if (!root || !runway || !stage || !video || !veil || !actions) return;
+    if (reducedMotion) return;
+    let cancelled = false;
+    let lastPercent = -1;
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setFallback(true);
+    preloadFrames(FRAME_COUNT, (loaded, total) => {
+      if (cancelled) return;
+      const percent = Math.round((loaded / total) * 100);
+      if (percent === lastPercent) return;
+      lastPercent = percent;
+      setLoadPercent(percent);
+    })
+      .then((images) => {
+        if (cancelled) return;
+        imagesRef.current = images;
+        setStatus("ready");
+      })
+      .catch(() => {
+        if (!cancelled) setStatus("fallback");
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [reducedMotion]);
+
+  useEffect(() => {
+    if (!ready) return;
+    const root = rootRef.current;
+    const stage = stageRef.current;
+    const canvas = canvasRef.current;
+    const actions = actionsRef.current;
+    if (!root || !stage || !canvas || !actions) return;
+
+    const context2d = canvas.getContext("2d");
+    if (!context2d) {
+      setStatus("fallback");
       return;
     }
 
+    const images = imagesRef.current;
+    const sequence = { frame: 0 };
     let frameId: number | null = null;
-    let queuedTime: number | null = null;
+    let latestProgress = 0;
     let trigger: ScrollTrigger | null = null;
-    let context: gsap.Context | null = null;
+    let placedWidth = 0;
+    let placedHeight = 0;
 
-    const showFallback = () => setFallback(true);
+    const placeCopy = () => {
+      const bounds = canvas.getBoundingClientRect();
+      const sample = images[0];
+      if (!sample || (bounds.width === placedWidth && bounds.height === placedHeight)) return;
+      const portrait = bounds.height > bounds.width * 1.15;
+      const rect = coverRect(
+        bounds.width,
+        bounds.height,
+        sample.naturalWidth,
+        sample.naturalHeight,
+        "contain",
+        portrait ? "start" : "center",
+      );
+      if (!rect) return;
+      if (portrait) rect.y = Math.min(72, bounds.height * 0.05);
+      placedWidth = bounds.width;
+      placedHeight = bounds.height;
 
-    const updatePresentation = (progress: number) => {
-      const revealProgress = Math.max(0, Math.min(1, (progress - 0.9) / 0.1));
-      const revealed = isCtaProgress(progress);
-      veil.style.opacity = String(revealProgress * 0.58);
-      actions.style.opacity = String(revealProgress);
-      actions.style.transform = `translateY(${(1 - revealProgress) * 24}px)`;
-      actions.style.visibility = revealed ? "visible" : "hidden";
-      actions.style.pointerEvents = revealed ? "auto" : "none";
+      const pad = Math.max(16, Math.min(rect.width, rect.height) * 0.06);
+      const copyWidth = Math.max(140, rect.width - pad * 2);
+      const compact = rect.height < 460;
+      if (headlineRef.current) {
+        headlineRef.current.style.top = `${rect.y + pad}px`;
+        headlineRef.current.style.left = `${rect.x + pad}px`;
+        headlineRef.current.style.right = "auto";
+        headlineRef.current.style.maxWidth = `${copyWidth}px`;
+        const heading = headlineRef.current.querySelector("h1");
+        if (heading) heading.style.fontSize = compact ? `${Math.max(34, rect.height * 0.2)}px` : "";
+      }
+      const featureBottom = bounds.height - (rect.y + rect.height) + pad;
+      for (const node of [featureOneRef.current, featureTwoRef.current]) {
+        if (!node) continue;
+        node.style.top = "auto";
+        node.style.bottom = `${featureBottom}px`;
+        node.style.left = `${rect.x + pad}px`;
+        node.style.right = "auto";
+        node.style.maxWidth = `${copyWidth}px`;
+        const heading = node.querySelector("h2");
+        if (heading) heading.style.fontSize = compact ? `${Math.max(26, rect.height * 0.14)}px` : "";
+      }
+      actions.style.margin = "0";
+      if (portrait) {
+        actions.style.left = `${rect.x + pad}px`;
+        actions.style.width = `${Math.max(0, rect.width - pad * 2)}px`;
+        actions.style.bottom = "auto";
+        actions.style.top = `${rect.y + rect.height + pad}px`;
+      } else {
+        actions.style.left = `${rect.x}px`;
+        actions.style.width = `${rect.width}px`;
+        actions.style.top = "auto";
+        actions.style.bottom = `${featureBottom}px`;
+      }
+      if (scrimRef.current) {
+        scrimRef.current.style.top = `${rect.y + rect.height * 0.42}px`;
+        scrimRef.current.style.right = "auto";
+        scrimRef.current.style.bottom = "auto";
+        scrimRef.current.style.left = `${rect.x}px`;
+        scrimRef.current.style.width = `${rect.width}px`;
+        scrimRef.current.style.height = `${rect.height * 0.58}px`;
+      }
     };
 
-    const scheduleSeek = (progress: number) => {
-      queuedTime = progressToTime(progress, video.duration);
-      if (queuedTime === null) {
-        showFallback();
-        return;
+    const paint = () => {
+      const image = images[sequence.frame];
+      if (!image) return;
+      const bounds = canvas.getBoundingClientRect();
+      const buffer = canvasBufferSize(bounds.width, bounds.height, window.devicePixelRatio || 1);
+      const portrait = bounds.width > 0 && bounds.height > bounds.width * 1.15;
+      const draw = buffer
+        ? coverRect(
+            buffer.width,
+            buffer.height,
+            image.naturalWidth,
+            image.naturalHeight,
+            "contain",
+            portrait ? "start" : "center",
+          )
+        : null;
+      if (portrait && draw && buffer) {
+        draw.y = Math.min(72, bounds.height * 0.05) * (buffer.height / bounds.height);
       }
-      if (frameId !== null) return;
+      if (!buffer || !draw) return;
 
+      if (canvas.width !== buffer.width || canvas.height !== buffer.height) {
+        canvas.width = buffer.width;
+        canvas.height = buffer.height;
+      }
+
+      context2d.imageSmoothingEnabled = true;
+      context2d.imageSmoothingQuality = "high";
+      context2d.fillStyle = "#0d0d0d";
+      context2d.fillRect(0, 0, buffer.width, buffer.height);
+      context2d.drawImage(image, draw.x, draw.y, draw.width, draw.height);
+      placeCopy();
+    };
+
+    const applyPresentation = (progress: number) => {
+      setLayer(headlineRef.current, rangeOpacity(progress, COPY_WINDOWS.headline.start, COPY_WINDOWS.headline.end));
+      setLayer(
+        featureOneRef.current,
+        rangeOpacity(progress, COPY_WINDOWS.featureOne.start, COPY_WINDOWS.featureOne.end),
+      );
+      setLayer(
+        featureTwoRef.current,
+        rangeOpacity(progress, COPY_WINDOWS.featureTwo.start, COPY_WINDOWS.featureTwo.end),
+      );
+
+      const reveal = revealOpacity(progress);
+      const revealed = isCtaProgress(progress);
+      actions.style.opacity = String(reveal);
+      actions.style.transform = `translateY(${(1 - reveal) * 24}px)`;
+      actions.style.visibility = revealed ? "visible" : "hidden";
+      actions.style.pointerEvents = revealed ? "auto" : "none";
+
+      if (scrimRef.current) {
+        const featureStrength = Math.max(
+          rangeOpacity(progress, COPY_WINDOWS.featureOne.start, COPY_WINDOWS.featureOne.end),
+          rangeOpacity(progress, COPY_WINDOWS.featureTwo.start, COPY_WINDOWS.featureTwo.end),
+          reveal,
+        );
+        scrimRef.current.style.opacity = String(featureStrength);
+      }
+    };
+
+    const schedule = (progress: number) => {
+      latestProgress = progress;
+      sequence.frame = frameIndex(progress, FRAME_COUNT);
+      if (frameId !== null) return;
       frameId = requestAnimationFrame(() => {
         frameId = null;
-        if (queuedTime !== null) video.currentTime = queuedTime;
+        paint();
+        applyPresentation(latestProgress);
       });
     };
 
-    const initialize = () => {
-      if (progressToTime(0, video.duration) === null) {
-        showFallback();
-        return;
-      }
+    sequence.frame = 0;
+    paint();
+    applyPresentation(0);
 
-      context = gsap.context(() => {
-        trigger = ScrollTrigger.create({
-          trigger: runway,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 0.15,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            scheduleSeek(self.progress);
-            updatePresentation(self.progress);
-          },
-        });
-      }, root);
+    const gsapContext = gsap.context(() => {
+      trigger = ScrollTrigger.create({
+        trigger: stage,
+        start: "top top",
+        end: "+=300%",
+        pin: true,
+        scrub: 0.15,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => schedule(self.progress),
+      });
+    }, root);
+
+    const onResize = () => {
+      paint();
+      ScrollTrigger.refresh();
     };
-
-    video.addEventListener("error", showFallback);
-    if (video.readyState >= 1) initialize();
-    else video.addEventListener("loadedmetadata", initialize, { once: true });
+    window.addEventListener("resize", onResize);
 
     return () => {
-      video.removeEventListener("loadedmetadata", initialize);
-      video.removeEventListener("error", showFallback);
+      window.removeEventListener("resize", onResize);
       if (frameId !== null) cancelAnimationFrame(frameId);
       trigger?.kill();
-      context?.revert();
+      gsapContext.revert();
     };
-  }, []);
+  }, [ready]);
 
   return (
-    <main ref={rootRef} className={`scroll-film${fallback ? " scroll-film--fallback" : ""}`}>
-      <div ref={runwayRef} className="scroll-film__runway">
-        <section
-          ref={stageRef}
-          className="scroll-film__stage"
-          aria-label="Endlls Studio introduction"
+    <main
+      ref={rootRef}
+      className={`scroll-film${fallback ? " scroll-film--fallback" : ""}${ready ? " scroll-film--ready" : ""}`}
+    >
+      <section ref={stageRef} className="scroll-film__stage" aria-label="Endlls Studio introduction">
+        <canvas ref={canvasRef} className="scroll-film__canvas" aria-hidden="true" />
+        <img className="scroll-film__fallback-image" src={finalFrame} alt="" />
+        <div ref={scrimRef} className="scroll-film__scrim" aria-hidden="true" />
+        <p className="scroll-film__summary">
+          Endlls Studio. Creativity never ends. An independent creative studio shaping identities,
+          digital experiences, and campaigns.
+        </p>
+        <article
+          ref={headlineRef}
+          className="scroll-film__copy scroll-film__copy--headline"
+          data-overlay="headline"
+          aria-hidden="true"
         >
-          <video
-            ref={videoRef}
-            className="scroll-film__video"
-            poster="/video/endlls-scroll-film-poster.jpg"
-            preload="metadata"
-            muted
-            playsInline
-          >
-            <source src="/video/endlls-scroll-film.mp4" type="video/mp4" />
-          </video>
-          <Image
-            className="scroll-film__fallback-image"
-            src="/video/endlls-scroll-film-final.jpg"
-            alt=""
-            fill
-            sizes="100vw"
-            aria-hidden="true"
-          />
-          <div ref={veilRef} className="scroll-film__veil" aria-hidden="true" />
-          <nav
-            ref={actionsRef}
-            className="scroll-film__actions"
-            aria-label="Explore Endlls Studio"
-          >
-            <Link href="/work">See Work</Link>
-            <Link href="/contact">Start a Project</Link>
-          </nav>
-        </section>
-      </div>
+          <p className="scroll-film__kicker">Endlls Studio</p>
+          <h1>Look closer.</h1>
+        </article>
+        <article
+          ref={featureOneRef}
+          className="scroll-film__copy scroll-film__copy--feature"
+          data-overlay="feature-1"
+          aria-hidden="true"
+        >
+          <p className="scroll-film__kicker">01</p>
+          <h2>Brand</h2>
+          <p className="scroll-film__detail">Identity, voice, and a system with range.</p>
+        </article>
+        <article
+          ref={featureTwoRef}
+          className="scroll-film__copy scroll-film__copy--feature"
+          data-overlay="feature-2"
+          aria-hidden="true"
+        >
+          <p className="scroll-film__kicker">02</p>
+          <h2>Digital</h2>
+          <p className="scroll-film__detail">Experiences and campaigns made to travel.</p>
+        </article>
+        <nav ref={actionsRef} className="scroll-film__actions" aria-label="Explore Endlls Studio">
+          <Link href="/work">See Work</Link>
+          <Link href="/contact">Start a Project</Link>
+        </nav>
+        {fallback ? null : ready ? null : (
+          <div className="scroll-film__loader" role="status" aria-live="polite">
+            <p className="scroll-film__loader-mark">Endlls</p>
+            <div className="scroll-film__loader-track" aria-hidden="true">
+              <span style={{ width: `${loadPercent}%` }} />
+            </div>
+            <p className="scroll-film__loader-percent">{loadPercent}%</p>
+          </div>
+        )}
+      </section>
+      <noscript>
+        <style>{`.scroll-film__loader{display:none!important}.scroll-film__fallback-image{visibility:visible;opacity:1}.scroll-film__actions{visibility:visible!important;opacity:1!important;transform:none!important;pointer-events:auto!important}`}</style>
+      </noscript>
     </main>
   );
 }
