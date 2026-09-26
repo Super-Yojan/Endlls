@@ -4,6 +4,13 @@ import HomePage from "@/app/page";
 import { SiteHeader } from "./site-header";
 
 describe("shared site shell", () => {
+  it("pairs_the_compact_symbol_with_the_studio_name", () => {
+    render(<SiteHeader />);
+
+    const brand = screen.getByRole("link", { name: "Endlls Studio home" });
+    expect(within(brand).getByText("ENDLLS")).toBeInTheDocument();
+  });
+
   it("exposes_the_primary_navigation", () => {
     render(<SiteHeader />);
 

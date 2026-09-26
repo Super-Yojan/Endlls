@@ -47,7 +47,8 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <Link className="brand" href="/" aria-label="Endlls Studio home">
-        <Image src="/brand/logo.png" alt="Endlls Studio" width={373} height={238} priority />
+        <Image src="/brand/logo.png" alt="" width={373} height={238} priority />
+        <span className="brand-name">ENDLLS</span>
       </Link>
       <button
         ref={toggleRef}
