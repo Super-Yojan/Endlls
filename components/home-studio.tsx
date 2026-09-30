@@ -24,9 +24,9 @@ const capabilities = [
     tags: ["Campaign", "Art direction"],
   },
   {
-    title: "Objects",
-    body: "Interfaces people actually use. Glid is how a local game gets found, joined, and played.",
-    tags: ["Digital", "Product"],
+    title: "Product",
+    body: "Endlls Studios built Glid from the ground up: codebase, app design, website, marketing, social, and posters. The project is paused, with no launch metrics.",
+    tags: ["Product", "Digital"],
   },
 ];
 

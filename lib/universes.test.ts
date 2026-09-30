@@ -39,9 +39,7 @@ describe("endlls universes", () => {
       const project = getProjectBySlug(universe.slug);
       expect(project?.title).toBe(universe.title);
       expect(project?.cover).toBe(universe.thumbnail);
-      expect(project?.services.some((service) => /engineering|flight|silicon|security/i.test(service))).toBe(
-        false,
-      );
+      expect(project?.services.some((service) => /flight|silicon|security/i.test(service))).toBe(false);
       expect(fs.existsSync(path.join(process.cwd(), "public", universe.thumbnail))).toBe(true);
       expect(heroParallaxProducts().find((product) => product.title === universe.title)).toMatchObject({
         link: `/work/${universe.slug}`,
@@ -52,6 +50,41 @@ describe("endlls universes", () => {
 
     for (const slug of retiredSlugs) {
       expect(getProjectBySlug(slug)).toBeNull();
+    }
+  });
+
+  it("credits_glid_as_a_paused_endlls_studios_build", () => {
+    const glid = universeProducts.find((universe) => universe.slug === "glid");
+    const project = getProjectBySlug("glid");
+    const images = [
+      "/images/projects/glid/cover.webp",
+      "/images/projects/glid/home-matches-explore.webp",
+      "/images/projects/glid/hero-join.webp",
+    ];
+
+    expect(glid).toMatchObject({
+      year: 2026,
+      thumbnail: "/images/projects/glid/cover.webp",
+      services: ["Product engineering", "Digital experience", "Brand identity", "Campaign"],
+      summary: project?.summary,
+    });
+    expect(project?.summary).toMatch(/Endlls Studios built Glid from the ground up/);
+    expect(project?.summary).not.toMatch(/sailplane|quiet vehicle|identity only/i);
+    expect(project?.credits).toEqual([
+      "Product & engineering — Endlls Studios",
+      "App design — Endlls Studios",
+      "Website — Endlls Studios",
+      "Marketing, social & posters — Endlls Studios",
+    ]);
+    expect(project?.contentHtml).toMatch(/currently paused/);
+    expect(project?.contentHtml).toMatch(/no launch metrics/);
+    expect(project?.contentHtml).not.toMatch(/Enlist Studios/);
+    expect(project?.gallery).toEqual([
+      "/images/projects/glid/home-matches-explore.webp",
+      "/images/projects/glid/hero-join.webp",
+    ]);
+    for (const image of images) {
+      expect(fs.existsSync(path.join(process.cwd(), "public", image)), image).toBe(true);
     }
   });
 
