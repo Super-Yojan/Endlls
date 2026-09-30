@@ -77,7 +77,7 @@ describe("shared site shell", () => {
       ["Endlls Atlas", "/work/endlls-atlas"],
     ] as const;
 
-    expect(within(showcase).getAllByRole("link", { name: /Universe/ })).toHaveLength(15);
+    expect(within(showcase).getAllByRole("link", { name: /Work|Knowledge/ })).toHaveLength(15);
     for (const [title, href] of universes) {
       expect(within(showcase).getByRole("link", { name: new RegExp(title) })).toHaveAttribute(
         "href",

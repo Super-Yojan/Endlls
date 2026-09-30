@@ -17,6 +17,8 @@ export type HeroProduct = {
   title: string;
   link: string;
   thumbnail: string;
+  kind: "Work" | "Knowledge";
+  code: string;
 };
 
 const spring = { stiffness: 260, damping: 32, bounce: 0 };
@@ -92,7 +94,7 @@ export function Header() {
   return (
     <div className="relative z-10 mx-auto w-full max-w-[90rem] px-[clamp(1.25rem,4.6vw,4.75rem)] pb-6 pt-10 md:pt-14">
       <motion.p
-        className="m-0 text-[0.76rem] font-bold uppercase tracking-[0.2em] text-copper-deep dark:text-gold"
+        className="m-0 font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-copper-deep dark:text-gold"
         initial={hidden}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: reduce ? 0 : 0.7, ease }}
@@ -101,7 +103,7 @@ export function Header() {
       </motion.p>
       <motion.h1
         id="hero-heading"
-        className="m-0 mt-6 max-w-[16ch] text-[clamp(3.4rem,7.4vw,7.25rem)] font-bold uppercase leading-[0.88] tracking-[-0.06em] [font-family:var(--display)]"
+        className="m-0 mt-5 max-w-[12ch] font-sans text-[clamp(3.1rem,6.2vw,6rem)] font-medium leading-[1.02] tracking-[-0.035em]"
         initial={hidden}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: reduce ? 0 : 0.85, delay: reduce ? 0 : 0.08, ease }}
@@ -111,7 +113,7 @@ export function Header() {
         Never Ends
       </motion.h1>
       <motion.p
-        className="m-0 mt-6 max-w-xl text-[clamp(1.15rem,2vw,1.55rem)] leading-snug tracking-[-0.02em] text-ink/80 dark:text-ivory/80"
+        className="m-0 mt-6 max-w-xl font-sans text-[clamp(1.05rem,1.7vw,1.35rem)] font-normal leading-snug tracking-[-0.011em] text-ink/80 dark:text-ivory/80"
         initial={hidden}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: reduce ? 0 : 0.8, delay: reduce ? 0 : 0.18, ease }}
@@ -160,11 +162,17 @@ export function ProductCard({
         />
         <span className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/15 to-transparent" />
         <span className="absolute inset-x-0 bottom-0 p-5 text-ivory md:p-6">
-          <span className="block text-[0.68rem] font-bold uppercase tracking-[0.18em] text-sand">
-            Universe
+          <span className="inline-flex border border-ivory/35 px-2 py-1 font-mono text-[0.62rem] font-medium uppercase tracking-[0.22em] text-sand">
+            {product.kind}
           </span>
-          <span className="mt-1 block text-[clamp(1.4rem,2vw,2rem)] uppercase leading-none tracking-[-0.04em] [font-family:var(--display)]">
+          <span className="mt-3 block font-sans text-[clamp(1.25rem,1.8vw,1.7rem)] font-medium leading-none tracking-[-0.03em]">
             {product.title}
+          </span>
+          <span
+            aria-hidden="true"
+            className="mt-2 block translate-y-1 font-mono text-[0.62rem] font-medium uppercase tracking-[0.18em] text-ivory/80 opacity-0 transition duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100"
+          >
+            {product.code}
           </span>
         </span>
       </Link>
@@ -181,6 +189,7 @@ function padProducts(products: HeroProduct[], count: number) {
     padded.push({
       ...source,
       link: `${source.link}#plate-${padded.length}`,
+      code: `${source.code}·${padded.length}`,
     });
     index += 1;
   }

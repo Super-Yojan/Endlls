@@ -166,10 +166,14 @@ export const universeProducts: UniverseProduct[] = [
   },
 ];
 
+const knowledgeSlugs = new Set(["freedom-ctf", "silicon-mips", "endlls-atlas"]);
+
 export function heroParallaxProducts() {
   return universeProducts.map((universe) => ({
     title: universe.title,
     link: `/work/${universe.slug}`,
     thumbnail: universe.thumbnail,
+    kind: knowledgeSlugs.has(universe.slug) ? ("Knowledge" as const) : ("Work" as const),
+    code: universe.slug.replace(/-/g, "·").toUpperCase(),
   }));
 }
