@@ -15,7 +15,7 @@ const capabilities = [
   },
   {
     title: "Digital",
-    body: "Websites and editorial platforms, including PKP Web, held to the same standard as the print.",
+    body: "Websites and editorial platforms, including PKP Tender Hearts, held to the same standard as the print.",
     tags: ["Digital", "Art direction"],
   },
   {

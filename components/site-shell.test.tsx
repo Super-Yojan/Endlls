@@ -67,7 +67,7 @@ describe("shared site shell", () => {
     expect(screen.getByRole("link", { name: "Enter" })).toHaveAttribute("href", "#selected-universes");
     const showcase = screen.getByRole("region", { name: "Selected universes" });
     const studies = [
-      ["PKP Web", "/work/pkp-web"],
+      ["PKP Tender Hearts — Creative Engagement", "/work/pkp-web"],
       ["Glid", "/work/glid"],
       ["PKP Brand", "/work/pkp-brand"],
     ] as const;

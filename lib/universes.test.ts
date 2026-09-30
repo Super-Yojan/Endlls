@@ -54,4 +54,43 @@ describe("endlls universes", () => {
       expect(getProjectBySlug(slug)).toBeNull();
     }
   });
+
+  it("shows_the_real_pkp_posters_and_dtfest_frames", () => {
+    const project = getProjectBySlug("pkp-web");
+    const images = [
+      "/images/projects/pkp-web/cover.webp",
+      "/images/projects/pkp-web/home.webp",
+      "/images/projects/pkp-web/events.webp",
+      "/images/projects/pkp/dtfest-hero.webp",
+      "/images/projects/pkp/candlelight.jpg",
+      "/images/projects/pkp/instagram-candlelight.jpg",
+      "/images/projects/pkp/blood-drive-2026.jpg",
+      "/images/projects/pkp/know-your-rights.jpg",
+      "/images/projects/pkp/september-13-event.jpg",
+      "/images/projects/pkp/at-a-glance.jpg",
+      "/images/projects/pkp/photo-event.jpg",
+      "/images/projects/pkp/dtfest-gallery-01.webp",
+      "/images/projects/pkp/dtfest-gallery-06.webp",
+    ];
+
+    expect(project?.cover).toBe("/images/projects/pkp/dtfest-hero.webp");
+    expect(project?.gallery).toEqual([
+      "/images/projects/pkp-web/cover.webp",
+      "/images/projects/pkp-web/home.webp",
+      "/images/projects/pkp-web/events.webp",
+      "/images/projects/pkp/candlelight.jpg",
+      "/images/projects/pkp/instagram-candlelight.jpg",
+      "/images/projects/pkp/blood-drive-2026.jpg",
+      "/images/projects/pkp/know-your-rights.jpg",
+      "/images/projects/pkp/september-13-event.jpg",
+      "/images/projects/pkp/at-a-glance.jpg",
+      "/images/projects/pkp/photo-event.jpg",
+      "/images/projects/pkp/dtfest-hero.webp",
+      "/images/projects/pkp/dtfest-gallery-01.webp",
+      "/images/projects/pkp/dtfest-gallery-06.webp",
+    ]);
+    for (const image of images) {
+      expect(fs.existsSync(path.join(process.cwd(), "public", image)), image).toBe(true);
+    }
+  });
 });
