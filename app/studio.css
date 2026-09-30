@@ -58,9 +58,9 @@ body.menu-open {
 }
 
 .studio-wordmark {
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: 2rem;
-  font-style: italic;
+  font-style: normal;
   font-weight: 500;
   letter-spacing: -0.04em;
   line-height: 1;
@@ -288,7 +288,7 @@ body.menu-open {
 }
 
 .reveal-char.italic .reveal-char-inner {
-  font-style: italic;
+  font-style: normal;
   font-weight: 500;
 }
 
@@ -710,9 +710,9 @@ body.menu-open {
 .studio-footer-quote {
   max-width: 10ch;
   margin: 0 0 clamp(3rem, 7vw, 5.5rem);
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: clamp(4rem, 10vw, 8.5rem);
-  font-style: italic;
+  font-style: normal;
   font-weight: 500;
   letter-spacing: -0.04em;
   line-height: 0.88;

@@ -4,22 +4,22 @@ slug: glid
 year: 2025
 client: Endlls
 services:
-  - Flight
-  - Autonomy
-summary: A glide vehicle and the software that keeps its path quiet, efficient, and deliberate.
+  - Brand identity
+  - Art direction
+summary: Identity and art direction for Glid — a quiet vehicle, drawn with restraint.
 cover: /images/universes/glid.png
 coverAlt: Gold arc abstract plate for Glid
-featured: false
-order: 12
+featured: true
+order: 6
 credits:
   - Creative direction — Endlls Studio
-  - Engineering — Endlls
+  - Art direction — Endlls Studio
 ---
 
 ## Glid
 
-A glide vehicle and the software that keeps its path quiet, efficient, and deliberate.
+Identity and art direction for Glid — a quiet vehicle, drawn with restraint.
 
-The universe sits inside Endlls Creative Studio: a place where flight, field systems, silicon, and stories stay in conversation. This plate is the public entrance — enough to locate the work, and open enough to keep going.
+Endlls is a design studio for identity, digital experiences, and campaigns. This plate holds the form, the pace, and the name.
 
-> Creativity never ends. The universe is one room of a larger studio.
+> Creativity never ends. The piece is one room of a larger studio.

@@ -9,29 +9,24 @@ type StudioProduct = ReturnType<typeof heroParallaxProducts>[number];
 
 const capabilities = [
   {
-    title: "Flight",
-    body: "Glid, blimps, delivery aircraft, and the avionics that keep a path deliberate.",
-    tags: ["Flight", "Autonomy"],
+    title: "Brand",
+    body: "Identity systems, marks, and the visual language a piece needs before it can be recognized.",
+    tags: ["Identity", "Strategy"],
   },
   {
-    title: "Field",
-    body: "PKP Field and the radio mesh: tools that stay useful when the wider network thins out.",
-    tags: ["Field", "Radio"],
+    title: "Digital",
+    body: "Websites and editorial platforms, including PKP Web, held to the same standard as the print.",
+    tags: ["Digital", "Art direction"],
   },
   {
-    title: "Silicon",
-    body: "MIPS study, motors, and power systems — the machines underneath the motion.",
-    tags: ["Silicon", "Motion"],
+    title: "Campaign",
+    body: "Art direction and stories made to travel — from a single poster to a season of work.",
+    tags: ["Campaign", "Art direction"],
   },
   {
-    title: "Knowledge",
-    body: "Freedom CTF, processor study, and Endlls Atlas, the map of how the work connects.",
-    tags: ["Knowledge", "Security"],
-  },
-  {
-    title: "Interfaces",
-    body: "PKP Web and ground control: calm surfaces for reading a live system.",
-    tags: ["Digital", "Interface"],
+    title: "Objects",
+    body: "Designed things with a point of view. Glid is the studio study in form, pace, and restraint.",
+    tags: ["Identity", "Form"],
   },
 ];
 
@@ -52,7 +47,7 @@ export function HomeStudio({ products }: { products: StudioProduct[] }) {
             <RevealLine text="Never Ends" delay={0.28} emphasis="Never" />
           </h1>
           <p className="hero-subhead">
-            An engineering multiverse of flight, field systems, silicon, and stories.
+            A design studio for identity, digital work, and campaigns.
           </p>
         </div>
         <div className="hero-wave">
@@ -73,10 +68,10 @@ export function HomeStudio({ products }: { products: StudioProduct[] }) {
 
       <section className="intro-statement">
         <p>The practice</p>
-        <h2>One studio. Many universes. The work stays in conversation.</h2>
+        <h2>One studio. Selected work. Each piece stands on its own.</h2>
         <p>
-          Endlls builds flight, field software, silicon, and the interfaces around them. The ideas
-          do not stay in separate rooms.
+          Endlls designs identities, digital experiences, and campaigns. The portfolio is the work
+          you can see, use, and remember.
         </p>
       </section>
 
@@ -99,7 +94,7 @@ export function HomeStudio({ products }: { products: StudioProduct[] }) {
                 </div>
                 <div className="universe-card-meta">
                   <h3>{product.title}</h3>
-                  <span className="universe-card-category">{product.kind}</span>
+                  <span className="universe-card-category">{product.category}</span>
                   <span className="universe-card-year">{product.year}</span>
                 </div>
               </Link>

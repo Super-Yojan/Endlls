@@ -1,17 +1,22 @@
 import type { Metadata } from "next";
-import "@fontsource/inter/400.css";
-import "@fontsource/inter/500.css";
-import "@fontsource/inter/600.css";
-import "@fontsource/inter/700.css";
-import "@fontsource/jetbrains-mono/400.css";
-import "@fontsource/jetbrains-mono/500.css";
-import "@fontsource/playfair-display/400.css";
-import "@fontsource/playfair-display/500.css";
-import "@fontsource/playfair-display/700.css";
-import "@fontsource/playfair-display/700-italic.css";
+import localFont from "next/font/local";
 import "./globals.css";
 import "./studio.css";
 import { StudioCursor } from "@/components/studio-cursor";
+
+const clashDisplay = localFont({
+  src: "../fonts/ClashDisplay-Variable.woff2",
+  variable: "--font-clash",
+  weight: "200 700",
+  display: "swap",
+});
+
+const cabinetGrotesk = localFont({
+  src: "../fonts/CabinetGrotesk-Variable.woff2",
+  variable: "--font-cabinet",
+  weight: "100 900",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -19,13 +24,13 @@ export const metadata: Metadata = {
     template: "%s — Endlls Studio",
   },
   description:
-    "Endlls Creative Studio — creativity never ends. An engineering multiverse of flight, field systems, silicon, and stories.",
+    "Endlls is a design studio for identity, digital experiences, and campaigns. Creativity never ends.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={`${clashDisplay.variable} ${cabinetGrotesk.variable}`}>
         <StudioCursor />
         {children}
       </body>

@@ -6,9 +6,9 @@
 @source "../lib";
 
 @theme {
-  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
-  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-sans: var(--font-cabinet), "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-clash), "Arial Narrow", sans-serif;
+  --font-mono: var(--font-cabinet), "Helvetica Neue", Arial, sans-serif;
   --color-ink: #1d1f21;
   --color-copper: #b87533;
   --color-copper-deep: #7a4518;
@@ -33,11 +33,6 @@
   --sand: #f2e6c9;
   --ivory: #fcfbf9;
   --rule: #e5e5e5;
-  --sans: "Inter", "Helvetica Neue", Arial, sans-serif;
-  --serif: "Playfair Display", Georgia, "Times New Roman", serif;
-  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --display: var(--serif);
-  --body: var(--sans);
   --ease-studio: cubic-bezier(0.22, 1, 0.36, 1);
   --gutter: clamp(1.25rem, 4.6vw, 4.75rem);
 }
@@ -54,6 +49,11 @@ html {
 }
 
 body {
+  --sans: var(--font-cabinet), "Helvetica Neue", Arial, sans-serif;
+  --serif: var(--font-clash), "Arial Narrow", sans-serif;
+  --mono: var(--sans);
+  --display: var(--serif);
+  --body: var(--sans);
   margin: 0;
   min-width: 320px;
   background: var(--paper);

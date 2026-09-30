@@ -118,8 +118,7 @@ export function Header() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: reduce ? 0 : 0.8, delay: reduce ? 0 : 0.18, ease }}
       >
-        A studio and engineering multiverse — flight, field systems, silicon, and stories, held in
-        one continuous practice.
+        A design studio for identity, digital experiences, and campaigns, held in one practice.
       </motion.p>
       <motion.div
         initial={hidden}

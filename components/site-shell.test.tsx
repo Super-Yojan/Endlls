@@ -57,29 +57,22 @@ describe("shared site shell", () => {
     render(<HomePage />);
 
     expect(screen.getByRole("heading", { name: "Creativity Never Ends" })).toBeInTheDocument();
-    expect(screen.getByText(/engineering multiverse/i)).toBeInTheDocument();
+    expect(screen.getByText(/design studio/i)).toBeInTheDocument();
+    expect(screen.queryByText("Knowledge")).not.toBeInTheDocument();
+    expect(screen.queryByText("Freedom CTF")).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Enter" })).toHaveAttribute("href", "#selected-universes");
     const showcase = screen.getByRole("region", { name: "Selected universes" });
-    const universes = [
+    const studies = [
       ["PKP Web", "/work/pkp-web"],
-      ["PKP Field", "/work/pkp-field"],
       ["Glid", "/work/glid"],
-      ["Blimp Autonomy", "/work/blimp-autonomy"],
-      ["Drone Delivery", "/work/drone-delivery"],
-      ["Freedom CTF", "/work/freedom-ctf"],
-      ["Silicon / MIPS", "/work/silicon-mips"],
-      ["Motor Dynamics", "/work/motor-dynamics"],
-      ["Avionics", "/work/avionics"],
-      ["Ground Control", "/work/ground-control"],
-      ["Perception", "/work/perception"],
-      ["Radio Mesh", "/work/radio-mesh"],
-      ["Power Systems", "/work/power-systems"],
-      ["Mission Planner", "/work/mission-planner"],
-      ["Endlls Atlas", "/work/endlls-atlas"],
+      ["Aster House", "/work/aster-house"],
+      ["Kinfield Editions", "/work/kinfield-editions"],
+      ["Nocturne Radio", "/work/nocturne-radio"],
+      ["Common Ground", "/work/common-ground"],
     ] as const;
 
-    expect(within(showcase).getAllByRole("link", { name: /Work|Knowledge/ })).toHaveLength(15);
-    for (const [title, href] of universes) {
+    expect(within(showcase).getAllByRole("link")).toHaveLength(studies.length);
+    for (const [title, href] of studies) {
       expect(within(showcase).getByRole("link", { name: new RegExp(title) })).toHaveAttribute(
         "href",
         href,
