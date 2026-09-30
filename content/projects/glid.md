@@ -9,11 +9,14 @@ services:
   - Brand identity
   - Campaign
 summary: Endlls Studios built Glid from the ground up—codebase, app design, website, marketing, social, and posters—for session-first sports matchmaking that leads with place, time, and skill before messaging.
-cover: /images/universes/glid.jpg
-coverAlt: White sailplane photographed on a pale airfield in early light
+cover: /images/projects/glid/cover.webp
+coverAlt: Glid screen for browsing nearby events, with competitive and casual play
 featured: true
-order: 6
+order: 2
 color: "#7a8a9a"
+gallery:
+  - /images/projects/glid/home-matches-explore.webp
+  - /images/projects/glid/hero-join.webp
 credits:
   - Product & engineering — Endlls Studios
   - App design — Endlls Studios
@@ -32,6 +35,12 @@ Instead of opening on profiles and chats, Glid leads with place, time, and skill
 ## App design and codebase
 
 The iOS client is SwiftUI with a glassmorphic language across Home, Matches, and Explore, including hero join, event detail, and map / live activity views. Under the glass: native Swift and SwiftUI on a Rust `shared_core`, with Apple and Google authentication and MapKit for location-aware sessions.
+
+![Glid screen for browsing nearby events, with competitive and casual play](/images/projects/glid/cover.webp)
+
+![Glid home with matches and explore](/images/projects/glid/home-matches-explore.webp)
+
+![Glid hero join screen](/images/projects/glid/hero-join.webp)
 
 > Place. Time. Skill. Then talk.
 

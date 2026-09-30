@@ -8,7 +8,11 @@ describe("shared site shell", () => {
     render(<SiteHeader />);
 
     const brand = screen.getByRole("link", { name: "Endlls Studio home" });
-    expect(within(brand).getByText("endlls")).toBeInTheDocument();
+    expect(within(brand).getByRole("img", { name: "Endlls" })).toHaveAttribute(
+      "src",
+      "/brand/logo.svg",
+    );
+    expect(within(brand).queryByText("endlls")).not.toBeInTheDocument();
   });
 
   it("exposes_the_primary_navigation", () => {
@@ -63,12 +67,9 @@ describe("shared site shell", () => {
     expect(screen.getByRole("link", { name: "Enter" })).toHaveAttribute("href", "#selected-universes");
     const showcase = screen.getByRole("region", { name: "Selected universes" });
     const studies = [
-      ["PKP Web", "/work/pkp-web"],
+      ["PKP Tender Hearts — Creative Engagement", "/work/pkp-web"],
       ["Glid", "/work/glid"],
-      ["Aster House", "/work/aster-house"],
-      ["Kinfield Editions", "/work/kinfield-editions"],
-      ["Nocturne Radio", "/work/nocturne-radio"],
-      ["Common Ground", "/work/common-ground"],
+      ["PKP Brand", "/work/pkp-brand"],
     ] as const;
 
     expect(within(showcase).getAllByRole("link")).toHaveLength(studies.length);
