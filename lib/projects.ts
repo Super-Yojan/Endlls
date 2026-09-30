@@ -3,7 +3,7 @@ import path from "node:path";
 import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
-import type { Project, ProjectMeta } from "@/types/project";
+import type { CaseStudySlide, Project, ProjectMeta } from "@/types/project";
 
 function attribute(source: string, name: string) {
   const match = new RegExp(`\\b${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)')`, "i").exec(source);
@@ -140,6 +140,24 @@ function stringArray(
   return value as string[];
 }
 
+function slideArray(data: Record<string, unknown>, filename: string): CaseStudySlide[] {
+  const value = data.carousel;
+  if (value === undefined) return [];
+  if (!Array.isArray(value)) {
+    throw new Error(`${filename}: field 'carousel'`);
+  }
+
+  return value.map((item, index) => {
+    const record = item as Record<string, unknown> | null;
+    const src = record && typeof record.src === "string" ? record.src.trim() : "";
+    const alt = record && typeof record.alt === "string" ? record.alt.trim() : "";
+    if (!src || !alt) {
+      throw new Error(`${filename}: carousel item ${index + 1} needs src and alt`);
+    }
+    return { src, alt };
+  });
+}
+
 function parseProject(filename: string, source: string): Project {
   const { data, content } = matter(source);
   const record = data as Record<string, unknown>;
@@ -159,6 +177,7 @@ function parseProject(filename: string, source: string): Project {
     featured: requiredBoolean(record, "featured", filename),
     order: requiredNumber(record, "order", filename),
     gallery: stringArray(record, "gallery", filename),
+    carousel: slideArray(record, filename),
     credits: stringArray(record, "credits", filename),
     color: typeof record.color === "string" && record.color.trim() ? record.color : null,
     contentHtml: markdownToHtml(content),

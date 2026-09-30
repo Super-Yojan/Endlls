@@ -96,13 +96,14 @@ describe("endlls universes", () => {
     expect(project?.contentHtml).toMatch(/no launch metrics/);
     expect(project?.contentHtml).toMatch(/no view counts/);
     expect(project?.contentHtml).not.toMatch(/Enlist Studios/);
-    expect(project?.contentHtml).not.toMatch(/home-matches-explore|hero-join/);
+    expect(project?.contentHtml).not.toMatch(/home-matches-explore|hero-join|<img|<video/);
+    expect(project?.contentHtml).toMatch(/\{\{carousel\}\}/);
     expect(project?.gallery).toEqual(images.slice(1));
-    const html = project?.contentHtml ?? "";
-    const videoPositions = videos.map((video) => html.indexOf(video));
-    expect(videoPositions.every((position) => position >= 0)).toBe(true);
-    expect(videoPositions).toEqual([...videoPositions].sort((a, b) => a - b));
-    expect(html).toMatch(/<video controls playsinline preload="metadata" src="\/videos\/projects\/glid\/glid-intro-v4\.mp4"><\/video>/);
+    expect(project?.carousel?.map((slide) => slide.src)).toEqual([...videos, ...images.slice(1)]);
+    expect(project?.carousel?.[0]).toMatchObject({
+      src: "/videos/projects/glid/glid-intro-v4.mp4",
+      alt: "Product intro",
+    });
     for (const image of images) {
       expect(fs.existsSync(path.join(process.cwd(), "public", image)), image).toBe(true);
     }

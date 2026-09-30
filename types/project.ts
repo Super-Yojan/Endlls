@@ -1,3 +1,8 @@
+export interface CaseStudySlide {
+  src: string;
+  alt: string;
+}
+
 export interface ProjectMeta {
   title: string;
   slug: string;
@@ -10,6 +15,7 @@ export interface ProjectMeta {
   featured: boolean;
   order: number;
   gallery: string[];
+  carousel?: CaseStudySlide[];
   credits: string[];
   color: string | null;
 }
