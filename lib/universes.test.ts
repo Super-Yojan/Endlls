@@ -1,17 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { getProjectBySlug } from "./projects";
+import { getAllProjects, getProjectBySlug } from "./projects";
 import { heroParallaxProducts, universeProducts } from "./universes";
 
-const designSlugs = [
-  "pkp-web",
-  "glid",
-  "aster-house",
-  "kinfield-editions",
-  "nocturne-radio",
-  "common-ground",
-] as const;
+const designSlugs = ["pkp-web", "glid", "pkp-brand"] as const;
 
 const retiredSlugs = [
   "freedom-ctf",
@@ -27,11 +20,16 @@ const retiredSlugs = [
   "radio-mesh",
   "power-systems",
   "mission-planner",
+  "aster-house",
+  "kinfield-editions",
+  "nocturne-radio",
+  "common-ground",
 ] as const;
 
 describe("endlls universes", () => {
   it("publishes_only_design_studies_for_the_homepage", () => {
     expect(universeProducts.map((universe) => universe.slug)).toEqual([...designSlugs]);
+    expect(getAllProjects().map((project) => project.slug)).toEqual([...designSlugs]);
     expect(heroParallaxProducts().map((product) => product.category)).not.toContain("Knowledge");
     expect(heroParallaxProducts().every((product) => !("kind" in product))).toBe(true);
   });

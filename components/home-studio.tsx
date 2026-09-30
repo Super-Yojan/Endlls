@@ -25,8 +25,8 @@ const capabilities = [
   },
   {
     title: "Objects",
-    body: "Designed things with a point of view. Glid is the studio study in form, pace, and restraint.",
-    tags: ["Identity", "Form"],
+    body: "Interfaces people actually use. Glid is how a local game gets found, joined, and played.",
+    tags: ["Digital", "Product"],
   },
 ];
 
