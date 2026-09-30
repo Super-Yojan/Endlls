@@ -13,10 +13,10 @@ export const universeProducts: UniverseProduct[] = [
   {
     title: "PKP Tender Hearts — Creative Engagement",
     slug: "pkp-web",
-    thumbnail: "/images/universes/pkp-web.jpg",
+    thumbnail: "/images/projects/pkp/dtfest-hero.webp",
     summary:
       "Endlls as creative lead across a full PKP engagement—website rebuild, brand guidelines, flyers and posters, social video, and a documentary now entering production—while keeping the foundation’s public trail intact.",
-    coverAlt: "Laptop on a sunlit desk showing the PKP Web layout beside printed pages",
+    coverAlt: "DTFest hero on the PKP site, a wide photograph of a crowded celebration in a decorated hall",
     year: 2026,
     services: ["Brand identity", "Digital experience", "Campaign", "Film & motion"],
     order: 5,
