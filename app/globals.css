@@ -1,12 +1,39 @@
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css";
+
+@source "../components";
+@source "../app";
+@source "../lib";
+
+@theme {
+  --font-sans: var(--font-cabinet), "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-satoshi), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-cabinet), "Helvetica Neue", Arial, sans-serif;
+  --color-ink: #1d1f21;
+  --color-copper: #b87533;
+  --color-copper-deep: #7a4518;
+  --color-persimmon: #e25a2a;
+  --color-gold: #d4af37;
+  --color-sand: #f2e6c9;
+  --color-ivory: #fff6e6;
+}
+
 :root {
-  --ink: #0b0b0b;
-  --paper: #f4f0e7;
-  --bone: #e7ddce;
-  --stone: #c9b8a7;
-  --muted: #6d6963;
-  --rule: rgba(11, 11, 11, 0.22);
-  --display: "Goldman", "Arial Black", sans-serif;
-  --body: "Graphik", "Helvetica Neue", "Inter", Arial, sans-serif;
+  --ink: #171717;
+  --paper: #fcfbf9;
+  --bone: #f3f1ec;
+  --stone: #d4d4d4;
+  --muted: #525252;
+  --quiet: #737373;
+  --indigo: #4338ca;
+  --line: #e5e5e5;
+  --copper: #b87533;
+  --persimmon: #e25a2a;
+  --gold: #d4af37;
+  --sand: #f2e6c9;
+  --ivory: #fcfbf9;
+  --rule: #e5e5e5;
+  --ease-studio: cubic-bezier(0.22, 1, 0.36, 1);
   --gutter: clamp(1.25rem, 4.6vw, 4.75rem);
 }
 
@@ -17,16 +44,24 @@
 html {
   background: var(--paper);
   color: var(--ink);
+  color-scheme: light;
   scroll-behavior: smooth;
 }
 
 body {
+  --sans: var(--font-cabinet), "Helvetica Neue", Arial, sans-serif;
+  --serif: var(--font-satoshi), "Helvetica Neue", Arial, sans-serif;
+  --mono: var(--sans);
+  --display: var(--serif);
+  --body: var(--sans);
   margin: 0;
   min-width: 320px;
   background: var(--paper);
   color: var(--ink);
   font-family: var(--body);
   font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
   line-height: 1.5;
   text-rendering: optimizeLegibility;
 }
@@ -49,8 +84,8 @@ img {
 }
 
 ::selection {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--indigo);
+  color: #ffffff;
 }
 
 :focus-visible {
@@ -99,10 +134,10 @@ img {
 }
 
 .brand-name {
-  font-family: var(--display);
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
 }
 
 .desktop-navigation,
@@ -112,17 +147,12 @@ img {
   align-items: center;
 }
 
-.desktop-navigation a {
-  font-size: 0.78rem;
-  font-weight: 400;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
+.desktop-navigation a,
 .site-footer nav a {
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
@@ -183,11 +213,11 @@ img {
 .studio-statement h2,
 .inquiry-cta h2 {
   margin: 0;
-  font-family: var(--display);
-  font-weight: 700;
-  letter-spacing: -0.06em;
-  line-height: 0.87;
-  text-transform: uppercase;
+  font-family: var(--serif);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  text-transform: none;
 }
 
 .hero h1 {
@@ -201,8 +231,10 @@ img {
   padding-left: 2.5rem;
   border-left: 1px solid var(--rule);
   color: var(--muted);
-  font-size: 0.75rem;
-  letter-spacing: 0.28em;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
   line-height: 2.15;
   text-transform: uppercase;
 }
@@ -267,9 +299,10 @@ img {
 
 .eyebrow {
   margin: 0 0 1.25rem;
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
 }
 
@@ -306,7 +339,7 @@ img {
 .section-heading-row > p {
   margin: 0 0 0.75rem;
   color: var(--muted);
-  font-family: Georgia, serif;
+  font-family: var(--sans);
   font-size: 1.3rem;
   line-height: 1.4;
 }
@@ -351,7 +384,10 @@ img {
   gap: 1rem;
   align-items: center;
   margin-top: 1.1rem;
-  font-size: 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
 }
 
 .project-rule {
@@ -440,6 +476,10 @@ img {
 
 .process-preview li > span {
   color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
 }
 
 .process-preview h3 {
@@ -492,8 +532,10 @@ img {
 .footer-copyright {
   margin: 0.6rem 0 0;
   color: rgba(244, 240, 231, 0.6);
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
@@ -610,9 +652,11 @@ img {
   }
 
   .mobile-navigation a {
-    font-family: var(--display);
-    font-size: 2.2rem;
+    font-family: var(--sans);
+    font-size: 2rem;
+    font-weight: 500;
     letter-spacing: -0.03em;
+    text-transform: none;
   }
 
   .hero {
@@ -707,7 +751,7 @@ img {
 
 .about-image > p {
   margin: 0 0 2rem;
-  font-family: Georgia, serif;
+  font-family: var(--sans);
   font-size: clamp(1.4rem, 2.8vw, 2.6rem);
   line-height: 1.45;
 }
@@ -737,6 +781,10 @@ img {
 .capability-list span,
 .about-process li > span {
   color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
 }
 
 .capability-list h2,
@@ -851,9 +899,10 @@ img {
   display: block;
   margin-bottom: 0.65rem;
   color: rgba(244, 240, 231, 0.6);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
@@ -908,7 +957,7 @@ img {
   background: transparent;
   color: var(--paper);
   cursor: pointer;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 @media (max-width: 900px) {
@@ -981,12 +1030,12 @@ img {
 .case-study-header h1 {
   max-width: 78rem;
   margin: 0;
-  font-family: var(--display);
-  font-size: clamp(4rem, 9.5vw, 10.5rem);
-  font-weight: 700;
-  letter-spacing: -0.06em;
-  line-height: 0.88;
-  text-transform: uppercase;
+  font-family: var(--serif);
+  font-size: clamp(3.4rem, 7vw, 7.5rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  text-transform: none;
 }
 
 .page-intro > p:last-child {
@@ -1012,9 +1061,10 @@ img {
   background: transparent;
   color: var(--muted);
   cursor: pointer;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
@@ -1075,9 +1125,10 @@ img {
 .case-study-details dt {
   margin-bottom: 0.35rem;
   color: var(--muted);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
@@ -1105,11 +1156,12 @@ img {
 .case-study-copy h2 {
   grid-column: 1;
   margin: 0;
-  font-family: var(--display);
-  font-size: clamp(2rem, 4vw, 4rem);
-  letter-spacing: -0.05em;
-  line-height: 1;
-  text-transform: uppercase;
+  font-family: var(--sans);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  text-transform: none;
 }
 
 .case-study-copy p {
@@ -1117,7 +1169,7 @@ img {
   max-width: 42rem;
   margin: 0 0 3rem;
   color: #383532;
-  font-family: Georgia, serif;
+  font-family: var(--sans);
   font-size: clamp(1.15rem, 1.8vw, 1.45rem);
   line-height: 1.7;
 }
@@ -1133,11 +1185,12 @@ img {
 .case-study-copy blockquote p {
   max-width: 64rem;
   margin: 0;
-  font-family: var(--display);
-  font-size: clamp(2.4rem, 5.8vw, 6rem);
-  letter-spacing: -0.055em;
-  line-height: 0.98;
-  text-transform: uppercase;
+  font-family: var(--sans);
+  font-size: clamp(1.8rem, 3.4vw, 3.2rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  text-transform: none;
 }
 
 .case-study-gallery {
@@ -1160,8 +1213,10 @@ img {
 
 .credits h2 {
   margin: 0;
-  font-size: 0.8rem;
-  letter-spacing: 0.14em;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
@@ -1196,10 +1251,10 @@ img {
 
 .project-pagination span {
   color: var(--muted);
-  font-family: var(--body);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
@@ -1263,3 +1318,78 @@ img {
     border-left: 0;
   }
 }
+
+.vortex-wash {
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(184, 117, 51, 0.22), transparent 58%),
+    radial-gradient(ellipse at 62% 48%, rgba(226, 90, 42, 0.14), transparent 46%),
+    radial-gradient(ellipse at 40% 60%, rgba(212, 175, 55, 0.16), transparent 42%),
+    conic-gradient(
+      from 30deg,
+      transparent 0deg,
+      rgba(184, 117, 51, 0.16) 50deg,
+      transparent 110deg,
+      rgba(226, 90, 42, 0.12) 180deg,
+      transparent 230deg,
+      rgba(212, 175, 55, 0.18) 300deg,
+      transparent 360deg
+    );
+  animation: vortex-spin 90s linear infinite;
+  filter: blur(2px);
+  mask-image: radial-gradient(ellipse at center, black 18%, transparent 72%);
+}
+
+.vortex-spin {
+  transform-origin: 50% 50%;
+  animation-name: vortex-spin;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.vortex-spin-reverse {
+  transform-origin: 50% 50%;
+  animation-name: vortex-spin-reverse;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes vortex-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes vortex-spin-reverse {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@media (scripting: none) {
+  .hero-parallax h1,
+  .hero-parallax p,
+  .hero-parallax a {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-parallax {
+    height: auto;
+    overflow: visible;
+  }
+
+  .hero-parallax-plane,
+  .hero-parallax-card {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .hero-parallax-row {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding-inline: clamp(1.25rem, 4.6vw, 4.75rem);
+  }
+}
+

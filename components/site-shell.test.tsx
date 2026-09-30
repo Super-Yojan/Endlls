@@ -8,7 +8,7 @@ describe("shared site shell", () => {
     render(<SiteHeader />);
 
     const brand = screen.getByRole("link", { name: "Endlls Studio home" });
-    expect(within(brand).getByText("ENDLLS")).toBeInTheDocument();
+    expect(within(brand).getByText("endlls")).toBeInTheDocument();
   });
 
   it("exposes_the_primary_navigation", () => {
@@ -53,23 +53,30 @@ describe("shared site shell", () => {
     expect(container.querySelector("#mobile-navigation")).toHaveAttribute("hidden");
   });
 
-  it("renders_the_tagline_and_featured_projects_in_source_order", () => {
+  it("renders_the_editorial_universe_homepage", () => {
     render(<HomePage />);
 
-    const heroHeading = screen.getByRole("heading", { name: "Creativity Never Ends" });
-    expect(heroHeading).toBeInTheDocument();
-    const hero = heroHeading.closest("section");
-    expect(hero?.querySelectorAll("img")).toHaveLength(1);
-    expect(within(hero as HTMLElement).getByAltText("Misty mountain panorama at dawn")).toBeInTheDocument();
-    const work = screen.getByLabelText("Selected work");
-    const projectHeadings = within(work).getAllByRole("heading", { level: 3 });
-    expect(projectHeadings.map((heading) => heading.textContent)).toEqual([
-      "Aster House",
-      "Kinfield Editions",
-      "Nocturne Radio",
-    ]);
-    expect(
-      within(work).getByAltText("Warm ivory stationery for the fictional Aster House identity"),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Creativity Never Ends" })).toBeInTheDocument();
+    expect(screen.getByText(/design studio/i)).toBeInTheDocument();
+    expect(screen.queryByText("Knowledge")).not.toBeInTheDocument();
+    expect(screen.queryByText("Freedom CTF")).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Enter" })).toHaveAttribute("href", "#selected-universes");
+    const showcase = screen.getByRole("region", { name: "Selected universes" });
+    const studies = [
+      ["PKP Web", "/work/pkp-web"],
+      ["Glid", "/work/glid"],
+      ["Aster House", "/work/aster-house"],
+      ["Kinfield Editions", "/work/kinfield-editions"],
+      ["Nocturne Radio", "/work/nocturne-radio"],
+      ["Common Ground", "/work/common-ground"],
+    ] as const;
+
+    expect(within(showcase).getAllByRole("link")).toHaveLength(studies.length);
+    for (const [title, href] of studies) {
+      expect(within(showcase).getByRole("link", { name: new RegExp(title) })).toHaveAttribute(
+        "href",
+        href,
+      );
+    }
   });
 });
