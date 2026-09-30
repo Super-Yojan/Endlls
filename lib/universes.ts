@@ -175,5 +175,7 @@ export function heroParallaxProducts() {
     thumbnail: universe.thumbnail,
     kind: knowledgeSlugs.has(universe.slug) ? ("Knowledge" as const) : ("Work" as const),
     code: universe.slug.replace(/-/g, "·").toUpperCase(),
+    year: universe.year,
+    summary: universe.summary,
   }));
 }

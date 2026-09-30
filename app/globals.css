@@ -7,6 +7,7 @@
 
 @theme {
   --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --color-ink: #1d1f21;
   --color-copper: #b87533;
@@ -18,21 +19,26 @@
 }
 
 :root {
-  --ink: #1d1f21;
-  --paper: #fff6e6;
-  --bone: #f2e6c9;
-  --stone: #c9b8a7;
-  --muted: #5c564e;
+  --ink: #171717;
+  --paper: #fcfbf9;
+  --bone: #f3f1ec;
+  --stone: #d4d4d4;
+  --muted: #525252;
+  --quiet: #737373;
+  --indigo: #4338ca;
+  --line: #e5e5e5;
   --copper: #b87533;
   --persimmon: #e25a2a;
   --gold: #d4af37;
   --sand: #f2e6c9;
-  --ivory: #fff6e6;
-  --rule: rgba(29, 31, 33, 0.22);
+  --ivory: #fcfbf9;
+  --rule: #e5e5e5;
   --sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --serif: "Playfair Display", Georgia, "Times New Roman", serif;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --display: var(--sans);
+  --display: var(--serif);
   --body: var(--sans);
+  --ease-studio: cubic-bezier(0.22, 1, 0.36, 1);
   --gutter: clamp(1.25rem, 4.6vw, 4.75rem);
 }
 
@@ -54,6 +60,8 @@ body {
   color: var(--ink);
   font-family: var(--body);
   font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
   line-height: 1.5;
   text-rendering: optimizeLegibility;
 }
@@ -76,8 +84,8 @@ img {
 }
 
 ::selection {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--indigo);
+  color: #ffffff;
 }
 
 :focus-visible {
@@ -205,10 +213,10 @@ img {
 .studio-statement h2,
 .inquiry-cta h2 {
   margin: 0;
-  font-family: var(--sans);
-  font-weight: 500;
-  letter-spacing: -0.035em;
-  line-height: 0.98;
+  font-family: var(--serif);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
   text-transform: none;
 }
 
@@ -1022,11 +1030,11 @@ img {
 .case-study-header h1 {
   max-width: 78rem;
   margin: 0;
-  font-family: var(--sans);
+  font-family: var(--serif);
   font-size: clamp(3.4rem, 7vw, 7.5rem);
-  font-weight: 500;
-  letter-spacing: -0.035em;
-  line-height: 0.98;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
   text-transform: none;
 }
 
@@ -1385,49 +1393,3 @@ img {
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --muted: #f2e6c9;
-    --rule: rgba(242, 230, 201, 0.28);
-    --bone: #2a2622;
-  }
-
-  html {
-    color-scheme: dark;
-    background: #1d1f21;
-    color: #fff6e6;
-  }
-
-  body {
-    background: #1d1f21;
-    color: #fff6e6;
-  }
-
-  .brand img {
-    filter: invert(1);
-  }
-
-  .mobile-navigation,
-  .contact-page-frame .mobile-navigation,
-  .contact-page-frame .menu-toggle[aria-expanded="true"] {
-    background: #1d1f21;
-    color: #fff6e6;
-  }
-
-  .work-filters button[aria-pressed="true"] {
-    color: #fff6e6;
-  }
-
-  .case-study-copy p {
-    color: #f2e6c9;
-  }
-
-  .vortex-wash {
-    opacity: 0.9;
-  }
-
-  ::selection {
-    background: #f2e6c9;
-    color: #1d1f21;
-  }
-}

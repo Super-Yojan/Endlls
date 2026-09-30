@@ -8,7 +8,7 @@ describe("shared site shell", () => {
     render(<SiteHeader />);
 
     const brand = screen.getByRole("link", { name: "Endlls Studio home" });
-    expect(within(brand).getByText("ENDLLS")).toBeInTheDocument();
+    expect(within(brand).getByText("endlls")).toBeInTheDocument();
   });
 
   it("exposes_the_primary_navigation", () => {
@@ -53,12 +53,13 @@ describe("shared site shell", () => {
     expect(container.querySelector("#mobile-navigation")).toHaveAttribute("hidden");
   });
 
-  it("renders_the_tagline_and_universe_parallax", () => {
+  it("renders_the_editorial_universe_homepage", () => {
     render(<HomePage />);
 
     expect(screen.getByRole("heading", { name: "Creativity Never Ends" })).toBeInTheDocument();
     expect(screen.getByText(/engineering multiverse/i)).toBeInTheDocument();
-    const showcase = screen.getByRole("region", { name: "Endlls universes" });
+    expect(screen.getByRole("link", { name: "Enter" })).toHaveAttribute("href", "#selected-universes");
+    const showcase = screen.getByRole("region", { name: "Selected universes" });
     const universes = [
       ["PKP Web", "/work/pkp-web"],
       ["PKP Field", "/work/pkp-field"],
