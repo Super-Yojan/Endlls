@@ -279,6 +279,8 @@ body.menu-open {
 .reveal-char {
   display: inline-block;
   overflow: hidden;
+  padding: 0.08em 0 0.24em;
+  margin: -0.08em 0 -0.24em;
   vertical-align: bottom;
 }
 
@@ -607,7 +609,7 @@ body.menu-open {
   display: grid;
   grid-template-columns: minmax(16rem, 0.7fr) 1.3fr;
   gap: clamp(2rem, 6vw, 6rem);
-  padding: clamp(4rem, 9vw, 8rem) var(--gutter);
+  padding: clamp(4rem, 9vw, 8rem) var(--gutter) calc(clamp(4rem, 9vw, 8rem) + var(--footer-overlap));
   border-top: 1px solid var(--line);
 }
 
@@ -698,7 +700,9 @@ body.menu-open {
 
 .studio-footer {
   position: relative;
+  z-index: 1;
   overflow: hidden;
+  margin-top: calc(var(--footer-overlap) * -1);
   padding: clamp(4rem, 8vw, 7rem) var(--gutter) 0;
   border-radius: 5rem 5rem 0 0;
   background:
@@ -715,7 +719,7 @@ body.menu-open {
   font-style: normal;
   font-weight: 400;
   letter-spacing: -0.04em;
-  line-height: 0.88;
+  line-height: 1.05;
 }
 
 .studio-footer-grid {
@@ -758,7 +762,7 @@ body.menu-open {
 
 @keyframes letter-rise {
   from {
-    transform: translateY(100%);
+    transform: translateY(140%);
   }
   to {
     transform: translateY(0);
@@ -865,6 +869,10 @@ body.menu-open {
 
   .studio-plus {
     margin-right: 3.2rem;
+  }
+
+  :root {
+    --footer-overlap: 2.5rem;
   }
 
   .studio-footer {
