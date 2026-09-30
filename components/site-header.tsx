@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { KeyboardEvent, useEffect, useRef, useState } from "react";
 
@@ -52,7 +53,7 @@ export function SiteHeader() {
     <>
     <header className="studio-header">
       <Link className="studio-wordmark" href="/" aria-label="Endlls Studio home">
-        endlls
+        <Image src="/brand/logo.svg" alt="Endlls" width={373} height={238} priority />
       </Link>
       <nav className="studio-nav" aria-label="Primary">
         {links.map((link) => (

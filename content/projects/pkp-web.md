@@ -12,9 +12,12 @@ summary: Endlls as creative lead across a full PKP engagement—website rebuild,
 cover: /images/projects/pkp/dtfest-hero.webp
 coverAlt: DTFest hero on the PKP site, a wide photograph of a crowded celebration in a decorated hall
 featured: true
-order: 5
+order: 1
 color: "#f43adb"
 gallery:
+  - /images/projects/pkp-web/cover.webp
+  - /images/projects/pkp-web/home.webp
+  - /images/projects/pkp-web/events.webp
   - /images/projects/pkp/candlelight.jpg
   - /images/projects/pkp/instagram-candlelight.jpg
   - /images/projects/pkp/blood-drive-2026.jpg
@@ -41,6 +44,12 @@ PKP Tender Hearts Foundation serves Nepalese-American communities through cultur
 The previous web presence lived on Squarespace and Square. We rebuilt on React 19, Vite, and Firebase Hosting, Firestore, and Functions, preserving all 31 previously indexed flat URLs. Public pages ship as prerendered static HTML for SEO. Staging runs at thfva-org.web.app; domain cutover to thfva.org has not completed, so Squarespace remains live on the production domain.
 
 The experience spans Home, Projects, Events with registration, Donate, Volunteer, Team, Vision, Community Resources, News, a Nepal flood appeal, and a lazy-loaded `/admin` built with Radix Themes. Seed content includes 25 projects, 11 team members, and 2 events. Event registrations write to Firestore with check-in support and xlsx export.
+
+![PKP Tender Hearts homepage with an International Wellness Day feature and a donate link](/images/projects/pkp-web/cover.webp)
+
+![PKP Tender Hearts homepage](/images/projects/pkp-web/home.webp)
+
+![PKP Tender Hearts events page](/images/projects/pkp-web/events.webp)
 
 > Move forward without losing the trail behind you.
 
@@ -92,4 +101,4 @@ A short documentary (planned in the 3–5 minute range) is about to start produc
 
 ## Honest status
 
-Staging for the site rebuild is thfva-org.web.app. Squarespace remains on thfva.org until domain cutover. The images in this study are the real flyer and poster files, one event photograph, and DTFest page frames. Brand guidelines and the social and documentary streams are part of the same engagement. Documentary production is commencing, not yet delivered.
+Staging for the site rebuild is thfva-org.web.app. Squarespace remains on thfva.org until domain cutover. The images in this study are the real flyer and poster files, the public site screens, one event photograph, and DTFest page frames. Brand guidelines and the social and documentary streams are part of the same engagement. Documentary production is commencing, not yet delivered.

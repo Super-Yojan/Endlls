@@ -1,17 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { getProjectBySlug } from "./projects";
+import { getAllProjects, getProjectBySlug } from "./projects";
 import { heroParallaxProducts, universeProducts } from "./universes";
 
-const designSlugs = [
-  "pkp-web",
-  "glid",
-  "aster-house",
-  "kinfield-editions",
-  "nocturne-radio",
-  "common-ground",
-] as const;
+const designSlugs = ["pkp-web", "glid", "pkp-brand"] as const;
 
 const retiredSlugs = [
   "freedom-ctf",
@@ -27,11 +20,16 @@ const retiredSlugs = [
   "radio-mesh",
   "power-systems",
   "mission-planner",
+  "aster-house",
+  "kinfield-editions",
+  "nocturne-radio",
+  "common-ground",
 ] as const;
 
 describe("endlls universes", () => {
   it("publishes_only_design_studies_for_the_homepage", () => {
     expect(universeProducts.map((universe) => universe.slug)).toEqual([...designSlugs]);
+    expect(getAllProjects().map((project) => project.slug)).toEqual([...designSlugs]);
     expect(heroParallaxProducts().map((product) => product.category)).not.toContain("Knowledge");
     expect(heroParallaxProducts().every((product) => !("kind" in product))).toBe(true);
   });
@@ -60,6 +58,9 @@ describe("endlls universes", () => {
   it("shows_the_real_pkp_posters_and_dtfest_frames", () => {
     const project = getProjectBySlug("pkp-web");
     const images = [
+      "/images/projects/pkp-web/cover.webp",
+      "/images/projects/pkp-web/home.webp",
+      "/images/projects/pkp-web/events.webp",
       "/images/projects/pkp/dtfest-hero.webp",
       "/images/projects/pkp/candlelight.jpg",
       "/images/projects/pkp/instagram-candlelight.jpg",
@@ -74,6 +75,9 @@ describe("endlls universes", () => {
 
     expect(project?.cover).toBe("/images/projects/pkp/dtfest-hero.webp");
     expect(project?.gallery).toEqual([
+      "/images/projects/pkp-web/cover.webp",
+      "/images/projects/pkp-web/home.webp",
+      "/images/projects/pkp-web/events.webp",
       "/images/projects/pkp/candlelight.jpg",
       "/images/projects/pkp/instagram-candlelight.jpg",
       "/images/projects/pkp/blood-drive-2026.jpg",
