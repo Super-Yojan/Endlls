@@ -4,10 +4,10 @@ import "./globals.css";
 import "./studio.css";
 import { StudioCursor } from "@/components/studio-cursor";
 
-const clashDisplay = localFont({
-  src: "../fonts/ClashDisplay-Variable.woff2",
-  variable: "--font-clash",
-  weight: "200 700",
+const satoshi = localFont({
+  src: "../fonts/Satoshi-Variable.woff2",
+  variable: "--font-satoshi",
+  weight: "300 900",
   display: "swap",
 });
 
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${clashDisplay.variable} ${cabinetGrotesk.variable}`}>
+      <body className={`${satoshi.variable} ${cabinetGrotesk.variable}`}>
         <StudioCursor />
         {children}
       </body>

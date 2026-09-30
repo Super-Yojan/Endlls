@@ -7,7 +7,7 @@
 
 @theme {
   --font-sans: var(--font-cabinet), "Helvetica Neue", Arial, sans-serif;
-  --font-serif: var(--font-clash), "Arial Narrow", sans-serif;
+  --font-serif: var(--font-satoshi), "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-cabinet), "Helvetica Neue", Arial, sans-serif;
   --color-ink: #1d1f21;
   --color-copper: #b87533;
@@ -50,7 +50,7 @@ html {
 
 body {
   --sans: var(--font-cabinet), "Helvetica Neue", Arial, sans-serif;
-  --serif: var(--font-clash), "Arial Narrow", sans-serif;
+  --serif: var(--font-satoshi), "Helvetica Neue", Arial, sans-serif;
   --mono: var(--sans);
   --display: var(--serif);
   --body: var(--sans);
@@ -214,7 +214,7 @@ img {
 .inquiry-cta h2 {
   margin: 0;
   font-family: var(--serif);
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: -0.03em;
   line-height: 0.9;
   text-transform: none;
@@ -957,7 +957,7 @@ img {
   background: transparent;
   color: var(--paper);
   cursor: pointer;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 @media (max-width: 900px) {
@@ -1032,7 +1032,7 @@ img {
   margin: 0;
   font-family: var(--serif);
   font-size: clamp(3.4rem, 7vw, 7.5rem);
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: -0.03em;
   line-height: 0.9;
   text-transform: none;
