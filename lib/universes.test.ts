@@ -58,8 +58,22 @@ describe("endlls universes", () => {
     const project = getProjectBySlug("glid");
     const images = [
       "/images/projects/glid/cover.webp",
-      "/images/projects/glid/home-matches-explore.webp",
-      "/images/projects/glid/hero-join.webp",
+      "/images/projects/glid/app-home.webp",
+      "/images/projects/glid/app-matches.webp",
+      "/images/projects/glid/app-explore.webp",
+      "/images/projects/glid/app-event.webp",
+      "/images/projects/glid/mockup-home.webp",
+      "/images/projects/glid/mockup-screen1.webp",
+      "/images/projects/glid/website-home.webp",
+      "/images/projects/glid/website-hero.webp",
+      "/images/projects/glid/flyer-tennis.webp",
+      "/images/projects/glid/og-image.webp",
+    ];
+    const videos = [
+      "/videos/projects/glid/glid-intro-v4.mp4",
+      "/videos/projects/glid/glid-intro-reels.mp4",
+      "/videos/projects/glid/glid-court-availability.mp4",
+      "/videos/projects/glid/glid-messaging.mp4",
     ];
 
     expect(glid).toMatchObject({
@@ -76,16 +90,28 @@ describe("endlls universes", () => {
       "Website — Endlls Studios",
       "Marketing, social & posters — Endlls Studios",
     ]);
+    expect(project?.cover).toBe("/images/projects/glid/cover.webp");
+    expect(project?.coverAlt).toMatch(/Find Your Next Game/);
     expect(project?.contentHtml).toMatch(/currently paused/);
     expect(project?.contentHtml).toMatch(/no launch metrics/);
+    expect(project?.contentHtml).toMatch(/no view counts/);
     expect(project?.contentHtml).not.toMatch(/Enlist Studios/);
-    expect(project?.gallery).toEqual([
-      "/images/projects/glid/home-matches-explore.webp",
-      "/images/projects/glid/hero-join.webp",
-    ]);
+    expect(project?.contentHtml).not.toMatch(/home-matches-explore|hero-join|<img|<video/);
+    expect(project?.contentHtml).toMatch(/\{\{carousel\}\}/);
+    expect(project?.gallery).toEqual(images.slice(1));
+    expect(project?.carousel?.map((slide) => slide.src)).toEqual([...videos, ...images.slice(1)]);
+    expect(project?.carousel?.[0]).toMatchObject({
+      src: "/videos/projects/glid/glid-intro-v4.mp4",
+      alt: "Product intro",
+    });
     for (const image of images) {
       expect(fs.existsSync(path.join(process.cwd(), "public", image)), image).toBe(true);
     }
+    for (const video of videos) {
+      expect(fs.existsSync(path.join(process.cwd(), "public", video)), video).toBe(true);
+    }
+    expect(fs.existsSync(path.join(process.cwd(), "public/images/projects/glid/home-matches-explore.webp"))).toBe(false);
+    expect(fs.existsSync(path.join(process.cwd(), "public/images/projects/glid/hero-join.webp"))).toBe(false);
   });
 
   it("shows_the_real_pkp_posters_and_dtfest_frames", () => {
