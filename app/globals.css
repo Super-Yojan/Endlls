@@ -748,7 +748,7 @@ img {
 
 .about-image-art {
   min-height: clamp(28rem, 62vw, 52rem);
-  background-image: url("/images/projects/common-ground/cover.png");
+  background-image: url("/images/projects/pkp-brand/blood-drive.webp");
   background-position: center;
   background-size: cover;
 }

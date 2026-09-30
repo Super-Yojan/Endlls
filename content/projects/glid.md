@@ -2,15 +2,18 @@
 title: Glid
 slug: glid
 year: 2025
-client: Endlls
+client: Glid
 services:
-  - Brand identity
+  - Digital
   - Art direction
-summary: Identity and art direction for Glid — a quiet vehicle, drawn with restraint.
-cover: /images/universes/glid.jpg
-coverAlt: White sailplane photographed on a pale airfield in early light
+summary: A product for finding a game nearby — matches, explore, and a way to join.
+cover: /images/projects/glid/cover.webp
+coverAlt: Glid screen for browsing nearby events, with competitive and casual play
 featured: true
-order: 6
+order: 2
+gallery:
+  - /images/projects/glid/home-matches-explore.webp
+  - /images/projects/glid/hero-join.webp
 credits:
   - Creative direction — Endlls Studio
   - Art direction — Endlls Studio
@@ -18,8 +21,6 @@ credits:
 
 ## Glid
 
-Identity and art direction for Glid — a quiet vehicle, drawn with restraint.
-
-Endlls is a design studio for identity, digital experiences, and campaigns. This plate holds the form, the pace, and the name.
+Glid is a way to find a game nearby. Matches and explore sit on one surface, and the join screen is the step that gets someone into the room.
 
 > Creativity never ends. The piece is one room of a larger studio.
