@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     template: "%s — Endlls Studio",
   },
   description:
-    "Endlls is an independent creative studio shaping identities, digital experiences, and campaigns.",
+    "Endlls Creative Studio — creativity never ends. An engineering multiverse of flight, field systems, silicon, and stories.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

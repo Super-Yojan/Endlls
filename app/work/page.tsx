@@ -7,7 +7,8 @@ import { WorkFilter } from "./work-filter";
 
 export const metadata: Metadata = {
   title: "Work",
-  description: "Selected identity, digital, campaign, and creative direction work by Endlls Studio.",
+  description:
+    "Universes from Endlls Creative Studio — flight, field systems, silicon, identities, and campaigns.",
 };
 
 export default function WorkPage() {
@@ -22,8 +23,8 @@ export default function WorkPage() {
             <p className="eyebrow">Portfolio</p>
             <h1>Work without limits.</h1>
             <p>
-              Brand identities, digital experiences, and campaigns made for ideas with somewhere
-              meaningful to go.
+              Universes from the studio — flight, field systems, silicon, and the identities and
+              campaigns beside them.
             </p>
           </header>
           <WorkFilter projects={projects} />

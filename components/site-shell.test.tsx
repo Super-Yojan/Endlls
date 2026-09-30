@@ -53,23 +53,36 @@ describe("shared site shell", () => {
     expect(container.querySelector("#mobile-navigation")).toHaveAttribute("hidden");
   });
 
-  it("renders_the_tagline_and_featured_projects_in_source_order", () => {
+  it("renders_the_tagline_and_universe_parallax", () => {
     render(<HomePage />);
 
-    const heroHeading = screen.getByRole("heading", { name: "Creativity Never Ends" });
-    expect(heroHeading).toBeInTheDocument();
-    const hero = heroHeading.closest("section");
-    expect(hero?.querySelectorAll("img")).toHaveLength(1);
-    expect(within(hero as HTMLElement).getByAltText("Misty mountain panorama at dawn")).toBeInTheDocument();
-    const work = screen.getByLabelText("Selected work");
-    const projectHeadings = within(work).getAllByRole("heading", { level: 3 });
-    expect(projectHeadings.map((heading) => heading.textContent)).toEqual([
-      "Aster House",
-      "Kinfield Editions",
-      "Nocturne Radio",
-    ]);
-    expect(
-      within(work).getByAltText("Warm ivory stationery for the fictional Aster House identity"),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Creativity Never Ends" })).toBeInTheDocument();
+    expect(screen.getByText(/engineering multiverse/i)).toBeInTheDocument();
+    const showcase = screen.getByRole("region", { name: "Endlls universes" });
+    const universes = [
+      ["PKP Web", "/work/pkp-web"],
+      ["PKP Field", "/work/pkp-field"],
+      ["Glid", "/work/glid"],
+      ["Blimp Autonomy", "/work/blimp-autonomy"],
+      ["Drone Delivery", "/work/drone-delivery"],
+      ["Freedom CTF", "/work/freedom-ctf"],
+      ["Silicon / MIPS", "/work/silicon-mips"],
+      ["Motor Dynamics", "/work/motor-dynamics"],
+      ["Avionics", "/work/avionics"],
+      ["Ground Control", "/work/ground-control"],
+      ["Perception", "/work/perception"],
+      ["Radio Mesh", "/work/radio-mesh"],
+      ["Power Systems", "/work/power-systems"],
+      ["Mission Planner", "/work/mission-planner"],
+      ["Endlls Atlas", "/work/endlls-atlas"],
+    ] as const;
+
+    expect(within(showcase).getAllByRole("link", { name: /Universe/ })).toHaveLength(15);
+    for (const [title, href] of universes) {
+      expect(within(showcase).getByRole("link", { name: new RegExp(title) })).toHaveAttribute(
+        "href",
+        href,
+      );
+    }
   });
 });

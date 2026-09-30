@@ -1,10 +1,32 @@
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css";
+
+@source "../components";
+@source "../app";
+@source "../lib";
+
+@theme {
+  --color-ink: #1d1f21;
+  --color-copper: #b87533;
+  --color-copper-deep: #7a4518;
+  --color-persimmon: #e25a2a;
+  --color-gold: #d4af37;
+  --color-sand: #f2e6c9;
+  --color-ivory: #fff6e6;
+}
+
 :root {
-  --ink: #0b0b0b;
-  --paper: #f4f0e7;
-  --bone: #e7ddce;
+  --ink: #1d1f21;
+  --paper: #fff6e6;
+  --bone: #f2e6c9;
   --stone: #c9b8a7;
-  --muted: #6d6963;
-  --rule: rgba(11, 11, 11, 0.22);
+  --muted: #5c564e;
+  --copper: #b87533;
+  --persimmon: #e25a2a;
+  --gold: #d4af37;
+  --sand: #f2e6c9;
+  --ivory: #fff6e6;
+  --rule: rgba(29, 31, 33, 0.22);
   --display: "Goldman", "Arial Black", sans-serif;
   --body: "Graphik", "Helvetica Neue", "Inter", Arial, sans-serif;
   --gutter: clamp(1.25rem, 4.6vw, 4.75rem);
@@ -17,6 +39,7 @@
 html {
   background: var(--paper);
   color: var(--ink);
+  color-scheme: light;
   scroll-behavior: smooth;
 }
 
@@ -1261,5 +1284,126 @@ img {
   .project-pagination a + a {
     border-top: 1px solid var(--rule);
     border-left: 0;
+  }
+}
+
+.vortex-wash {
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(184, 117, 51, 0.22), transparent 58%),
+    radial-gradient(ellipse at 62% 48%, rgba(226, 90, 42, 0.14), transparent 46%),
+    radial-gradient(ellipse at 40% 60%, rgba(212, 175, 55, 0.16), transparent 42%),
+    conic-gradient(
+      from 30deg,
+      transparent 0deg,
+      rgba(184, 117, 51, 0.16) 50deg,
+      transparent 110deg,
+      rgba(226, 90, 42, 0.12) 180deg,
+      transparent 230deg,
+      rgba(212, 175, 55, 0.18) 300deg,
+      transparent 360deg
+    );
+  animation: vortex-spin 90s linear infinite;
+  filter: blur(2px);
+  mask-image: radial-gradient(ellipse at center, black 18%, transparent 72%);
+}
+
+.vortex-spin {
+  transform-origin: 50% 50%;
+  animation-name: vortex-spin;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.vortex-spin-reverse {
+  transform-origin: 50% 50%;
+  animation-name: vortex-spin-reverse;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes vortex-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes vortex-spin-reverse {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@media (scripting: none) {
+  .hero-parallax h1,
+  .hero-parallax p,
+  .hero-parallax a {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-parallax {
+    height: auto;
+    overflow: visible;
+  }
+
+  .hero-parallax-plane,
+  .hero-parallax-card {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .hero-parallax-row {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding-inline: clamp(1.25rem, 4.6vw, 4.75rem);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --muted: #f2e6c9;
+    --rule: rgba(242, 230, 201, 0.28);
+    --bone: #2a2622;
+  }
+
+  html {
+    color-scheme: dark;
+    background: #1d1f21;
+    color: #fff6e6;
+  }
+
+  body {
+    background: #1d1f21;
+    color: #fff6e6;
+  }
+
+  .brand img {
+    filter: invert(1);
+  }
+
+  .mobile-navigation,
+  .contact-page-frame .mobile-navigation,
+  .contact-page-frame .menu-toggle[aria-expanded="true"] {
+    background: #1d1f21;
+    color: #fff6e6;
+  }
+
+  .work-filters button[aria-pressed="true"] {
+    color: #fff6e6;
+  }
+
+  .case-study-copy p {
+    color: #f2e6c9;
+  }
+
+  .vortex-wash {
+    opacity: 0.9;
+  }
+
+  ::selection {
+    background: #f2e6c9;
+    color: #1d1f21;
   }
 }

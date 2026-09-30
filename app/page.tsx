@@ -1,74 +1,19 @@
-import Image from "next/image";
 import Link from "next/link";
+import { HeroParallax } from "@/components/ui/hero-parallax";
 import { InquiryCta } from "@/components/inquiry-cta";
-import { ProjectCard } from "@/components/project-card";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { getAllProjects } from "@/lib/projects";
+import { heroParallaxProducts } from "@/lib/universes";
 
 export default function HomePage() {
-  const featuredProjects = getAllProjects().filter((project) => project.featured);
-
   return (
     <>
       <div className="page-frame">
         <SiteHeader />
-        <main>
-          <section className="hero" aria-labelledby="hero-heading">
-            <div className="hero-heading-wrap">
-              <h1 id="hero-heading">
-                Creativity
-                <br />
-                Never Ends
-              </h1>
-              <p className="hero-manifesto" aria-hidden="true">
-                Ideas
-                <br />
-                Stories
-                <br />
-                Impact
-                <br />
-                Beyond
-              </p>
-              
-            </div>
-            <div className="hero-support">
-              <p>
-                Independent creative studio shaping identities, digital experiences, and campaigns.
-              </p>
-              <Link className="text-link hero-cta" href="/contact">
-                Start a project <span aria-hidden="true" />
-              </Link>
-            </div>
-            <div className="hero-image">
-              <Image
-                src="/images/hero/mountains.png"
-                alt="Misty mountain panorama at dawn"
-                fill
-                sizes="100vw"
-                priority
-              />
-            </div>
-          </section>
-
-          <section className="selected-work" aria-label="Selected work">
-            <div className="section-heading-row">
-              <div>
-                <p className="eyebrow">Our work</p>
-                <h2>Selected Work</h2>
-              </div>
-              <p>Ideas without limits. Real places. Real stories. Endless possibilities.</p>
-            </div>
-            <div className="project-grid">
-              {featuredProjects.map((project, index) => (
-                <ProjectCard key={project.slug} project={project} index={index} />
-              ))}
-            </div>
-            <Link className="text-link work-link" href="/work">
-              View all work <span aria-hidden="true" />
-            </Link>
-          </section>
-
+      </div>
+      <main>
+        <HeroParallax products={heroParallaxProducts()} />
+        <div className="page-frame">
           <section className="studio-statement">
             <p className="eyebrow light">Endlls Studio</p>
             <div className="statement-grid">
@@ -117,8 +62,8 @@ export default function HomePage() {
               </ol>
             </div>
           </section>
-        </main>
-      </div>
+        </div>
+      </main>
       <InquiryCta />
       <SiteFooter />
     </>
