@@ -1,25 +1,44 @@
 ---
 title: Glid
 slug: glid
-year: 2025
-client: Endlls
+year: 2026
+client: Glid
 services:
+  - Product engineering
+  - Digital experience
   - Brand identity
-  - Art direction
-summary: Identity and art direction for Glid — a quiet vehicle, drawn with restraint.
+  - Campaign
+summary: Endlls Studios built Glid from the ground up—codebase, app design, website, marketing, social, and posters—for session-first sports matchmaking that leads with place, time, and skill before messaging.
 cover: /images/universes/glid.jpg
 coverAlt: White sailplane photographed on a pale airfield in early light
 featured: true
 order: 6
+color: "#7a8a9a"
 credits:
-  - Creative direction — Endlls Studio
-  - Art direction — Endlls Studio
+  - Product & engineering — Endlls Studios
+  - App design — Endlls Studios
+  - Website — Endlls Studios
+  - Marketing, social & posters — Endlls Studios
 ---
 
-## Glid
+## Built from the ground up by Endlls Studios
 
-Identity and art direction for Glid — a quiet vehicle, drawn with restraint.
+Glid is a session-first sports matchmaking product. Endlls Studios owned the full build: the codebase, the app design, the website, the marketing, social media, and posters. This is studio product work end to end—not a partial exploration layered onto someone else’s stack.
 
-Endlls is a design studio for identity, digital experiences, and campaigns. This plate holds the form, the pace, and the name.
+## Match on the session, not the profile
 
-> Creativity never ends. The piece is one room of a larger studio.
+Instead of opening on profiles and chats, Glid leads with place, time, and skill so people connect around an actual session before they message. That product thesis shaped every surface Endlls designed and shipped for the brand.
+
+## App design and codebase
+
+The iOS client is SwiftUI with a glassmorphic language across Home, Matches, and Explore, including hero join, event detail, and map / live activity views. Under the glass: native Swift and SwiftUI on a Rust `shared_core`, with Apple and Google authentication and MapKit for location-aware sessions.
+
+> Place. Time. Skill. Then talk.
+
+## Website, marketing, social, and posters
+
+Endlls Studios also designed and built the Glid website and the go-to-market layer—marketing narrative, social media presence, and posters—so product UI and public brand share one creative system.
+
+## Honest status
+
+The project is currently paused. There are no launch metrics to report. Portfolio framing stays on craft and ownership of the full system, not growth claims.

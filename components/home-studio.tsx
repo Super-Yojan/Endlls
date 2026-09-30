@@ -24,9 +24,9 @@ const capabilities = [
     tags: ["Campaign", "Art direction"],
   },
   {
-    title: "Objects",
-    body: "Designed things with a point of view. Glid is the studio study in form, pace, and restraint.",
-    tags: ["Identity", "Form"],
+    title: "Product",
+    body: "Endlls Studios built Glid from the ground up: codebase, app design, website, marketing, social, and posters. The project is paused, with no launch metrics.",
+    tags: ["Product", "Digital"],
   },
 ];
 

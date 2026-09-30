@@ -24,10 +24,11 @@ export const universeProducts: UniverseProduct[] = [
     title: "Glid",
     slug: "glid",
     thumbnail: "/images/universes/glid.jpg",
-    summary: "Identity and art direction for Glid — a quiet vehicle, drawn with restraint.",
+    summary:
+      "Endlls Studios built Glid from the ground up—codebase, app design, website, marketing, social, and posters—for session-first sports matchmaking that leads with place, time, and skill before messaging.",
     coverAlt: "White sailplane photographed on a pale airfield in early light",
-    year: 2025,
-    services: ["Brand identity", "Art direction"],
+    year: 2026,
+    services: ["Product engineering", "Digital experience", "Brand identity", "Campaign"],
     order: 6,
   },
   {
