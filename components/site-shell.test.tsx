@@ -64,12 +64,14 @@ describe("shared site shell", () => {
     const work = screen.getByLabelText("Selected work");
     const projectHeadings = within(work).getAllByRole("heading", { level: 3 });
     expect(projectHeadings.map((heading) => heading.textContent)).toEqual([
-      "Aster House",
-      "Kinfield Editions",
-      "Nocturne Radio",
+      "PKP Website Overhaul",
+      "PKP Brand Guidelines & Event Flyers",
+      "Glid",
     ]);
     expect(
-      within(work).getByAltText("Warm ivory stationery for the fictional Aster House identity"),
+      within(work).getByAltText(
+        "PKP Tender Hearts Foundation website homepage on a dark magenta and maroon brand field",
+      ),
     ).toBeInTheDocument();
   });
 });

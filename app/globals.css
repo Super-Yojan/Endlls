@@ -700,7 +700,7 @@ img {
 
 .about-image-art {
   min-height: clamp(28rem, 62vw, 52rem);
-  background-image: url("/images/projects/common-ground/cover.png");
+  background-image: url("/images/projects/pkp-brand/cover.webp");
   background-position: center;
   background-size: cover;
 }
@@ -1088,8 +1088,7 @@ img {
   background: var(--bone);
 }
 
-.case-study-hero img,
-.case-gallery-image img {
+.case-study-hero img {
   object-fit: cover;
 }
 
@@ -1112,7 +1111,8 @@ img {
   text-transform: uppercase;
 }
 
-.case-study-copy p {
+.case-study-copy p,
+.case-study-copy ul {
   grid-column: 2;
   max-width: 42rem;
   margin: 0 0 3rem;
@@ -1120,6 +1120,14 @@ img {
   font-family: Georgia, serif;
   font-size: clamp(1.15rem, 1.8vw, 1.45rem);
   line-height: 1.7;
+}
+
+.case-study-copy ul {
+  padding-left: 1.15rem;
+}
+
+.case-study-copy li + li {
+  margin-top: 0.85rem;
 }
 
 .case-study-copy blockquote {
@@ -1144,11 +1152,19 @@ img {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
+  align-items: start;
 }
 
 .case-gallery-image {
   position: relative;
-  aspect-ratio: 4 / 3;
+  background: var(--bone);
+}
+
+.case-gallery-image img {
+  position: relative !important;
+  display: block;
+  width: 100% !important;
+  height: auto !important;
 }
 
 .credits {
@@ -1237,12 +1253,17 @@ img {
     min-height: 30rem;
   }
 
+  .case-study-gallery {
+    grid-template-columns: 1fr;
+  }
+
   .case-study-copy {
     gap: 1.25rem;
   }
 
   .case-study-copy h2,
-  .case-study-copy p {
+  .case-study-copy p,
+  .case-study-copy ul {
     grid-column: 1;
   }
 

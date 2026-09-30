@@ -1,6 +1,6 @@
 # Endlls Portfolio Content Guide
 
-The first-version projects are fictional placeholders. Replace their names, claims, copy, credits, and images before presenting them as real client work.
+Published case studies describe real work. Do not invent metrics, quotes, or outcomes. When a project changes, replace its copy, credits, and images together.
 
 ## Add or replace a project
 

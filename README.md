@@ -21,7 +21,7 @@ The deployable static site is written to `out/`.
 
 ## Content
 
-See [docs/content-guide.md](docs/content-guide.md) for instructions on creating projects and replacing the fictional first-version content.
+See [docs/content-guide.md](docs/content-guide.md) for instructions on creating and updating projects.
 
 ## Fonts
 
