@@ -13,9 +13,9 @@ export const universeProducts: UniverseProduct[] = [
   {
     title: "PKP Web",
     slug: "pkp-web",
-    thumbnail: "/images/universes/pkp-web.png",
+    thumbnail: "/images/universes/pkp-web.jpg",
     summary: "The public site for PKP, set in editorial type and paced for a careful first read.",
-    coverAlt: "Ivory and copper abstract plate for PKP Web",
+    coverAlt: "Laptop on a sunlit desk showing the PKP Web layout beside printed pages",
     year: 2026,
     services: ["Digital", "Art direction"],
     order: 5,
@@ -23,9 +23,9 @@ export const universeProducts: UniverseProduct[] = [
   {
     title: "Glid",
     slug: "glid",
-    thumbnail: "/images/universes/glid.png",
+    thumbnail: "/images/universes/glid.jpg",
     summary: "Identity and art direction for Glid — a quiet vehicle, drawn with restraint.",
-    coverAlt: "Gold arc abstract plate for Glid",
+    coverAlt: "White sailplane photographed on a pale airfield in early light",
     year: 2025,
     services: ["Brand identity", "Art direction"],
     order: 6,

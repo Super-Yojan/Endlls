@@ -7,8 +7,8 @@ services:
   - Digital
   - Art direction
 summary: The public site for PKP, set in editorial type and paced for a careful first read.
-cover: /images/universes/pkp-web.png
-coverAlt: Ivory and copper abstract plate for PKP Web
+cover: /images/universes/pkp-web.jpg
+coverAlt: Laptop on a sunlit desk showing the PKP Web layout beside printed pages
 featured: true
 order: 5
 credits:

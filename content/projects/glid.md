@@ -7,8 +7,8 @@ services:
   - Brand identity
   - Art direction
 summary: Identity and art direction for Glid — a quiet vehicle, drawn with restraint.
-cover: /images/universes/glid.png
-coverAlt: Gold arc abstract plate for Glid
+cover: /images/universes/glid.jpg
+coverAlt: White sailplane photographed on a pale airfield in early light
 featured: true
 order: 6
 credits:
