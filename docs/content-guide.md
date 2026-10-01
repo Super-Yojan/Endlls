@@ -30,7 +30,11 @@ The first-version projects are fictional placeholders. Replace their names, clai
 
 ## Case-study writing
 
-Everything below the closing `---` is Markdown. Use level-two headings (`##`), short paragraphs, and block quotes (`>`) for the large statement treatment. Avoid level-one headings because the page already uses the project title as its primary heading.
+Everything below the closing `---` is Markdown. Use level-two headings (`##`) for one idea per band, short paragraphs, and a single block quote (`>`) for the inverted statement. Avoid level-one headings because the page already uses the project title as its primary heading.
+
+The case-study template is a scroll story: huge title, one sentence, a full-bleed hero when the cover is landscape, a quiet client / services / year strip, then alternating cream and bone bands. A block quote becomes the one ink panel. Images in a band are grouped only when their aspect ratios match. Portrait phones stay with portrait phones. Landscape stills stay with landscape stills. Mixed pairs are stacked instead.
+
+A local `<video src="/videos/...mp4">` is rendered as a player. Add `class="case-motion-wide"` only when the file itself is landscape.
 
 ## Images
 

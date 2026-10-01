@@ -24,10 +24,10 @@ export const universeProducts: UniverseProduct[] = [
   {
     title: "Glid",
     slug: "glid",
-    thumbnail: "/images/projects/glid/cover.webp",
+    thumbnail: "/images/projects/glid/intro-v4-hero.webp",
     summary:
-      "Endlls Studios built Glid from the ground up—codebase, app design, website, marketing, social, and posters—for session-first sports matchmaking that leads with place, time, and skill before messaging.",
-    coverAlt: "Glid screen for browsing nearby events, with competitive and casual play",
+      "Endlls Studios built Glid from the ground up — session-first sports matchmaking that leads with place, time, and skill before messaging.",
+    coverAlt: "Close-up of hands holding an orange basketball against a blue sky, a landscape still from the Glid intro film",
     year: 2026,
     services: ["Product engineering", "Digital experience", "Brand identity", "Campaign"],
     order: 2,
