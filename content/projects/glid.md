@@ -10,7 +10,7 @@ services:
   - Campaign
 summary: Endlls Studios built Glid from the ground up — session-first sports matchmaking that leads with place, time, and skill before messaging.
 cover: /images/projects/glid/intro-v4-hero.webp
-coverAlt: Close-up of hands holding an orange basketball against a blue sky, a landscape still from the Glid intro film
+coverAlt: A person holds a phone showing tennis, with a Glid notification that someone nearby is looking for a player
 featured: true
 order: 2
 color: "#7a8a9a"
@@ -22,6 +22,7 @@ gallery:
   - /images/projects/glid/app-home.webp
   - /images/projects/glid/app-explore.webp
   - /images/projects/glid/app-event.webp
+  - /images/projects/glid/mockup-screen2.webp
   - /images/projects/glid/website-home.webp
   - /images/projects/glid/website-hero.webp
   - /images/projects/glid/flyer-tennis.webp
@@ -45,7 +46,7 @@ Instead of opening on profiles and chats, Glid leads with place, time, and skill
 
 ## App design and codebase
 
-The iOS client is SwiftUI with a glassmorphic language across Home, Matches, and Explore, including event detail and map views. Under the glass: native Swift and SwiftUI on a Rust `shared_core`, with Apple and Google authentication and MapKit for location-aware sessions.
+The iOS client is SwiftUI with a glassmorphic language across Home, Matches, and Explore, including event detail and map views. Under the glass: native Swift and SwiftUI on a Rust `shared_core`, with Apple and Google authentication and MapKit for location-aware sessions. The same system reaches the wrist, with a Glid watch face for heart rate during play.
 
 ![Glid home screen for a basketball session on Defender Drive in Chantilly](/images/projects/glid/app-home.webp)
 
@@ -53,11 +54,13 @@ The iOS client is SwiftUI with a glassmorphic language across Home, Matches, and
 
 ![Glid event detail for Saturday tennis at a neighborhood park](/images/projects/glid/app-event.webp)
 
+![Glid watch face showing a heart rate of 57 beside the line Monitor your heart rate](/images/projects/glid/mockup-screen2.webp)
+
 ## Films and stills
 
 Endlls Studios cut the motion for Glid. The product intro is a landscape film. Portrait cuts for a short reel, court availability, and messaging follow it in the same system. The project is paused, so these are the studio films. There are no view counts to report.
 
-![A soccer ball resting on the grass, a still from the Glid intro](/images/projects/glid/intro-v4-mid.webp)
+![Landscape still from the Glid intro, bright across the top of the frame](/images/projects/glid/intro-v4-mid.webp)
 
 ![An empty outdoor basketball court in warm light, a still from the Glid intro](/images/projects/glid/intro-v4-court.webp)
 
@@ -81,7 +84,7 @@ Endlls Studios also designed and built the Glid website and the go-to-market lay
 
 ![Glid tennis poster with the line Join Glid to find games near you](/images/projects/glid/flyer-tennis.webp)
 
-![Glid social card, a wide frame with two phones and the line Find your next game](/images/projects/glid/og-image.webp)
+![Black Glid title card reading Stop Planning, Just Play](/images/projects/glid/og-image.webp)
 
 ## Status · Project paused
 

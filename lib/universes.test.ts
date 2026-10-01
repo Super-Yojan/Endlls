@@ -67,6 +67,7 @@ describe("endlls universes", () => {
       "/images/projects/glid/app-home.webp",
       "/images/projects/glid/app-explore.webp",
       "/images/projects/glid/app-event.webp",
+      "/images/projects/glid/mockup-screen2.webp",
       "/images/projects/glid/website-home.webp",
       "/images/projects/glid/website-hero.webp",
       "/images/projects/glid/flyer-tennis.webp",
