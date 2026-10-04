@@ -100,6 +100,40 @@ Body.
     });
   });
 
+  it("keeps_local_video_players_and_strips_other_raw_html", () => {
+    const directory = projectDirectory({
+      "motion.md": `---
+title: Motion
+slug: motion
+year: 2026
+client: Studio
+services:
+  - Film & motion
+summary: A motion study.
+cover: /cover.png
+featured: false
+order: 4
+---
+
+<script>alert(1)</script>
+
+<video src="https://evil.example/steal.mp4" onerror="alert(1)"></video>
+
+<video class="case-motion-wide" controls playsinline preload="metadata" src="/videos/projects/glid/glid-intro-v4.mp4" title="Product intro"></video>
+
+<video src="/videos/projects/glid/glid-intro-reels.mp4" title="Short <reel>"></video>
+`,
+    });
+
+    const html = readProjectsFromDirectory(directory)[0]?.contentHtml ?? "";
+    expect(html).not.toMatch(/script|onerror|evil\.example/i);
+    expect(html).toContain(
+      '<figure class="case-motion case-motion-wide"><video controls playsinline preload="metadata" src="/videos/projects/glid/glid-intro-v4.mp4"></video><figcaption>Product intro</figcaption></figure>',
+    );
+    expect(html.indexOf("glid-intro-v4.mp4")).toBeLessThan(html.indexOf("glid-intro-reels.mp4"));
+    expect(html).toContain("<figcaption>Short &lt;reel&gt;</figcaption>");
+  });
+
   it("returns_null_for_unknown_slug", () => {
     expect(getProjectBySlug("not-a-real-project")).toBeNull();
     expect(getAllProjects().every((project) => project.slug !== "not-a-real-project")).toBe(true);

@@ -5,6 +5,89 @@ import { remark } from "remark";
 import html from "remark-html";
 import type { Project, ProjectMeta } from "@/types/project";
 
+function attribute(source: string, name: string) {
+  const match = new RegExp(`\\b${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)')`, "i").exec(source);
+  return (match?.[1] ?? match?.[2] ?? "").trim();
+}
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function safeVideoSrc(src: string) {
+  return /^\/videos\/[a-z0-9][a-z0-9/_-]*\.mp4$/.test(src);
+}
+
+function renderCaseStudyVideo(attrs: string) {
+  const src = attribute(attrs, "src");
+  if (!safeVideoSrc(src)) return "";
+
+  const wide = attribute(attrs, "class").split(/\s+/).includes("case-motion-wide");
+  const caption = attribute(attrs, "title").trim().slice(0, 140);
+  const figureClass = wide ? "case-motion case-motion-wide" : "case-motion";
+  const captionHtml = caption ? `<figcaption>${escapeHtml(caption)}</figcaption>` : "";
+
+  return `<figure class="${figureClass}"><video controls playsinline preload="metadata" src="${src}"></video>${captionHtml}</figure>`;
+}
+
+function readVideoTag(content: string, start: number) {
+  let quote = "";
+  for (let index = start + "<video".length; index < content.length; index += 1) {
+    const char = content[index];
+    if (quote) {
+      if (char === quote) quote = "";
+      continue;
+    }
+    if (char === '"' || char === "'") {
+      quote = char;
+      continue;
+    }
+    if (char !== ">") continue;
+
+    const selfClosing = content[index - 1] === "/";
+    const attrs = content.slice(start + "<video".length, selfClosing ? index - 1 : index);
+    let end = index + 1;
+    if (!selfClosing) {
+      const closing = /^\s*<\/video>/i.exec(content.slice(end));
+      if (closing) end += closing[0].length;
+    }
+    return { attrs, end };
+  }
+  return null;
+}
+
+// remark-html's sanitizer drops raw <video>. Rebuild an allowlisted player from local mp4 sources.
+function markdownToHtml(content: string) {
+  const videos: string[] = [];
+  let withTokens = "";
+  let cursor = 0;
+  const opener = /<video\b/gi;
+  for (let match = opener.exec(content); match; match = opener.exec(content)) {
+    const tag = readVideoTag(content, match.index);
+    if (!tag) break;
+    withTokens += content.slice(cursor, match.index);
+    const player = renderCaseStudyVideo(tag.attrs);
+    if (player) {
+      const token = `ENDLLSVIDEO${videos.length}TOKEN`;
+      videos.push(player);
+      withTokens += `\n\n${token}\n\n`;
+    }
+    cursor = tag.end;
+    opener.lastIndex = tag.end;
+  }
+  withTokens += content.slice(cursor);
+
+  let rendered = String(remark().use(html).processSync(withTokens));
+  for (const [index, player] of videos.entries()) {
+    rendered = rendered.replace(`<p>ENDLLSVIDEO${index}TOKEN</p>`, player);
+  }
+  return rendered;
+}
+
 const projectDirectory = path.join(process.cwd(), "content/projects");
 const requiredStringFields = [
   "title",
@@ -78,7 +161,7 @@ function parseProject(filename: string, source: string): Project {
     gallery: stringArray(record, "gallery", filename),
     credits: stringArray(record, "credits", filename),
     color: typeof record.color === "string" && record.color.trim() ? record.color : null,
-    contentHtml: String(remark().use(html).processSync(content)),
+    contentHtml: markdownToHtml(content),
   };
 }
 
