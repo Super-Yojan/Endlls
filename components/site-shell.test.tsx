@@ -10,7 +10,7 @@ describe("shared site shell", () => {
     const brand = screen.getByRole("link", { name: "Endlls Studio home" });
     expect(within(brand).getByRole("img", { name: "Endlls" })).toHaveAttribute(
       "src",
-      "/brand/logo.svg",
+      "/brand/wordmark.svg",
     );
     expect(within(brand).queryByText("endlls")).not.toBeInTheDocument();
   });
