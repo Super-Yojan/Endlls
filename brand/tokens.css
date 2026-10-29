@@ -1,0 +1,76 @@
+/* Endlls design tokens — generated from brand/tokens.json. Mono family loads from Google Fonts (IBM Plex Mono). */
+:root, [data-theme="light"] {
+  --paper: #fcfbf9;
+  --bone: #f3f1ec;
+  --sand: #f2e6c9;
+  --line: #e5e5e5;
+  --line-strong: #878480;
+  --ink: #171717;
+  --ink-muted: #525252;
+  --ink-quiet: #737373;
+  --copper: #b87533;
+  --copper-text: #7a4518;
+  --on-copper: #171717;
+  --indigo: #4338ca;
+  --on-indigo: #fcfbf9;
+  --persimmon: #e25a2a;
+  --persimmon-text: #c2410c;
+  --on-persimmon: #171717;
+  --available: #16803c;
+  --focus: var(--indigo);
+  --shadow-none: none;
+  --glow-indigo: 0 22px 48px rgba(67, 56, 202, 0.16);
+}
+[data-theme="dark"] {
+  --paper: #0b0b0b;
+  --bone: #161514;
+  --sand: #2a2218;
+  --line: #2a2826;
+  --line-strong: #6b6762;
+  --ink: #f4f0e7;
+  --ink-muted: #a8a29a;
+  --ink-quiet: #8a847c;
+  --copper: #c98a4b;
+  --copper-text: #d79a5e;
+  --on-copper: #0b0b0b;
+  --indigo: #9a9cff;
+  --on-indigo: #0b0b0b;
+  --persimmon: #ff7a45;
+  --persimmon-text: #ff7a45;
+  --on-persimmon: #0b0b0b;
+  --available: #4ade80;
+  --focus: var(--indigo);
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
+  --radius-none: 0px;
+  --radius-md: 20px;
+  --radius-lg: 40px;
+  --radius-section: 80px;
+  --radius-pill: 999px;
+  --font-display: "Cabinet Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-body: Satoshi, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+.display-xl { font-family: var(--font-display); font-size: 160px; line-height: 0.9; font-weight: 800; letter-spacing: -0.045em; }
+.display-l { font-family: var(--font-display); font-size: 80px; line-height: 0.95; font-weight: 800; letter-spacing: -0.04em; }
+.heading-1 { font-family: var(--font-display); font-size: 48px; line-height: 1.05; font-weight: 700; letter-spacing: -0.03em; }
+.heading-2 { font-family: var(--font-display); font-size: 32px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em; }
+.heading-3 { font-family: var(--font-display); font-size: 22px; line-height: 1.25; font-weight: 700; letter-spacing: -0.01em; }
+.lead { font-family: var(--font-body); font-size: 20px; line-height: 1.5; font-weight: 500; letter-spacing: -0.01em; }
+.body { font-family: var(--font-body); font-size: 16px; line-height: 1.6; font-weight: 400; letter-spacing: -0.005em; }
+.small { font-family: var(--font-body); font-size: 14px; line-height: 1.45; font-weight: 500; letter-spacing: 0em; }
+.button { font-family: var(--font-body); font-size: 15px; line-height: 1; font-weight: 700; letter-spacing: -0.005em; }
+.label { font-family: var(--font-mono); font-size: 12px; line-height: 1.35; font-weight: 500; letter-spacing: 0.14em; }
+.spec { font-family: var(--font-mono); font-size: 13px; line-height: 1.55; font-weight: 400; letter-spacing: 0em; }
+@font-face { font-family: "Cabinet Grotesk"; src: url("../fonts/CabinetGrotesk-Variable.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("../fonts/Satoshi-Variable.woff2") format("woff2"); font-weight: 300 900; font-style: normal; font-display: swap; }
