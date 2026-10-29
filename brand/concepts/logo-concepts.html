@@ -13,8 +13,10 @@
   .k { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-muted); }
   .pick { color: var(--copper-text); }
   .word { font-family: var(--font-display); font-weight: 800; font-size: 92px; letter-spacing: -0.05em; line-height: 1; display: inline-flex; align-items: baseline; }
-  .word svg { height: .74em; width: auto; margin: 0 .02em 0 .03em; overflow: visible; }
-  .loop { fill: none; stroke: var(--copper); }
+  .word svg { height: .74em; width: auto; margin: 0 -.005em; overflow: visible; }
+  .ring { fill: none; stroke: var(--copper); stroke-width: 7; }
+  .stem { fill: currentColor; }
+  .ring-ink { fill: none; stroke: var(--paper); stroke-width: 7; }
   .open { fill: none; stroke: currentColor; stroke-width: 18; stroke-linecap: butt; }
   .ls rect { fill: currentColor; }
   .tile { fill: var(--copper); }
@@ -27,12 +29,12 @@
 
   <section class="c">
     <div class="stage">
-      <div class="small"><div class="word" aria-label="endlls">end<svg viewBox="0 0 38 80" aria-hidden="true"><rect class="loop" x="7.5" y="7.5" width="23" height="72.5" rx="11.5" stroke-width="15"/></svg>s</div><svg width="40" height="40" viewBox="0 0 132 132" aria-hidden="true"><rect class="tile" width="132" height="132" rx="28"/><rect x="48" y="26" width="36" height="80" rx="18" fill="none" stroke-width="14" style="stroke:var(--on-copper)"/></svg></div>
+      <div class="small"><div class="word" aria-label="endlls">end<svg viewBox="0 0 60 80" aria-hidden="true"><g transform="rotate(-14 30 46)"><path class="ring" d="M4 46 A26 9.5 0 0 1 56 46"/></g><rect class="stem" x="14" y="0" width="13.5" height="80"/><rect class="stem" x="33" y="0" width="13.5" height="80"/><g transform="rotate(-14 30 46)"><path class="ring" d="M56 46 A26 9.5 0 0 1 4 46"/></g></svg>s</div><svg width="40" height="40" viewBox="0 0 132 132" aria-hidden="true"><rect class="tile" width="132" height="132" rx="28"/><g transform="translate(36 26)"><g transform="rotate(-14 30 46)"><path class="ring-ink" d="M4 46 A26 9.5 0 0 1 56 46"/></g><rect class="tile-ink" x="14" y="0" width="13.5" height="80"/><rect class="tile-ink" x="33" y="0" width="13.5" height="80"/><g transform="rotate(-14 30 46)"><path class="ring-ink" d="M56 46 A26 9.5 0 0 1 4 46"/></g></g></svg></div>
     </div>
     <div class="txt">
-      <span class="k pick">A · Loop wordmark · Recommended</span>
-      <h3>The double L is the loop</h3>
-      <p>The two l's join top and bottom into one closed loop, set in copper. The odd spelling becomes the logo, so nobody reads it as a typo. The loop alone becomes the favicon (right). Every other letter stays plain Cabinet Grotesk.</p>
+      <span class="k pick">A · Tied wordmark · Recommended</span>
+      <h3>A loop tied around the double L</h3>
+      <p>The two l's stay plain, so the name reads as endlls and not "end-OS". A copper ring wraps them, passing behind one and in front of the other. It points at the deliberate spelling. The tied pair alone, on copper, becomes the favicon (right).</p>
     </div>
   </section>
 
