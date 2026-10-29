@@ -65,9 +65,9 @@ body.menu-open {
 
 .studio-wordmark img {
   width: auto;
-  height: 44px;
+  height: 30px;
   max-width: none;
-  /* The mark file is black. Header ink is white so difference-blend inverts it. */
+  /* The wordmark file is dark. Header ink is white so difference-blend inverts it. */
   filter: brightness(0) invert(1);
 }
 

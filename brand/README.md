@@ -1,6 +1,6 @@
 # Endlls brand and design system
 
-Tokens: `tokens.json` (source) and `tokens.css` (CSS custom properties and type classes). Logos: `logos/`. Mark redraw options: `concepts/logo-concepts.html`.
+Tokens: `tokens.json` (source) and `tokens.css` (CSS custom properties and type classes). Logos: `logos/` (the `endlls-mark-*` files are the retired ribbon mark). The logo directions that were considered: `concepts/logo-concepts.html`.
 
 Endlls Studio makes the brand, the film, the event and the product behind it, as one team. We work for people starting something: startups, small businesses, YouTube creators and college clubs. Half the studio is culture (events, marketing, film, music). The other half is systems (software, computer engineering, robotics, mechanical). The name says the rest: Endlls is "end less", spelled on purpose so you stop and read it twice.
 
@@ -49,12 +49,15 @@ Buttons say exactly what happens: "Start a project", "See work", "Book a 20-minu
 
 ## Logo
 
-The current mark is the calligraphic infinity (`assets/Logos`). It is open for a redraw; four directions are on the **Logo concepts** page. Until one is picked:
+The logo is the **tied wordmark**: "endlls" in lowercase Cabinet Grotesk 800, with a copper ring looped around the double L, passing behind the first l and in front of the second. The two l's stay plain so the name reads correctly, and the ring is the "less" in "end less", the loop that keeps going. Files are in `assets/Logos`.
 
-- Use `endlls-mark-ink.svg` on `paper` and `bone`, `endlls-mark-paper.svg` on `ink` and photography, `endlls-mark-copper.svg` only at 48px tall or larger.
-- The lockup is the mark plus ENDLLS in Cabinet Grotesk 600, tracked 0.18em, at 0.32× the mark height (the `Logo` component builds it).
-- Clear space on every side: half the mark's height. Minimum size: 24px tall on screen, 10mm in print.
-- Don't stretch it, outline it, add effects, set it in `indigo` or `persimmon`, or put it on a busy part of a photo.
+- `endlls-wordmark-ink.svg` on `paper`, `bone` and `sand`. `endlls-wordmark-paper.svg` on `ink`, Night surfaces and dark photography.
+- `endlls-wordmark-mono-ink.svg` and `endlls-wordmark-mono-paper.svg` (ring in the letter colour) for one-colour jobs: embroidery, laser etching, stamps and blend-mode headers.
+- `endlls-icon-copper.svg` is the app and social avatar icon: the tied pair on a copper tile. `endlls-icon-night.svg` is the same on Night. `endlls-favicon.svg` has a heavier ring for 16 to 32px.
+- Always set the logo in lowercase. In sentences the name stays "Endlls".
+- Clear space on every side: the height of the "e". Minimum width: 72px on screen, 20mm in print. Below that, use the icon.
+- The ring is always copper (or the letter colour in mono). Don't recolour it indigo or persimmon, don't untie it, and don't redraw the letters in another font.
+- The old ribbon infinity mark is retired. Keep it out of new work.
 
 ## Colour
 
