@@ -49,14 +49,15 @@ Buttons say exactly what happens: "Start a project", "See work", "Book a 20-minu
 
 ## Logo
 
-The logo is the **tied wordmark**: "endlls" in lowercase Cabinet Grotesk 800, with a copper ring looped around the double L, passing behind the first l and in front of the second. The two l's stay plain so the name reads correctly, and the ring is the "less" in "end less", the loop that keeps going. Files are in `assets/Logos`.
+The logo is the **tied wordmark**: "endlls" in lowercase Cabinet Grotesk 800, with a copper orbit ring around the double L. The ring passes behind the l's at the top and in front at the bottom, and it is wider than the pair so it reads as an orbit. The l's are the real glyphs, the same height as the d. The two l's stay plain so the name reads correctly, and the ring is the "less" in "end less", the loop that keeps going. Files are in `assets/Logos`.
 
 - `endlls-wordmark-ink.svg` on `paper`, `bone` and `sand`. `endlls-wordmark-paper.svg` on `ink`, Night surfaces and dark photography.
 - `endlls-wordmark-mono-ink.svg` and `endlls-wordmark-mono-paper.svg` (ring in the letter colour) for one-colour jobs: embroidery, laser etching, stamps and blend-mode headers.
-- `endlls-icon-copper.svg` is the app and social avatar icon: the tied pair on a copper tile. `endlls-icon-night.svg` is the same on Night. `endlls-favicon.svg` has a heavier ring for 16 to 32px.
+- Below 32px tall, use `endlls-wordmark-small-ink.svg` or `endlls-wordmark-small-paper.svg`. They have a heavier, wider ring that survives at small sizes.
+- `endlls-icon-night.svg` is the primary app and avatar icon: paper l's with a copper orbit on an ink tile. `endlls-icon-copper.svg` is the alternate, with ink l's and an ink ring on a copper tile. `endlls-favicon.svg` has the heaviest ring, for 16 to 32px. The orbit is always wider than the pair, so the icon never reads as a pause button.
 - Always set the logo in lowercase. In sentences the name stays "Endlls".
 - Clear space on every side: the height of the "e". Minimum width: 72px on screen, 20mm in print. Below that, use the icon.
-- The ring is always copper (or the letter colour in mono). Don't recolour it indigo or persimmon, don't untie it, and don't redraw the letters in another font.
+- The ring is always copper, or matches the letters in mono and on the copper tile. Don't recolour it indigo or persimmon, don't untie it, and don't redraw the letters in another font.
 - The old ribbon infinity mark is retired. Keep it out of new work.
 
 ## Colour

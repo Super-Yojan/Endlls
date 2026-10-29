@@ -53,7 +53,7 @@ export function SiteHeader() {
     <>
     <header className="studio-header">
       <Link className="studio-wordmark" href="/" aria-label="Endlls Studio home">
-        <Image src="/brand/wordmark.svg" alt="Endlls" width={2611} height={860} priority />
+        <Image src="/brand/wordmark.svg" alt="Endlls" width={2574} height={790} priority />
       </Link>
       <nav className="studio-nav" aria-label="Primary">
         {links.map((link) => (
