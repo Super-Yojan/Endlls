@@ -1,36 +1,25 @@
 import type { Metadata } from "next";
-import { InquiryCta } from "@/components/inquiry-cta";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
+import { SitePage } from "@/components/site-chrome";
 import { getAllProjects } from "@/lib/projects";
 import { WorkFilter } from "./work-filter";
 
 export const metadata: Metadata = {
   title: "Work",
-  description:
-    "Identity, digital, and campaign work from Endlls Studio.",
+  description: "Brand, film, event, website and app work from Endlls Studio.",
 };
 
 export default function WorkPage() {
   const projects = getAllProjects();
 
   return (
-    <>
-      <div className="page-frame">
-        <SiteHeader />
-        <main className="work-page">
-          <header className="page-intro work-intro">
-            <p className="eyebrow">Portfolio</p>
-            <h1>Work without limits.</h1>
-            <p>
-              Identity, digital, and campaign work from the studio.
-            </p>
-          </header>
-          <WorkFilter projects={projects} />
-        </main>
-      </div>
-      <InquiryCta />
-      <SiteFooter />
-    </>
+    <SitePage current="work">
+      <section className="screen page-head work" id="work" data-c="#c49890" aria-labelledby="work-title">
+        <h1 id="work-title" className="big fit">The work</h1>
+        <p className="lead intro-lead">
+          Culture and systems projects from the studio. Pick one to see how it was made <span aria-hidden="true">↘</span>
+        </p>
+        <WorkFilter projects={projects} />
+      </section>
+    </SitePage>
   );
 }

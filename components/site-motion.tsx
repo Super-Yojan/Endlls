@@ -2,17 +2,17 @@
 
 import { useEffect } from "react";
 
-// Drives the home page: the nav takes the colour of the screen under it, each screen
+// Drives every page: the nav takes the colour of the screen under it, each screen
 // arrives tilted and straightens as it lands, headings span the full width, and the
 // email can be copied.
-export function HomeMotion() {
+export function SiteMotion() {
   useEffect(() => {
     const page = document.querySelector<HTMLElement>(".fa");
     if (!page) return;
     const reduce =
       typeof window.matchMedia !== "function" || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const screens = Array.from(page.querySelectorAll<HTMLElement>(".screen"));
-    const links = Array.from(page.querySelectorAll<HTMLAnchorElement>("header nav a"));
+    const links = Array.from(page.querySelectorAll<HTMLAnchorElement>("header nav a[data-s]"));
     const fits = Array.from(page.querySelectorAll<HTMLElement>(".fit"));
     screens.forEach((s, i) => (s.style.zIndex = String(i + 1)));
 

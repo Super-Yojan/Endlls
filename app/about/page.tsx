@@ -1,78 +1,38 @@
+import type { CSSProperties } from "react";
 import type { Metadata } from "next";
-import { InquiryCta } from "@/components/inquiry-cta";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
+import { AudienceScreen, ProcessScreen, ServicesScreen, SitePage } from "@/components/site-chrome";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Meet Endlls Studio and the thinking behind our brand, digital, and campaign work.",
+  description: "Endlls is one studio for culture and systems: brand, film and events, and the websites, apps and hardware behind them.",
 };
 
 export default function AboutPage() {
   return (
-    <>
-      <div className="page-frame">
-        <SiteHeader />
-        <main className="about-page">
-          <header className="page-intro about-intro">
-            <p className="eyebrow">About Endlls</p>
-            <h1>A small studio for ambitious ideas.</h1>
-            <p>
-              We help forward-thinking people find the clearest, most memorable expression of what
-              they are building.
+    <SitePage current="about">
+      <section className="screen page-head" id="about" data-c="#c49890" style={{ "--c": "#c49890" } as CSSProperties} aria-labelledby="about-title">
+        <h1 id="about-title" className="big fit">About Endlls</h1>
+        <div className="grid">
+          <div className="col">
+            <p className="lead">
+              A small studio for ambitious ideas. We make brands, films and events, and we build the websites, apps and
+              hardware behind them <span aria-hidden="true">↘</span>
             </p>
-          </header>
-          <section className="about-image" aria-label="Studio philosophy">
-            <div className="about-image-art" />
-            <p>
-              Endlls is built on a simple belief: creativity is not a finish line. It is a way of
-              looking closer, asking better questions, and finding possibility where others stop.
+          </div>
+          <div className="col">
+            <p className="lead">
+              The name is <span className="wipe">endless</span>, spelled our way.
             </p>
-          </section>
-          <section className="about-capabilities">
-            <p className="eyebrow">Capabilities</p>
-            <div className="capability-list">
-              <article>
-                <span>01</span>
-                <h2>Brand</h2>
-                <p>Strategy, positioning, identity systems, verbal direction, and launch.</p>
-              </article>
-              <article>
-                <span>02</span>
-                <h2>Digital</h2>
-                <p>Websites, products, editorial platforms, and thoughtful interactive systems.</p>
-              </article>
-              <article>
-                <span>03</span>
-                <h2>Campaign</h2>
-                <p>Concepts, art direction, motion language, and ideas made to travel.</p>
-              </article>
-            </div>
-          </section>
-          <section className="about-process">
-            <p className="eyebrow light">Our process</p>
-            <ol>
-              <li>
-                <span>01</span>
-                <h2>Discover</h2>
-                <p>We listen, research, and uncover the question underneath the brief.</p>
-              </li>
-              <li>
-                <span>02</span>
-                <h2>Shape</h2>
-                <p>We turn insight into a strong creative direction and a system with range.</p>
-              </li>
-              <li>
-                <span>03</span>
-                <h2>Deliver</h2>
-                <p>We make it real with precision, then set it up to keep moving without us.</p>
-              </li>
-            </ol>
-          </section>
-        </main>
-      </div>
-      <InquiryCta />
-      <SiteFooter />
-    </>
+            <p className="dim" style={{ fontSize: 18, maxWidth: "40ch" }}>
+              Creativity is not a finish line. It is a way of looking closer, asking better questions and finding
+              possibility where others stop.
+            </p>
+          </div>
+        </div>
+      </section>
+      <ServicesScreen id="halves" title="Two halves" />
+      <AudienceScreen />
+      <ProcessScreen />
+    </SitePage>
   );
 }

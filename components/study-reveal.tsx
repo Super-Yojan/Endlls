@@ -1,13 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
 export function StudyBand({
   className,
+  color,
   labelledBy,
   children,
 }: {
   className: string;
+  color: string;
   labelledBy?: string;
   children: ReactNode;
 }) {
@@ -35,6 +37,8 @@ export function StudyBand({
     <section
       ref={ref}
       className={`${className} study-reveal${shown ? " is-in" : ""}`}
+      data-c={color}
+      style={{ "--c": color } as CSSProperties}
       aria-labelledby={labelledBy}
     >
       {children}
