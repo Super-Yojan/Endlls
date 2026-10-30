@@ -1,7 +1,11 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import HomePage from "@/app/page";
 import { SiteHeader } from "./site-header";
+
+vi.mock("next/font/google", () => ({ Anton: () => ({ variable: "font-anton" }) }));
+// The motion layer measures layout, which jsdom cannot do.
+vi.mock("@/components/home-motion", () => ({ HomeMotion: () => null }));
 
 describe("shared site shell", () => {
   it("pairs_the_compact_symbol_with_the_studio_name", () => {
@@ -57,27 +61,24 @@ describe("shared site shell", () => {
     expect(container.querySelector("#mobile-navigation")).toHaveAttribute("hidden");
   });
 
-  it("renders_the_editorial_universe_homepage", () => {
+  it("renders_the_studio_homepage", () => {
     render(<HomePage />);
 
-    expect(screen.getByRole("heading", { name: "Creativity Never Ends" })).toBeInTheDocument();
-    expect(screen.getByText(/design studio/i)).toBeInTheDocument();
-    expect(screen.queryByText("Knowledge")).not.toBeInTheDocument();
-    expect(screen.queryByText("Freedom CTF")).not.toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Enter" })).toHaveAttribute("href", "#selected-universes");
-    const showcase = screen.getByRole("region", { name: "Selected universes" });
-    const studies = [
-      ["PKP Tender Hearts — Creative Engagement", "/work/pkp-web"],
-      ["Glid", "/work/glid"],
-      ["PKP Brand", "/work/pkp-brand"],
-    ] as const;
-
-    expect(within(showcase).getAllByRole("link")).toHaveLength(studies.length);
-    for (const [title, href] of studies) {
-      expect(within(showcase).getByRole("link", { name: new RegExp(title) })).toHaveAttribute(
-        "href",
-        href,
-      );
+    expect(screen.getByRole("heading", { level: 1, name: "Feel premium" })).toBeInTheDocument();
+    const navigation = screen.getByRole("navigation", { name: "Primary" });
+    for (const [name, href] of [
+      ["Work", "#work"],
+      ["Services", "#services"],
+      ["Process", "#how"],
+      ["Contact", "#talk"],
+    ]) {
+      expect(within(navigation).getByRole("link", { name })).toHaveAttribute("href", href);
     }
+    expect(screen.getByRole("link", { name: "Glid" })).toHaveAttribute("href", "/work/glid");
+    expect(screen.getByRole("link", { name: "Tender Hearts" })).toHaveAttribute("href", "/work/pkp-web");
+    expect(screen.getByRole("link", { name: "hello@endlls.studio" })).toHaveAttribute(
+      "href",
+      "mailto:hello@endlls.studio",
+    );
   });
 });
