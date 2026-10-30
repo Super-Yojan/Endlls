@@ -58,16 +58,29 @@ body:has(.fa) { margin: 0; background: #000; }
 .fa .wipe::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: var(--black); clip-path: inset(0 100% 0 0); transition: clip-path .5s var(--ease) .2s; }
 .fa .in .wipe::after { clip-path: inset(0 0 0 0); }
 
-/* 1 Hero */
-.fa .opener { --c: var(--copper); min-height: 100vh; display: flex; flex-direction: column; }
-.fa .opener h1 { font-size: 15.4vw; line-height: .78; padding: clamp(32px, 4vw, 60px) var(--gr) 24px var(--gl); white-space: nowrap; color: var(--white); }
-.fa .opener .stage { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: 20px; padding: 0 var(--gr) 24px var(--gl); }
-.fa .opener .photo { position: relative; width: min(100%, 380px); justify-self: center; margin-top: -3vw; }
-.fa .opener .photo img { position: relative; z-index: 1; aspect-ratio: 4/5; object-fit: cover; width: 100%; transform: rotate(-4deg); }
+/* 1 Hero: the name fills the screen and a ring of project cards orbits through it, like the logo's ring */
+.fa .opener { --c: var(--copper); height: 100vh; height: 100svh; min-height: 560px; overflow: hidden; }
+.fa .opener .scene { position: absolute; inset: 60px 0 0; perspective: 1600px; perspective-origin: 50% 30%; transform-style: preserve-3d; }
+.fa .opener h1 { position: absolute; left: var(--gl); top: 20px; width: calc(100% - var(--gl) - var(--gr)); color: var(--white); font-size: 26vw; line-height: .88; white-space: nowrap; transform-origin: 0 0; transform: scaleY(var(--sy, 1)); }
+.fa .orbit { --cw: clamp(110px, 14vw, 210px); --ch: calc(var(--cw) * 1.38); --r: calc(var(--cw) * 1.9); position: absolute; left: 53%; top: 51%; transform-style: preserve-3d; transform: rotateX(-10deg) rotateZ(-9deg); }
+.fa .spin { transform-style: preserve-3d; animation: fa-orbit 60s linear infinite; }
+@keyframes fa-orbit { to { transform: rotateY(-360deg); } }
+.fa .band { position: absolute; left: calc(var(--r) * -1.04); top: calc(var(--r) * -1.04); width: calc(var(--r) * 2.08); height: calc(var(--r) * 2.08); border-radius: 50%; border: calc(var(--cw) * .2) solid #9c5726; transform: translateY(calc(var(--ch) * .44)) rotateX(90deg); }
+.fa .card { position: absolute; left: calc(var(--cw) / -2); top: calc(var(--ch) / -2); width: var(--cw); height: var(--ch); transform-style: preserve-3d; transform: rotateY(calc(var(--i) * 45deg)) translateZ(var(--r)); }
+.fa .card > * { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; background: var(--black); color: var(--white); }
+.fa .card .front { display: flex; flex-direction: column; padding: calc(var(--cw) * .07); gap: 6px; text-decoration: none; }
+.fa .card .front b { font-weight: 500; font-size: calc(var(--cw) * .135); line-height: 1; letter-spacing: -.03em; }
+.fa .card .front small { font-size: calc(var(--cw) * .052); color: var(--w60); line-height: 1.2; border-bottom: 1px solid var(--w30); padding-bottom: 6px; display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+.fa .card .front small i { font-style: normal; background: var(--white); color: var(--black); padding: 2px 6px; white-space: nowrap; }
+.fa .card .front small i::before { content: ""; display: inline-block; width: .7em; height: .7em; border-radius: 50%; background: var(--copper); margin-right: 4px; vertical-align: -1px; }
+.fa .card .front img { margin-top: auto; height: 50%; width: 100%; object-fit: cover; }
+.fa .card .back { transform: rotateY(180deg); display: grid; place-items: center; }
+.fa .card .back svg { width: 54%; }
+.fa .opener .lead { position: absolute; z-index: 3; left: var(--gl); bottom: calc(24px + env(safe-area-inset-bottom, 0px)); max-width: 26ch; font-size: clamp(22px, 2.3vw, 34px); line-height: 1.08; transform: translateZ(400px); }
+@media (max-width: 760px) { .fa .opener { height: auto; min-height: 0; aspect-ratio: auto; } .fa .opener .scene { position: relative; inset: auto; height: 118vw; margin-top: 0; } .fa .orbit { top: 64%; --cw: 27vw; --r: calc(var(--cw) * 1.75); } .fa .opener .lead { position: relative; left: auto; bottom: auto; padding: 4px var(--gr) 64px var(--gl); transform: none; } }
+@media (prefers-reduced-motion: reduce) { .fa .spin { animation: none; transform: rotateY(-20deg); } }
+
 .fa .loop { position: absolute; z-index: 0; overflow: visible; pointer-events: none; }
-.fa .opener .loop { left: -26%; top: -16%; width: 152%; height: 132%; }
-.fa .opener .lead { max-width: 20ch; }
-@media (max-width: 760px) { .fa .opener { min-height: 0; } .fa .opener .stage { grid-template-columns: 1fr; padding-bottom: 120px; } .fa .opener .photo { width: 70%; margin-top: 24px; } }
 
 /* 2 Intro (sage) */
 .fa .intro { --c: var(--sage); }
