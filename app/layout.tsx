@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
+import { Anton } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import "./studio.css";
-import { StudioCursor } from "@/components/studio-cursor";
+import "./site.css";
 
 const satoshi = localFont({
   src: "../fonts/Satoshi-Variable.woff2",
@@ -18,22 +18,21 @@ const cabinetGrotesk = localFont({
   display: "swap",
 });
 
+const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-anton", display: "swap" });
+
 export const metadata: Metadata = {
   title: {
-    default: "Endlls Studio — Creativity Never Ends",
+    default: "Endlls Studio — Culture and systems, one studio",
     template: "%s — Endlls Studio",
   },
   description:
-    "Endlls is a design studio for identity, digital experiences, and campaigns. Creativity never ends.",
+    "We make small brands feel premium. Brand, film, events, websites and apps, from one team.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${satoshi.variable} ${cabinetGrotesk.variable}`}>
-        <StudioCursor />
-        {children}
-      </body>
+      <body className={`${satoshi.variable} ${cabinetGrotesk.variable} ${anton.variable}`}>{children}</body>
     </html>
   );
 }

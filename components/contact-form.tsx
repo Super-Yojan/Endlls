@@ -17,7 +17,7 @@ const emptyFields: Fields = {
   name: "",
   email: "",
   company: "",
-  projectType: "Brand identity",
+  projectType: "Brand and marketing",
   budget: "",
   message: "",
 };
@@ -135,10 +135,10 @@ export function ContactForm({ onSend }: { onSend?: (href: string) => void }) {
             value={fields.projectType}
             onChange={(event) => update("projectType", event.target.value)}
           >
-            <option>Brand identity</option>
-            <option>Digital experience</option>
-            <option>Campaign</option>
-            <option>Creative direction</option>
+            <option>Brand and marketing</option>
+            <option>Film, music and events</option>
+            <option>Websites and apps</option>
+            <option>Hardware and robotics</option>
             <option>Something else</option>
           </select>
         </div>
@@ -174,7 +174,7 @@ export function ContactForm({ onSend }: { onSend?: (href: string) => void }) {
         {errors.message ? <p id="message-error" role="alert">{errors.message}</p> : null}
       </div>
       <button className="submit-button" type="submit">
-        Send inquiry <span aria-hidden="true" />
+        Send inquiry
       </button>
     </form>
   );

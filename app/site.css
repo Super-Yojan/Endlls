@@ -93,7 +93,7 @@ body:has(.fa) { margin: 0; background: #000; }
 
 /* 3 Work (rose) */
 .fa .work { --c: var(--rose); }
-.fa .work h2, .fa .svc h2, .fa .how h2, .fa .talk h2 { font-size: 15.4vw; line-height: .78; padding: 18px var(--gr) 10px var(--gl); white-space: nowrap; }
+.fa .work h2, .fa .svc h2, .fa .how h2, .fa .talk h2, .fa .talk h1 { font-size: 15.4vw; line-height: .78; padding: 18px var(--gr) 10px var(--gl); white-space: nowrap; }
 .fa .proj { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border-top: 1px solid var(--w30); }
 .fa .proj > div { padding: 18px var(--gr) 22px var(--gl); min-width: 0; display: flex; flex-direction: column; gap: 12px; }
 .fa .proj > div + div { border-left: 1px solid var(--w30); }
@@ -146,10 +146,82 @@ body:has(.fa) { margin: 0; background: #000; }
 
 @media (prefers-reduced-motion: reduce) { .fa .screen { transform: none !important; } .fa .wipe::after { transition: none; } html:has(.fa) { scroll-behavior: auto; } }
 
-/* The studio cursor belongs to the older pages; this page uses the system cursor. */
-body:has(.fa) .studio-cursor { display: none; }
-body.has-studio-cursor:has(.fa) { cursor: auto; }
-body.has-studio-cursor:has(.fa) a, body.has-studio-cursor:has(.fa) button { cursor: pointer; }
 .fa .proj h3 a { text-decoration: none; }
 .fa .proj h3 a:hover { color: var(--black); }
 .fa .talk .mail { text-decoration: none; }
+
+/* Inner pages share the home page's screens. */
+.fa .page-head h1, .fa .study-head h1 { padding: clamp(28px, 3vw, 48px) var(--gr) 12px var(--gl); white-space: nowrap; }
+.fa .page-head .intro-lead { padding: 0 var(--gr) 24px var(--gl); max-width: 40ch; }
+.fa .big.wrap { white-space: normal; font-size: clamp(64px, 10.5vw, 180px); line-height: .9; text-wrap: balance; }
+
+/* Work index: filters as black tags, then the home page's project rows */
+.fa .filters { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 var(--gr) 24px var(--gl); }
+.fa .filters button { background: transparent; color: var(--white); border: 1px solid var(--w60); padding: 8px 14px; font: inherit; font-size: 14px; letter-spacing: inherit; cursor: pointer; }
+.fa .filters button:hover { border-color: var(--black); color: var(--black); }
+.fa .filters button[aria-pressed="true"] { background: var(--black); border-color: var(--black); color: var(--white); }
+.fa .work .proj h3 a { text-decoration: none; }
+.fa .work .proj h3 a:hover { color: var(--black); }
+.fa .work a.row { text-decoration: none; }
+.fa .work a.row img { height: auto; }
+
+/* Case study opening screen */
+.fa .study-kicker { padding: 24px var(--gr) 0 var(--gl); }
+.fa .study-head h1 { padding-top: 10px; }
+.fa .study-head > .grid { border-top: 1px solid var(--w30); }
+.fa .study-facts { margin: 0; display: grid; gap: 14px; }
+.fa .study-facts div { display: grid; grid-template-columns: minmax(0, .6fr) minmax(0, 1.4fr); gap: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--w30); }
+.fa .study-facts dt { font-size: 14px; color: var(--w60); }
+.fa .study-facts dd { margin: 0; font-size: 18px; }
+.fa .study-head .study-hero-media { margin: 0; max-height: 82vh; background: rgba(0,0,0,.12); }
+.fa .study-head .study-hero-product { margin: 0; padding: 24px var(--gr) 40px var(--gl); }
+.fa .study-head .study-hero-product img { filter: drop-shadow(0 28px 48px rgba(0,0,0,.25)); }
+
+/* Case study story: each section is a flat colour screen */
+.fa .study-band { padding: 60px 0 clamp(48px, 7vw, 96px); background: var(--c); color: var(--white); }
+.fa .study-band.study-reveal { opacity: 1; }
+.fa .study-band-inner { max-width: none; margin: 0; padding: 24px var(--gr) 0 var(--gl); text-align: left; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px 40px; align-items: start; }
+.fa .study-band-inner .study-eyebrow { grid-column: 1 / -1; margin: 0; color: var(--w60); font-family: var(--font-body); letter-spacing: -.01em; text-transform: none; font-size: 14px; }
+.fa .study-band h2, .fa .study-band--ink h2 { font-family: var(--font-big); text-transform: uppercase; color: var(--black); font-weight: 400; letter-spacing: -.01em; line-height: .92; font-size: clamp(48px, 6.4vw, 108px); text-wrap: balance; }
+.fa .study-band--ink h2 { color: var(--white); }
+.fa .study-copy { max-width: 40rem; margin: 0; color: var(--white); font-size: clamp(18px, 1.5vw, 22px); line-height: 1.3; letter-spacing: -.02em; }
+.fa .study-band--ink .study-copy { color: var(--w60); }
+.fa .study-copy a { color: inherit; text-decoration: underline; }
+.fa .study-player figcaption { color: var(--w60); }
+@media (max-width: 760px) { .fa .study-band-inner { grid-template-columns: 1fr; } }
+
+/* Credits and the pager to the next study */
+.fa .study-end { --c: var(--white); color: #000; }
+.fa .study-end .col + .col { border-left-color: rgba(0,0,0,.2); }
+.fa .study-end .study-facts div { border-bottom-color: rgba(0,0,0,.2); }
+.fa .study-end .study-facts dt { color: #555; }
+.fa .pager { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid rgba(0,0,0,.2); }
+.fa .pager a { display: flex; flex-direction: column; gap: 10px; padding: 20px var(--gr) 32px var(--gl); text-decoration: none; min-width: 0; }
+.fa .pager a + a { border-left: 1px solid rgba(0,0,0,.2); }
+.fa .pager .big { font-size: clamp(40px, 5vw, 84px); line-height: .86; text-wrap: balance; }
+.fa .pager a:hover .big { color: var(--copper); }
+@media (max-width: 760px) { .fa .pager { grid-template-columns: 1fr; } .fa .pager a + a { border-left: 0; border-top: 1px solid rgba(0,0,0,.2); } }
+
+/* Contact form on the copper screen: white hairline fields, black send button */
+.fa .contact-form { display: grid; gap: 18px; }
+.fa .contact-form .field-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.fa .contact-form .form-field { display: grid; gap: 6px; min-width: 0; }
+.fa .contact-form label { font-size: 14px; color: var(--w60); }
+.fa .contact-form input, .fa .contact-form select, .fa .contact-form textarea { width: 100%; background: transparent; color: var(--white); border: 0; border-bottom: 1px solid var(--w60); padding: 8px 0; font: inherit; font-size: 20px; letter-spacing: inherit; border-radius: 0; }
+.fa .contact-form select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, #fff 50%), linear-gradient(135deg, #fff 50%, transparent 50%); background-position: calc(100% - 12px) 55%, calc(100% - 6px) 55%; background-size: 6px 6px; background-repeat: no-repeat; }
+.fa .contact-form select option { color: #000; }
+.fa .contact-form textarea { resize: vertical; border: 1px solid var(--w60); padding: 10px; }
+.fa .contact-form :is(input, select, textarea):focus { outline: none; border-color: var(--black); }
+.fa .contact-form [aria-invalid="true"] { border-color: var(--black); }
+.fa .contact-form [role="alert"] { margin: 0; font-size: 14px; color: var(--black); }
+.fa .contact-form .submit-button { justify-self: start; width: 220px; height: 80px; padding: 10px 12px; background: var(--black); color: var(--white); border: 0; font: inherit; font-size: 24px; letter-spacing: inherit; text-align: left; display: flex; align-items: flex-end; cursor: pointer; }
+.fa .contact-form .submit-button:hover { background: var(--white); color: var(--black); }
+@media (max-width: 520px) { .fa .contact-form .field-row { grid-template-columns: 1fr; } }
+.fa .contact-form .submit-button { position: relative; }
+.fa .contact-form .submit-button::before { content: "→"; position: absolute; top: 10px; right: 12px; width: 20px; height: 20px; border: 1.5px solid currentColor; border-radius: 50%; display: grid; place-items: center; font-size: 11px; }
+.fa .contact-form { margin: 0; padding: 0; max-width: none; background: none; }
+.fa .contact-form label { text-transform: none; letter-spacing: -.01em; font-weight: 500; }
+.fa .contact-form .form-field { margin: 0; }
+.fa .contact-form { align-self: stretch; }
+.fa .contact-form input, .fa .contact-form select { height: auto; }
+.fa header nav a[aria-current="page"] { color: inherit; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }

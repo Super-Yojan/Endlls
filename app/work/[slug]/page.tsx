@@ -1,11 +1,9 @@
+import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CaseStudyStory } from "@/components/case-study-story";
-import { InquiryCta } from "@/components/inquiry-cta";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
+import { SitePage } from "@/components/site-chrome";
 import { publicImageSize } from "@/lib/image-size";
 import { studyOrientation } from "@/lib/case-study";
 import { getAllProjects, getProjectBySlug } from "@/lib/projects";
@@ -77,64 +75,70 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const previous = projects[(index - 1 + projects.length) % projects.length];
   const next = projects[(index + 1) % projects.length];
 
+  // Each study opens on its own screen colour.
+  const opening = ["#8f998b", "#c49890", "#7f85b6"][index % 3];
+
   return (
-    <>
-      <div className="page-frame">
-        <SiteHeader />
-      </div>
-      <main className="case-study">
-        <header className="study-hero">
-          <p className="study-eyebrow">Endlls Studios · Case study</p>
-          <h1>{project.title}</h1>
-          <p className="study-lede">{project.summary}</p>
-        </header>
-        <HeroMedia project={project} />
-        <dl className="study-meta">
-          <div>
-            <dt>Client</dt>
-            <dd>{project.client}</dd>
+    <SitePage current="work">
+      <section className="screen study-head" id="study" data-c={opening} style={{ "--c": opening } as CSSProperties} aria-labelledby="study-title">
+        <p className="s13 dim study-kicker">Case study · {project.year}</p>
+        <h1 id="study-title" className="big wrap">{project.title}</h1>
+        <div className="grid">
+          <div className="col">
+            <p className="lead">{project.summary}</p>
           </div>
-          <div>
-            <dt>Services</dt>
-            <dd>{project.services.join(", ")}</dd>
-          </div>
-          <div>
-            <dt>Year</dt>
-            <dd>{project.year}</dd>
-          </div>
-        </dl>
-        <CaseStudyStory html={project.contentHtml} gallery={project.gallery} />
-        {project.credits.length > 0 ? (
-          <section className="study-credits" aria-labelledby="credits-heading">
-            <p className="study-eyebrow" id="credits-heading">
-              Credits
-            </p>
-            <dl>
-              {project.credits.map((credit) => {
-                const parts = creditParts(credit);
-                return (
-                  <div key={credit}>
-                    <dt>{parts.role}</dt>
-                    {parts.name ? <dd>{parts.name}</dd> : null}
-                  </div>
-                );
-              })}
+          <div className="col">
+            <dl className="study-facts">
+              <div>
+                <dt>Client</dt>
+                <dd>{project.client}</dd>
+              </div>
+              <div>
+                <dt>Services</dt>
+                <dd>{project.services.join(", ")}</dd>
+              </div>
+              <div>
+                <dt>Year</dt>
+                <dd>{project.year}</dd>
+              </div>
             </dl>
-          </section>
+          </div>
+        </div>
+        <HeroMedia project={project} />
+      </section>
+      <CaseStudyStory html={project.contentHtml} gallery={project.gallery} />
+      <section className="screen study-end" id="more" data-c="#ffffff" aria-label="Credits and more projects">
+        {project.credits.length > 0 ? (
+          <div className="grid">
+            <div className="col">
+              <h2 className="lead" id="credits-heading">Credits</h2>
+            </div>
+            <div className="col">
+              <dl className="study-facts" aria-labelledby="credits-heading">
+                {project.credits.map((credit) => {
+                  const parts = creditParts(credit);
+                  return (
+                    <div key={credit}>
+                      <dt>{parts.role}</dt>
+                      {parts.name ? <dd>{parts.name}</dd> : null}
+                    </div>
+                  );
+                })}
+              </dl>
+            </div>
+          </div>
         ) : null}
-        <nav className="study-pager" aria-label="More projects">
-          <Link href={`/work/${previous.slug}`}>
-            <span>Previous</span>
-            {previous.title}
-          </Link>
-          <Link href={`/work/${next.slug}`}>
-            <span>Next</span>
-            {next.title}
-          </Link>
+        <nav className="pager" aria-label="More projects">
+          <a href={`/work/${previous.slug}/`}>
+            <span className="s13">Previous</span>
+            <b className="big">{previous.title}</b>
+          </a>
+          <a href={`/work/${next.slug}/`}>
+            <span className="s13">Next</span>
+            <b className="big">{next.title}</b>
+          </a>
         </nav>
-      </main>
-      <InquiryCta />
-      <SiteFooter />
-    </>
+      </section>
+    </SitePage>
   );
 }

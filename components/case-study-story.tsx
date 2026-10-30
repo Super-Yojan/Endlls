@@ -122,15 +122,15 @@ function displayTitle(section: StudySection) {
   return section.title;
 }
 
-function SectionView({ section, tone }: { section: StudySection; tone: "cream" | "bone" }) {
+function SectionView({ section, color }: { section: StudySection; color: string }) {
   const title = displayTitle(section);
   const eyebrow = section.ink && section.title && section.title !== section.quote ? section.title : null;
-  const className = section.ink ? "study-band study-band--ink" : `study-band study-band--${tone}`;
+  const className = section.ink ? "study-band study-band--ink screen" : "study-band screen";
 
   const hasCopy = Boolean(eyebrow || title || section.bodyHtml);
 
   return (
-    <StudyBand className={className} labelledBy={title ? section.id : undefined}>
+    <StudyBand className={className} color={color} labelledBy={title ? section.id : undefined}>
       {hasCopy ? (
         <div className="study-band-inner">
           {eyebrow ? <p className="study-eyebrow">{eyebrow}</p> : null}
@@ -147,6 +147,10 @@ function SectionView({ section, tone }: { section: StudySection; tone: "cream" |
     </StudyBand>
   );
 }
+
+// Story screens cycle through the site's flat colours; ink sections stay black.
+const bandColors = ["#c4773c", "#8f998b", "#c49890", "#7f85b6"];
+const inkColor = "#000000";
 
 export function CaseStudyStory({ html, gallery = [] }: { html: string; gallery?: string[] }) {
   const sections = parseCaseStudy(html);
@@ -172,9 +176,9 @@ export function CaseStudyStory({ html, gallery = [] }: { html: string; gallery?:
   return (
     <>
       {sections.map((section) => {
-        const tone = toneIndex % 2 === 0 ? "cream" : "bone";
+        const color = section.ink ? inkColor : bandColors[toneIndex % bandColors.length];
         if (!section.ink) toneIndex += 1;
-        return <SectionView key={section.id} section={section} tone={tone} />;
+        return <SectionView key={section.id} section={section} color={color} />;
       })}
     </>
   );
