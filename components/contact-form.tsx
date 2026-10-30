@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, KeyboardEvent, useState } from "react";
+import { inquiryEndpoint, studioEmail } from "@/lib/contact";
 
 type Fields = {
   name: string;
@@ -12,6 +13,8 @@ type Fields = {
 };
 
 type Errors = Partial<Record<keyof Fields, string>>;
+
+type Status = "idle" | "sending" | "sent" | "failed";
 
 const emptyFields: Fields = {
   name: "",
@@ -34,8 +37,13 @@ function validate(fields: Fields): Errors {
   return errors;
 }
 
+function inquirySubject(fields: Fields) {
+  return `Project inquiry from ${fields.name}${fields.company ? ` — ${fields.company}` : ""}`;
+}
+
+// Fallback when the form service is unreachable: the same inquiry as a prefilled email.
 export function buildInquiryLink(fields: Fields) {
-  const subject = `Project inquiry from ${fields.name}${fields.company ? ` — ${fields.company}` : ""}`;
+  const subject = inquirySubject(fields);
   const body = [
     `Name: ${fields.name}`,
     `Email: ${fields.email}`,
@@ -47,20 +55,45 @@ export function buildInquiryLink(fields: Fields) {
   ]
     .filter((line): line is string => line !== null)
     .join("\n");
-  return `mailto:hello@endlls.studio?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  return `mailto:${studioEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
-export function ContactForm({ onSend }: { onSend?: (href: string) => void }) {
+export async function sendInquiry(fields: Fields, honey = "") {
+  const response = await fetch(inquiryEndpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify({
+      name: fields.name,
+      email: fields.email,
+      company: fields.company,
+      projectType: fields.projectType,
+      budget: fields.budget,
+      message: fields.message,
+      _subject: inquirySubject(fields),
+      _replyto: fields.email,
+      _template: "table",
+      _captcha: "false",
+      _honey: honey,
+    }),
+  });
+  const result = (await response.json().catch(() => ({}))) as { success?: string | boolean };
+  if (!response.ok || String(result.success) !== "true") throw new Error("Inquiry was not accepted");
+}
+
+export function ContactForm({ send = sendInquiry }: { send?: (fields: Fields, honey: string) => Promise<void> }) {
   const [fields, setFields] = useState(emptyFields);
   const [errors, setErrors] = useState<Errors>({});
+  const [status, setStatus] = useState<Status>("idle");
+  const [honey, setHoney] = useState("");
 
   const update = (field: keyof Fields, value: string) => {
     setFields((current) => ({ ...current, [field]: value }));
     setErrors((current) => ({ ...current, [field]: undefined }));
   };
 
-  const submit = (event: FormEvent<HTMLFormElement>) => {
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (status === "sending") return;
     const nextErrors = validate(fields);
     setErrors(nextErrors);
     const firstInvalid = (Object.keys(nextErrors) as Array<keyof Fields>)[0];
@@ -69,9 +102,14 @@ export function ContactForm({ onSend }: { onSend?: (href: string) => void }) {
       return;
     }
 
-    const href = buildInquiryLink(fields);
-    if (onSend) onSend(href);
-    else window.location.href = href;
+    setStatus("sending");
+    try {
+      await send(fields, honey);
+      setStatus("sent");
+      setFields(emptyFields);
+    } catch {
+      setStatus("failed");
+    }
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLFormElement>) => {
@@ -173,9 +211,28 @@ export function ContactForm({ onSend }: { onSend?: (href: string) => void }) {
         />
         {errors.message ? <p id="message-error" role="alert">{errors.message}</p> : null}
       </div>
-      <button className="submit-button" type="submit">
-        Send inquiry
+      <input
+        className="honey"
+        type="text"
+        name="_honey"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        value={honey}
+        onChange={(event) => setHoney(event.target.value)}
+      />
+      <button className="submit-button" type="submit" disabled={status === "sending"}>
+        {status === "sending" ? "Sending…" : "Send inquiry"}
       </button>
+      <p className="form-status" role="status">
+        {status === "sent" ? "Thanks, your inquiry is in. We reply within two working days." : null}
+        {status === "failed" ? (
+          <>
+            That did not go through. Please{" "}
+            <a href={buildInquiryLink(fields)}>email it to {studioEmail}</a> instead.
+          </>
+        ) : null}
+      </p>
     </form>
   );
 }

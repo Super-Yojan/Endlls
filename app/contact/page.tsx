@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact-form";
 import { SitePage } from "@/components/site-chrome";
+import { studioEmail } from "@/lib/contact";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -20,7 +21,7 @@ export default function ContactPage() {
             </p>
             <div className="hr" />
             <p className="s13 dim">Prefer email?</p>
-            <a className="mail" id="email" href="mailto:hello@endlls.studio">hello@endlls.studio</a>
+            <a className="mail" id="email" href={`mailto:${studioEmail}`}>{studioEmail}</a>
             <button className="copy" type="button" id="copy">Copy email</button>
             <span id="copy-msg" className="s13 dim" aria-live="polite" />
           </div>
