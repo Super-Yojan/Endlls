@@ -23,9 +23,9 @@ describe("shared site shell", () => {
     }
     expect(screen.getByRole("link", { name: "Glid" })).toHaveAttribute("href", "/work/glid");
     expect(screen.getByRole("link", { name: "Tender Hearts" })).toHaveAttribute("href", "/work/pkp-web");
-    expect(screen.getByRole("link", { name: "hello@endlls.studio" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "yojan@endlls.com" })).toHaveAttribute(
       "href",
-      "mailto:hello@endlls.studio",
+      "mailto:yojan@endlls.com",
     );
   });
 

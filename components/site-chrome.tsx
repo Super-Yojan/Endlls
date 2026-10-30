@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { SiteMotion } from "@/components/site-motion";
+import { studioEmail } from "@/lib/contact";
 import { audiences, services, steps } from "@/lib/site-content";
 
 // The tied wordmark: the ring is split into a back and a front arc so it loops around the double L.
@@ -74,7 +75,7 @@ function SiteFooter({ home }: { home: boolean }) {
       <div>
         2026 © Endlls Studio
         <br />
-        hello@endlls.studio
+        {studioEmail}
         <div className="soc">
           <a href="#" aria-label="Instagram">IG</a>
           <a href="#" aria-label="YouTube">YT</a>
@@ -107,7 +108,7 @@ function EmailBlock() {
         </p>
       </div>
       <div className="col">
-        <a className="mail" id="email" href="mailto:hello@endlls.studio">hello@endlls.studio</a>
+        <a className="mail" id="email" href={`mailto:${studioEmail}`}>{studioEmail}</a>
         <button className="copy" type="button" id="copy">Copy email</button>
         <span id="copy-msg" className="s13 dim" aria-live="polite" />
       </div>

@@ -225,3 +225,7 @@ body:has(.fa) { margin: 0; background: #000; }
 .fa .contact-form { align-self: stretch; }
 .fa .contact-form input, .fa .contact-form select { height: auto; }
 .fa header nav a[aria-current="page"] { color: inherit; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
+.fa .contact-form .honey { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.fa .contact-form .submit-button:disabled { opacity: .6; cursor: wait; }
+.fa .contact-form .form-status { margin: 0; font-size: 18px; min-height: 1em; }
+.fa .contact-form .form-status a { color: inherit; }

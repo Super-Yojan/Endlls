@@ -1,6 +1,6 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { ContactForm } from "./contact-form";
+import { buildInquiryLink, ContactForm } from "./contact-form";
 
 function fillRequiredFields() {
   fireEvent.change(screen.getByLabelText("Name"), { target: { value: "Mina Lee" } });
@@ -15,7 +15,7 @@ function fillRequiredFields() {
 describe("contact form", () => {
   it("associates_required_field_errors_with_empty_inputs", () => {
     const onSend = vi.fn();
-    render(<ContactForm onSend={onSend} />);
+    render(<ContactForm send={onSend} />);
     fireEvent.submit(screen.getByRole("form", { name: "Project inquiry" }));
 
     expect(onSend).not.toHaveBeenCalled();
@@ -39,19 +39,37 @@ describe("contact form", () => {
     );
   });
 
-  it("submits_from_the_keyboard_and_builds_an_encoded_inquiry_email", () => {
-    const onSend = vi.fn();
-    render(<ContactForm onSend={onSend} />);
+  it("submits_from_the_keyboard_and_confirms_the_inquiry", async () => {
+    const send = vi.fn().mockResolvedValue(undefined);
+    render(<ContactForm send={send} />);
     fillRequiredFields();
     fireEvent.change(screen.getByLabelText("Company"), { target: { value: "Common Field" } });
 
     fireEvent.keyDown(screen.getByLabelText("Company"), { key: "Enter", code: "Enter" });
 
-    expect(onSend).toHaveBeenCalledTimes(1);
-    const href = onSend.mock.calls[0][0] as string;
-    expect(href).toContain("mailto:hello@endlls.studio?");
+    expect(send).toHaveBeenCalledTimes(1);
+    expect(send.mock.calls[0][0]).toMatchObject({ name: "Mina Lee", company: "Common Field" });
+    await waitFor(() => expect(screen.getByRole("status")).toHaveTextContent("your inquiry is in"));
+  });
+
+  it("offers_a_prefilled_email_when_sending_fails", async () => {
+    const send = vi.fn().mockRejectedValue(new Error("offline"));
+    render(<ContactForm send={send} />);
+    fillRequiredFields();
+    fireEvent.submit(screen.getByRole("form", { name: "Project inquiry" }));
+
+    const link = await screen.findByRole("link", { name: /email it to yojan@endlls.com/ });
+    const href = link.getAttribute("href") ?? "";
+    expect(href).toContain("mailto:yojan@endlls.com?");
     expect(href).toContain("Mina%20Lee");
-    expect(href).toContain("Common%20Field");
     expect(href).toContain("new%20identity%20for%20a%20cultural%20program");
+  });
+
+  it("builds_an_encoded_inquiry_email", () => {
+    const href = buildInquiryLink({
+      name: "Mina Lee", email: "mina@example.com", company: "Common Field",
+      projectType: "Brand and marketing", budget: "", message: "Hi",
+    });
+    expect(href).toContain("Common%20Field");
   });
 });
