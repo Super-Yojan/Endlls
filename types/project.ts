@@ -12,6 +12,8 @@ export interface ProjectMeta {
   gallery: string[];
   credits: string[];
   color: string | null;
+  // A small public tag such as "Paused" or "Launching soon".
+  status: string | null;
 }
 
 export interface Project extends ProjectMeta {

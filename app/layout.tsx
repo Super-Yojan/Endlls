@@ -3,6 +3,7 @@ import { Anton } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import "./site.css";
+import { siteUrl } from "@/lib/meta";
 
 const satoshi = localFont({
   src: "../fonts/Satoshi-Variable.woff2",
@@ -21,8 +22,9 @@ const cabinetGrotesk = localFont({
 const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-anton", display: "swap" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "Endlls Studio — Culture and systems, one studio",
+    default: "Endlls Studio — We make small brands feel premium",
     template: "%s — Endlls Studio",
   },
   description:

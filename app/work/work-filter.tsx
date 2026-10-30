@@ -44,6 +44,7 @@ export function WorkFilter({ projects }: { projects: ProjectMeta[] }) {
             <span className="s13 dim">
               {project.services.join(" · ")} · {project.year}
             </span>
+            {project.status ? <span className="tag">{project.status}</span> : null}
           </div>
           <div>
             <a className="row" href={`/work/${project.slug}/`} tabIndex={-1} aria-hidden="true">

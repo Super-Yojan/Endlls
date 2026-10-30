@@ -1,11 +1,13 @@
 import type { CSSProperties } from "react";
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/meta";
 import { AudienceScreen, ProcessScreen, ServicesScreen, SitePage } from "@/components/site-chrome";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "About",
-  description: "Endlls is one studio for culture and systems: brand, film and events, and the websites, apps and hardware behind them.",
-};
+  description: "Endlls is one studio for culture and systems: brand, film and events, and the websites and apps behind them.",
+  path: "/about/",
+});
 
 export default function AboutPage() {
   return (
@@ -15,8 +17,8 @@ export default function AboutPage() {
         <div className="grid">
           <div className="col">
             <p className="lead">
-              A small studio for ambitious ideas. We make brands, films and events, and we build the websites, apps and
-              hardware behind them <span aria-hidden="true">↘</span>
+              A small studio that makes small brands feel premium. We make brands, films and events, and we build the
+              websites and apps behind them <span aria-hidden="true">↘</span>
             </p>
           </div>
           <div className="col">
@@ -30,9 +32,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      <ProcessScreen />
       <ServicesScreen id="halves" title="Two halves" />
       <AudienceScreen />
-      <ProcessScreen />
     </SitePage>
   );
 }

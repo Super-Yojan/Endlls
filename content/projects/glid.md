@@ -8,7 +8,8 @@ services:
   - Digital experience
   - Brand identity
   - Campaign
-summary: Endlls Studios built Glid from the ground up — session-first sports matchmaking that leads with place, time, and skill before messaging.
+summary: We designed and built Glid end to end, an app that matches people on a game (where, when and what level) before anyone has to message.
+status: Paused
 cover: /images/projects/glid/intro-v4-hero.webp
 coverAlt: A person holds a phone showing tennis, with a Glid notification that someone nearby is looking for a player
 featured: true
@@ -28,25 +29,21 @@ gallery:
   - /images/projects/glid/flyer-tennis.webp
   - /images/projects/glid/og-image.webp
 credits:
-  - Product & engineering — Endlls Studios
-  - App design — Endlls Studios
-  - Website — Endlls Studios
-  - Marketing, social & posters — Endlls Studios
+  - Product & engineering — Endlls Studio
+  - App design — Endlls Studio
+  - Website — Endlls Studio
+  - Marketing, social & posters — Endlls Studio
 ---
 
-## Built from the ground up by Endlls Studios
+## The problem
 
-Glid is a session-first sports matchmaking product. Endlls Studios owned the full build: the codebase, the app design, the website, the marketing, social media, and posters. This is studio product work end to end — not a partial exploration layered onto someone else’s stack.
-
-## Match on the session, not the profile
-
-Instead of opening on profiles and chats, Glid leads with place, time, and skill so people connect around an actual session before they message. That product thesis shaped every surface Endlls designed and shipped for the brand.
+Finding people to play with usually means group chats and back-and-forth that never turns into a game. Most matching apps open on profiles and messages. Glid starts from the game itself: the place, the time and the skill level, so the first thing people agree on is the session.
 
 ![Glid home screen in a phone frame, with the line Find your next game](/images/projects/glid/mockup-home.webp)
 
-## App design and codebase
+## What we made: the app
 
-The iOS client is SwiftUI with a glassmorphic language across Home, Matches, and Explore, including event detail and map views. Under the glass: native Swift and SwiftUI on a Rust `shared_core`, with Apple and Google authentication and MapKit for location-aware sessions. The same system reaches the wrist, with a Glid watch face for heart rate during play.
+We designed and built the iOS app ourselves, with Home, Matches and Explore screens, event pages and a map of nearby players and courts. It is native Swift and SwiftUI on a shared Rust core, with Apple and Google sign-in, and it reaches the wrist with a watch face that shows heart rate during play.
 
 ![Glid home screen for a basketball session on Defender Drive in Chantilly](/images/projects/glid/app-home.webp)
 
@@ -56,9 +53,9 @@ The iOS client is SwiftUI with a glassmorphic language across Home, Matches, and
 
 ![Glid watch face showing a heart rate of 57 beside the line Monitor your heart rate](/images/projects/glid/mockup-screen2.webp)
 
-## Films and stills
+## What we made: the films
 
-Endlls Studios cut the motion for Glid. The product intro is a landscape film. Portrait cuts for a short reel, court availability, and messaging follow it in the same system. The project is paused, so these are the studio films. There are no view counts to report.
+A landscape product intro, then portrait cuts for a short reel, court availability and messaging, all in the same look.
 
 ![Landscape still from the Glid intro, bright across the top of the frame](/images/projects/glid/intro-v4-mid.webp)
 
@@ -74,9 +71,9 @@ Endlls Studios cut the motion for Glid. The product intro is a landscape film. P
 
 <video controls playsinline preload="metadata" src="/videos/projects/glid/glid-messaging.mp4" title="Messaging"></video>
 
-## Website, marketing, social, and posters
+## What we made: the website and launch kit
 
-Endlls Studios also designed and built the Glid website and the go-to-market layer — marketing narrative, social, and posters — so product UI and public brand share one creative system.
+The website, social and posters share one system with the app, so the brand looks the same everywhere it shows up.
 
 ![Glid website on a phone, an illustrated soccer field under the line Soccer Match](/images/projects/glid/website-home.webp)
 
@@ -86,8 +83,8 @@ Endlls Studios also designed and built the Glid website and the go-to-market lay
 
 ![Black Glid title card reading Stop Planning, Just Play](/images/projects/glid/og-image.webp)
 
-## Status · Project paused
+## What's next
 
 > Place. Time. Skill. Then talk.
 
-The project is currently paused. There are no launch metrics to report. Portfolio framing stays on craft and ownership of the full system, not growth claims.
+Glid is paused for now. The app, films and launch kit are finished and ready for when it picks back up.

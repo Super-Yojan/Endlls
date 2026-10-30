@@ -52,7 +52,10 @@ function SiteHeader({ home, current }: { home: boolean; current?: Section }) {
           One studio.
         </span>
       </a>
-      <nav aria-label="Primary">
+      <button className="menu-btn" type="button" aria-expanded="false" aria-controls="primary-nav">
+        Menu
+      </button>
+      <nav aria-label="Primary" id="primary-nav">
         {navLinks(home).map((link) => (
           <a
             key={link.id}
@@ -76,12 +79,6 @@ function SiteFooter({ home }: { home: boolean }) {
         2026 © Endlls Studio
         <br />
         {studioEmail}
-        <div className="soc">
-          <a href="#" aria-label="Instagram">IG</a>
-          <a href="#" aria-label="YouTube">YT</a>
-          <a href="#" aria-label="LinkedIn">IN</a>
-          <a href="#" aria-label="TikTok">TT</a>
-        </div>
       </div>
       <ul>
         <li><a href="/work/">Work</a></li>
@@ -181,6 +178,13 @@ export function ServicesScreen({ id = "services", title = "What we do" }: { id?:
                 </div>
               </div>
             ))}
+            <a className="tile ask" href="/contact/">
+              <span className="n" aria-hidden="true">→</span>
+              <div>
+                <b>Not sure what you need?</b>
+                <small>Tell us the goal and we will scope it</small>
+              </div>
+            </a>
           </div>
         </div>
       </div>
