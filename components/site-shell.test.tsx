@@ -64,7 +64,7 @@ describe("shared site shell", () => {
   it("renders_the_studio_homepage", () => {
     render(<HomePage />);
 
-    expect(screen.getByRole("heading", { level: 1, name: "Feel premium" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: "Endlls" })).toBeInTheDocument();
     const navigation = screen.getByRole("navigation", { name: "Primary" });
     for (const [name, href] of [
       ["Work", "#work"],

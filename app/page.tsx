@@ -12,7 +12,43 @@ export const metadata: Metadata = {
     "We make small brands feel premium. Brand, film, events, websites and apps, from one team.",
 };
 
-const ringStroke = { fill: "none", stroke: "#000", strokeWidth: 2.4, strokeLinecap: "round" } as const;
+// The tied wordmark: the ring is split into a back and a front arc so it loops around the double L.
+function Wordmark({ ring }: { ring: string }) {
+  const stroke = { fill: "none", stroke: ring, strokeWidth: 2.4, strokeLinecap: "round" } as const;
+  return (
+    <svg viewBox="0 0 150 42" aria-hidden="true">
+      <g transform="rotate(-20 64 26)" {...stroke}>
+        <path d="M48.4 26 A15.6 4.2 0 0 1 79.6 26" />
+      </g>
+      <text
+        x="0"
+        y="36"
+        style={{ fontFamily: "var(--font-cabinet), Helvetica Neue, Arial, sans-serif" }}
+        fontWeight="800"
+        fontSize="36"
+        letterSpacing="-1"
+        fill="#fff"
+      >
+        endlls
+      </text>
+      <g transform="rotate(-20 64 26)" {...stroke}>
+        <path d="M79.6 26 A15.6 4.2 0 0 1 48.4 26" />
+      </g>
+    </svg>
+  );
+}
+
+// Cards on the ring that orbits the hero heading.
+const orbitCards = [
+  { name: "DTFest", kind: "Culture · Event", href: "#work", image: "/images/projects/pkp/dtfest-hero.webp" },
+  { name: "Glid", kind: "Systems · App", href: "/work/glid", image: "/images/projects/glid/app-home.webp" },
+  { name: "Tender Hearts", kind: "Culture · Campaign", href: "/work/pkp-web", image: "/images/projects/pkp-brand/cover.webp" },
+  { name: "Glid website", kind: "Systems · Web", href: "/work/glid", image: "/images/projects/glid/website-home.webp" },
+  { name: "DTFest recap", kind: "Culture · Film", href: "#work", image: "/images/projects/pkp/dtfest-gallery-01.webp" },
+  { name: "PKP site", kind: "Systems · Web", href: "/work/pkp-web", image: "/images/projects/pkp-web/home.webp" },
+  { name: "Glid launch", kind: "Culture · Print", href: "/work/glid", image: "/images/projects/glid/flyer-tennis.webp" },
+  { name: "Candlelight", kind: "Culture · Event", href: "#work", image: "/images/projects/pkp/candlelight-card.webp" },
+];
 
 const projects = [
   {
@@ -66,25 +102,7 @@ export default function HomePage() {
     <div className={`fa ${anton.variable}`}>
       <header id="hdr">
         <a className="mark" href="#top" aria-label="Endlls home">
-          <svg viewBox="0 0 150 42" aria-hidden="true">
-            <g transform="rotate(-20 64 26)" {...ringStroke}>
-              <path d="M48.4 26 A15.6 4.2 0 0 1 79.6 26" />
-            </g>
-            <text
-              x="0"
-              y="36"
-              style={{ fontFamily: "var(--font-cabinet), Helvetica Neue, Arial, sans-serif" }}
-              fontWeight="800"
-              fontSize="36"
-              letterSpacing="-1"
-              fill="#fff"
-            >
-              endlls
-            </text>
-            <g transform="rotate(-20 64 26)" {...ringStroke}>
-              <path d="M79.6 26 A15.6 4.2 0 0 1 48.4 26" />
-            </g>
-          </svg>
+          <Wordmark ring="#000" />
           <span className="dim">
             Culture and systems.
             <br />
@@ -106,20 +124,34 @@ export default function HomePage() {
 
       <main id="top">
         <section className="screen opener" id="hero" data-c="#c4773c" aria-labelledby="hero-title">
-          <h1 id="hero-title" className="big fit">Feel premium</h1>
-          <div className="stage">
-            <p className="lead">
-              We make small brands feel premium. Brand, film, events, websites and apps, from one team{" "}
-              <span aria-hidden="true">↘</span>
-            </p>
-            <div className="photo">
-              <svg className="loop" viewBox="0 0 200 160" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M34 120 C 6 94, 18 40, 72 22 C 122 4, 184 20, 192 60 C 200 98, 158 138, 102 146 C 56 154, 20 138, 16 110 C 12 90, 30 70, 54 58" fill="none" stroke="#8a4a1c" strokeWidth="12" strokeLinecap="round" transform="rotate(-20 100 80)" />
-                <path d="M46 130 C 28 106, 36 60, 86 40 C 132 22, 176 38, 182 68" fill="none" stroke="#f0c39b" strokeWidth="3" strokeLinecap="round" transform="rotate(-20 100 80)" />
-              </svg>
-              <img src="/images/projects/pkp/dtfest-hero.webp" alt="Performers on stage at DTFest, an event Endlls branded and filmed" />
+          <div className="scene">
+            <h1 id="hero-title" className="big fit">Endlls</h1>
+            <div className="orbit" aria-hidden="true">
+              <div className="spin">
+                <div className="band" />
+                {orbitCards.map((card, i) => (
+                  <div className="card" style={{ "--i": i } as CSSProperties} key={card.name}>
+                    <a className="front" href={card.href} tabIndex={-1}>
+                      <b>{card.name}</b>
+                      <small>
+                        {card.kind}
+                        <i>See it</i>
+                      </small>
+                      <img src={card.image} alt="" />
+                    </a>
+                    <div className="back">
+                      <Wordmark ring="#c4773c" />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
+          <p className="lead">
+            Feel premium.
+            <br />
+            Brand, film, events, websites and apps, from one team <span aria-hidden="true">↘</span>
+          </p>
         </section>
 
         <section className="screen intro" id="intro" data-c="#8f998b" aria-labelledby="intro-title">

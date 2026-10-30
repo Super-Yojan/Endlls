@@ -44,6 +44,17 @@ export function HomeMotion() {
       });
     };
 
+    // The hero heading also stretches tall, so the name fills most of the first screen.
+    const stretch = () => {
+      const heading = page.querySelector<HTMLElement>(".opener h1");
+      const scene = page.querySelector<HTMLElement>(".opener .scene");
+      if (!heading || !scene) return;
+      heading.style.setProperty("--sy", "1");
+      const target = scene.clientHeight * (window.innerWidth > 760 ? 0.72 : 0.5);
+      const height = heading.getBoundingClientRect().height;
+      if (height > 0) heading.style.setProperty("--sy", Math.max(1, Math.min(2.4, target / height)).toFixed(3));
+    };
+
     let ticking = false;
     const onScroll = () => {
       if (ticking) return;
@@ -55,10 +66,12 @@ export function HomeMotion() {
     };
     const onResize = () => {
       fit();
+      stretch();
       frame();
     };
 
     fit();
+    stretch();
     frame();
     document.fonts?.ready.then(onResize);
     window.addEventListener("scroll", onScroll, { passive: true });
