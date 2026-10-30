@@ -97,6 +97,7 @@ Body.
       gallery: [],
       credits: [],
       color: null,
+      status: null,
     });
   });
 

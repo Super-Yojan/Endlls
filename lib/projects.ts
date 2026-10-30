@@ -161,6 +161,7 @@ function parseProject(filename: string, source: string): Project {
     gallery: stringArray(record, "gallery", filename),
     credits: stringArray(record, "credits", filename),
     color: typeof record.color === "string" && record.color.trim() ? record.color : null,
+    status: typeof record.status === "string" && record.status.trim() ? record.status.trim() : null,
     contentHtml: markdownToHtml(content),
   };
 }

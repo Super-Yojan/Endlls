@@ -21,8 +21,10 @@ describe("shared site shell", () => {
     ]) {
       expect(within(navigation).getByRole("link", { name })).toHaveAttribute("href", href);
     }
-    expect(screen.getByRole("link", { name: "Glid" })).toHaveAttribute("href", "/work/glid");
-    expect(screen.getByRole("link", { name: "Tender Hearts" })).toHaveAttribute("href", "/work/pkp-web");
+    expect(screen.getByRole("link", { name: "Glid" })).toHaveAttribute("href", "/work/glid/");
+    expect(screen.getByRole("link", { name: "Tender Hearts campaigns" })).toHaveAttribute("href", "/work/pkp-web/");
+    expect(screen.getByText("We make small brands feel premium.", { exact: false })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Menu" })).toHaveAttribute("aria-expanded", "false");
     expect(screen.getByRole("link", { name: "yojan@endlls.com" })).toHaveAttribute(
       "href",
       "mailto:yojan@endlls.com",

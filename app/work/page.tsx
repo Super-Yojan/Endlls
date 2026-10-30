@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/meta";
 import { SitePage } from "@/components/site-chrome";
 import { getAllProjects } from "@/lib/projects";
 import { WorkFilter } from "./work-filter";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Work",
   description: "Brand, film, event, website and app work from Endlls Studio.",
-};
+  path: "/work/",
+});
 
 export default function WorkPage() {
   const projects = getAllProjects();

@@ -12,7 +12,6 @@ export const services = [
   { half: "Culture", title: "Brand and marketing", detail: "Identity, campaigns, social" },
   { half: "Culture", title: "Film, music and events", detail: "Launch films, sound, stage" },
   { half: "Systems", title: "Websites and apps", detail: "Web and mobile, built to grow" },
-  { half: "Systems", title: "Hardware and robotics", detail: "Electronics, CAD, fabrication" },
 ];
 
 export const audiences = [

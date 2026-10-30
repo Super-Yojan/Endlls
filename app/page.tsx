@@ -1,48 +1,54 @@
 import type { CSSProperties } from "react";
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/meta";
 import { AudienceScreen, ProcessScreen, ServicesScreen, SitePage, Wordmark } from "@/components/site-chrome";
 
-export const metadata: Metadata = {
-  title: { absolute: "Endlls Studio — Culture and systems, one studio" },
+export const metadata: Metadata = pageMeta({
+  title: "Endlls Studio — We make small brands feel premium",
   description:
-    "We make small brands feel premium. Brand, film, events, websites and apps, from one team.",
-};
+    "Brand, film, events and websites for startups and small businesses, from one studio.",
+  path: "/",
+});
 
-// Cards on the ring that orbits the hero heading.
+// Cards on the ring that orbits the hero heading: one real piece each, never a repeat.
 const orbitCards = [
-  { name: "DTFest", kind: "Culture · Event", href: "#work", image: "/images/projects/pkp/dtfest-hero.webp" },
-  { name: "Glid", kind: "Systems · App", href: "/work/glid", image: "/images/projects/glid/app-home.webp" },
-  { name: "Tender Hearts", kind: "Culture · Campaign", href: "/work/pkp-web", image: "/images/projects/pkp-brand/cover.webp" },
-  { name: "Glid website", kind: "Systems · Web", href: "/work/glid", image: "/images/projects/glid/website-home.webp" },
-  { name: "DTFest recap", kind: "Culture · Film", href: "#work", image: "/images/projects/pkp/dtfest-gallery-01.webp" },
-  { name: "PKP site", kind: "Systems · Web", href: "/work/pkp-web", image: "/images/projects/pkp-web/home.webp" },
-  { name: "Glid launch", kind: "Culture · Print", href: "/work/glid", image: "/images/projects/glid/flyer-tennis.webp" },
-  { name: "Candlelight", kind: "Culture · Event", href: "#work", image: "/images/projects/pkp/candlelight-card.webp" },
+  { name: "Candlelight vigil", kind: "Culture · Campaign", href: "/work/pkp-web/", image: "/images/home/candlelight.webp" },
+  { name: "Glid app", kind: "Systems · App", href: "/work/glid/", image: "/images/home/glid-app.webp" },
+  { name: "Blood drive", kind: "Culture · Campaign", href: "/work/pkp-web/", image: "/images/home/blood-drive.webp" },
+  { name: "Glid films", kind: "Culture · Film", href: "/work/glid/", image: "/images/home/glid-film.webp" },
+  { name: "Know Your Rights", kind: "Culture · Print", href: "/work/pkp-web/", image: "/images/home/know-your-rights.webp" },
+  { name: "PKP website", kind: "Systems · Web", href: "/work/pkp-web/", image: "/images/home/pkp-site.webp" },
+  { name: "Glid poster", kind: "Culture · Print", href: "/work/glid/", image: "/images/home/glid-poster.webp" },
+  { name: "DTFest pages", kind: "Systems · Web", href: "/work/pkp-web/", image: "/images/home/dtfest.webp" },
 ];
 
+// Delivered work first, then what is still on its way.
 const projects = [
   {
-    name: "DTFest",
-    kind: "Culture · Event",
-    image: "/images/projects/pkp/dtfest-hero.webp",
-    alt: "Performers on stage at DTFest",
-    summary: "Festival identity, stage visuals and the recap film.",
+    name: "Tender Hearts campaigns",
+    kind: "Culture · Campaign · 2026",
+    href: "/work/pkp-web/",
+    image: "/images/home/campaign.webp",
+    alt: "PKP campaign art for a Nepal flood vigil beside a blood drive call to action",
+    summary: "Posters and social for a foundation's vigil, blood drive and Know Your Rights workshop, plus the brand system behind them.",
+  },
+  {
+    name: "Tender Hearts website",
+    kind: "Systems · Web · 2026",
+    status: "Launching soon",
+    href: "/work/pkp-web/",
+    image: "/images/home/pkp-site.webp",
+    alt: "PKP Tender Hearts homepage",
+    summary: "A new site with events, sign-ups, donations and an admin the foundation runs itself.",
   },
   {
     name: "Glid",
-    kind: "Systems · App",
-    href: "/work/glid",
-    image: "/images/projects/glid/app-home.webp",
+    kind: "Systems · App · 2026",
+    status: "Paused",
+    href: "/work/glid/",
+    image: "/images/home/glid-app.webp",
     alt: "Glid app home screen",
-    summary: "Design and build of an app for booking courts and finding a game.",
-  },
-  {
-    name: "Tender Hearts",
-    kind: "Culture · Campaign",
-    href: "/work/pkp-web",
-    image: "/images/projects/pkp-brand/cover.webp",
-    alt: "PKP blood drive campaign poster",
-    summary: "A blood drive campaign for PKP: posters, social posts and a sign-up page.",
+    summary: "An app for finding a game near you, designed and built end to end, with its films and launch kit.",
   },
 ];
 
@@ -63,7 +69,7 @@ export default function HomePage() {
                       {card.kind}
                       <i>See it</i>
                     </small>
-                    <img src={card.image} alt="" />
+                    <img src={card.image} alt="" width={440} height={550} loading={i === 0 ? "eager" : "lazy"} decoding="async" />
                   </a>
                   <div className="back">
                     <Wordmark ring="#c4773c" />
@@ -73,11 +79,16 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        <p className="lead">
-          Feel premium.
-          <br />
-          Brand, film, events, websites and apps, from one team <span aria-hidden="true">↘</span>
-        </p>
+        <div className="pitch">
+          <p className="lead">
+            We make small brands feel premium.
+            <span className="dim"> Brand, film, events and websites for startups and small businesses, from one team.</span>
+          </p>
+          <a className="btn" href="#talk">
+            <span className="ic" aria-hidden="true">→</span>
+            <span>Start a project</span>
+          </a>
+        </div>
       </section>
 
       <section className="screen intro" id="intro" data-c="#8f998b" aria-labelledby="intro-title">
@@ -87,7 +98,7 @@ export default function HomePage() {
               <svg className="loop" viewBox="0 0 200 160" preserveAspectRatio="none" aria-hidden="true">
                 <path d="M30 118 C 4 92, 18 40, 70 22 C 120 4, 182 18, 192 58 C 200 96, 160 136, 104 146 C 58 154, 22 140, 16 112 C 12 92, 30 70, 52 58" fill="none" stroke="#c4773c" strokeWidth="13" strokeLinecap="round" transform="rotate(-20 100 80)" />
               </svg>
-              <img src="/images/projects/glid/intro-v4-hero.webp" alt="Glid app on a phone at a tennis court, built by Endlls" />
+              <img src="/images/home/intro.webp" alt="Glid app on a phone at a tennis court, built by Endlls" width={900} height={507} loading="lazy" decoding="async" />
               <span className="cap">
                 Glid,
                 <br />
@@ -105,8 +116,8 @@ export default function HomePage() {
             <div className="hr" />
             <ul className="dash">
               <li>Brand, film, music and events.</li>
-              <li>Websites, apps and hardware.</li>
-              <li>Sized for startups, creators and clubs.</li>
+              <li>Websites and apps.</li>
+              <li>Sized for startups and small businesses, with starter packages for creators and clubs.</li>
             </ul>
             <p className="lead">
               <span className="wipe">One team</span> for all of it, so nothing gets lost between agencies.
@@ -120,12 +131,13 @@ export default function HomePage() {
         {projects.map((project) => (
           <div className="proj" key={project.name}>
             <div>
-              <h3>{project.href ? <a href={project.href}>{project.name}</a> : project.name}</h3>
+              <h3><a href={project.href}>{project.name}</a></h3>
               <span className="s13 dim">{project.kind}</span>
+              {project.status ? <span className="tag">{project.status}</span> : null}
             </div>
             <div>
               <div className="row">
-                <img src={project.image} alt={project.alt} />
+                <img src={project.image} alt={project.alt} loading="lazy" decoding="async" />
                 <p>{project.summary}</p>
               </div>
             </div>
@@ -133,9 +145,9 @@ export default function HomePage() {
         ))}
       </section>
 
+      <ProcessScreen />
       <ServicesScreen />
       <AudienceScreen />
-      <ProcessScreen />
     </SitePage>
   );
 }

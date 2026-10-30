@@ -6,6 +6,7 @@ import { CaseStudyStory } from "@/components/case-study-story";
 import { SitePage } from "@/components/site-chrome";
 import { publicImageSize } from "@/lib/image-size";
 import { studyOrientation } from "@/lib/case-study";
+import { pageMeta } from "@/lib/meta";
 import { getAllProjects, getProjectBySlug } from "@/lib/projects";
 import type { Project } from "@/types/project";
 
@@ -21,7 +22,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = getProjectBySlug(slug);
   if (!project) return { title: "Project not found" };
-  return { title: project.title, description: project.summary };
+  return pageMeta({ title: project.title, description: project.summary, path: `/work/${project.slug}/`, image: `/og/${project.slug}.jpg` });
 }
 
 function creditParts(credit: string) {
@@ -81,7 +82,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   return (
     <SitePage current="work">
       <section className="screen study-head" id="study" data-c={opening} style={{ "--c": opening } as CSSProperties} aria-labelledby="study-title">
-        <p className="s13 dim study-kicker">Case study · {project.year}</p>
+        <p className="s13 dim study-kicker">
+          Case study · {project.year}
+          {project.status ? <span className="tag">{project.status}</span> : null}
+        </p>
         <h1 id="study-title" className="big wrap">{project.title}</h1>
         <div className="grid">
           <div className="col">

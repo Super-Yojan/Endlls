@@ -19,6 +19,7 @@ const projects: ProjectMeta[] = [
     gallery: [],
     credits: [],
     color: null,
+  status: null,
   },
   {
     title: "Nocturne Radio",
@@ -34,6 +35,7 @@ const projects: ProjectMeta[] = [
     gallery: [],
     credits: [],
     color: null,
+  status: null,
   },
 ];
 

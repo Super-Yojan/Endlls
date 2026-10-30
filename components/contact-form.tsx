@@ -176,7 +176,6 @@ export function ContactForm({ send = sendInquiry }: { send?: (fields: Fields, ho
             <option>Brand and marketing</option>
             <option>Film, music and events</option>
             <option>Websites and apps</option>
-            <option>Hardware and robotics</option>
             <option>Something else</option>
           </select>
         </div>
@@ -190,6 +189,7 @@ export function ContactForm({ send = sendInquiry }: { send?: (fields: Fields, ho
           onChange={(event) => update("budget", event.target.value)}
         >
           <option value="">Select a range</option>
+          <option>Under $5k</option>
           <option>$5k–$15k</option>
           <option>$15k–$35k</option>
           <option>$35k–$75k</option>

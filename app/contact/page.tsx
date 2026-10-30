@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/meta";
 import { ContactForm } from "@/components/contact-form";
 import { SitePage } from "@/components/site-chrome";
 import { studioEmail } from "@/lib/contact";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Contact",
   description: "Start a brand, film, event, website or app project with Endlls Studio.",
-};
+  path: "/contact/",
+});
 
 export default function ContactPage() {
   return (
